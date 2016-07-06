@@ -145,6 +145,23 @@ class Fees extends MY_Controller {
     }
     
      /**
+     * Fees structure details
+     * @param string $course_id
+     * @param string $semester_id
+     */
+    function fees_structure_details_student($course_id = '', $semester_id = '') {        
+        $where1 = "course_id='$course_id' OR course_id='All'";
+        $where2 = "sem_id='$semester_id' OR sem_id='All'";
+
+        $this->db->where($where1);
+        $this->db->where($where2);       
+        $this->db->where('fee_expiry_date >= ',date('Y-m-d'));
+       $fees_structure = $this->db->get('fees_structure')->result();
+        //$fees_structure = $this->Fees_structure_model->get_many_by();
+        echo json_encode($fees_structure);
+    }
+    
+     /**
      * Student fees structure details
      * @param string $fees_structure_id
      */

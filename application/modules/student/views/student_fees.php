@@ -152,7 +152,7 @@
             var semester_id = $(this).val();
             var course_id = '<?php echo $student_detail->course_id; ?>';
             $.ajax({
-                url: '<?php echo base_url(); ?>fees/fees_structure_details/' + course_id + '/' + semester_id,
+                url: '<?php echo base_url(); ?>fees/fees_structure_details_student/' + course_id + '/' + semester_id,
                 type: 'get',
                 success: function (content) {
                     $('#fees_structure').find('option').remove().end();

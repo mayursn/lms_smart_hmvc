@@ -122,18 +122,22 @@ class Student_fees_model extends MY_Model {
      * @return mixed
      */
     function fee_structure_filter($degree, $course, $batch, $semeter) {
+        $where1 = "fees_structure.degree_id='$degree' OR fees_structure.degree_id='All'";
+        $where2 = "fees_structure.course_id='$course' OR fees_structure.course_id='All'";
+        $where3 = "fees_structure.batch_id='$batch' OR fees_structure.batch_id='All'";
+        $where4 = "fees_structure.sem_id='$semeter' OR fees_structure.sem_id='All'";
+
         return $this->db->select()
                         ->from('fees_structure')
                         ->join('course', 'course.course_id = fees_structure.course_id')
                         ->join('semester', 'semester.s_id = fees_structure.sem_id')
                         ->join('batch', 'batch.b_id = fees_structure.batch_id')
                         ->join('degree', 'degree.d_id = fees_structure.degree_id')
-                        ->where(array(
-                            'fees_structure.degree_id' => $degree,
-                            'fees_structure.course_id' => $course,
-                            'fees_structure.batch_id' => $batch,
-                            'fees_structure.sem_id' => $semeter
-                        ))->order_by('created_at', 'DESC')
+                        ->where($where1)
+                        ->where($where2)
+                        ->where($where3)
+                        ->where($where4)
+                        ->order_by('created_at', 'DESC')
                         ->get()
                         ->result();
     }
