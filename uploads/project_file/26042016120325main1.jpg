@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<!--[if lt IE 8]><html class="no-js lt-ie8"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class=no-js>
+    <!--<![endif]-->
+    <html class=no-js>
+        <head>
+            <meta charset=utf-8>
+            <title>Upload | LMS</title>
+            <!-- Mobile specific metas -->
+            <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+            <!-- Force IE9 to render in normal mode -->
+            <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+            <meta name=author content="">
+            <meta name=description content="">
+            <meta name=keywords content="">
+            <meta name=application-name content="">
+            <!-- Import google fonts - Heading first/ text second -->
+            <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel=stylesheet type=text/css>
+            <link href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel=stylesheet type=text/css>
+            <link rel="stylesheet" href="http://192.168.1.36/lms/assets/css/font-awesome.min.css">
+            <!-- Css files -->
+
+<!-- <link rel=stylesheet href="http://192.168.1.36/lms/assets/css/xenon-components.css">             -->
+            <link rel="stylesheet" href="http://192.168.1.36/lms/assets/event_calendar/eventCalendar.css">
+            <link rel="stylesheet" href="http://192.168.1.36/lms/assets/event_calendar/eventCalendar_theme_responsive.css">
+            <link rel="stylesheet" href="http://192.168.1.36/lms/assets/css/jquery.mCustomScrollbar.min.css">
+            <link rel="stylesheet" href="http://192.168.1.36/lms/assets/css/bootstrap-datetimepicker.min.css"/>
+            <link rel=stylesheet href=http://192.168.1.36/lms/assets/css/plugins.css>
+            <link rel=stylesheet href=http://192.168.1.36/lms/assets/css/main.min.css>
+            <link rel=stylesheet href=http://192.168.1.36/lms/assets/css/custom.css>
+            <!-- Fav and touch icons -->
+            <link rel=apple-touch-icon-precomposed sizes=144x144 href=http://192.168.1.36/lms/assets/img/ico/apple-touch-icon-144-precomposed.png>
+            <link rel=apple-touch-icon-precomposed sizes=114x114 href=http://192.168.1.36/lms/assets/img/ico/apple-touch-icon-114-precomposed.png>
+            <link rel=apple-touch-icon-precomposed sizes=72x72 href=http://192.168.1.36/lms/assets/img/ico/apple-touch-icon-72-precomposed.png>
+            <link rel=apple-touch-icon-precomposed href=http://192.168.1.36/lms/assets/img/ico/apple-touch-icon-57-precomposed.png>
+            <link rel=icon href=http://192.168.1.36/lms/assets/img/ico/favicon.ico type=image/png>
+            <meta name=msapplication-TileColor content="#3399cc">
+            <script src="http://192.168.1.36/lms/assets/js/jquery-2.1.1.min.js"></script>
+            <script>
+                var base_url = 'http://192.168.1.36/lms/';
+            </script>
+        <body class="uploads student_dashboard">
+            <!--[if lt IE 9]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+            <!-- .#header -->
+            <div id="header">
+                <nav class="navbar navbar-default" role=navigation>
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="http://192.168.1.36/lms/student">
+                            <img src="http://192.168.1.36/lms/assets/img/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <div id="navbar-no-collapse" class="navbar-no-collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <!--Sidebar collapse button-->
+                                <a href=# class="collapseBtn leftbar"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="http://192.168.1.36/lms/student/email_inbox">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    <span class=txt>Messages</span></a>                                
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-right usernav">
+                            <li class="dropdown">
+                                <a href=# class="dropdown-toggle" data-toggle=dropdown>
+                                    <i class="fa fa-globe" aria-hidden="true"></i>
+                                    <span class="notification">0</span>
+                                </a>
+                                <ul class="dropdown-menu right">
+                                    <li class=menu>
+                                        <ul class=notif>
+                                            <li class=header><strong>Notifications</strong> (0) items</li>
+                                                                                                                                                                                                                                                                                                                                                                                                   <!-- <li class=view-all><a href=#>View all notifications <i class="s16 fa fa-angle-double-right"></i></a>
+                                    </li>-->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=dropdown>
+                                <a href=# class="dropdown-toggle avatar" data-toggle=dropdown><img src="http://192.168.1.36/lms/uploads/student_image/5.jpg" alt="" class="image"> 
+                                    <span class=txt>student@searchnative.in</span> <b class=caret></b>
+                                </a>
+                                <ul class="dropdown-menu right">
+                                    <li class=menu>
+                                        <ul>
+                                            <li>
+                                                <a href="http://192.168.1.36/lms/"><i class="fa fa-dashboard" aria-hidden="true"></i>Home</a>
+                                            </li>
+                                            <li><a href="http://192.168.1.36/lms/student/profile">
+                                                    <i class="fa fa-user-plus" aria-hidden="true"></i>Edit profile</a>
+                                            </li>
+                                            <li><a href="http://192.168.1.36/lms/site/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="http://192.168.1.36/lms/site/logout">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i><span class=txt>Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.nav-collapse -->
+                </nav>
+                <!-- /navbar -->
+            </div>
+            <!-- / #header -->
+            <div id="wrapper">
+                <!-- #wrapper -->
+                <!--Sidebar background-->
+                <div id="sidebarbg" class="hidden-lg hidden-md hidden-sm hidden-xs"></div>
+                <!--Sidebar content-->
+                <div id="sidebar" class="page-sidebar hidden-lg hidden-md hidden-sm hidden-xs">
+                    <div class=shortcuts>
+                        <ul>
+                            <li><a href="http://192.168.1.36/lms/student/email_inbox" title="Message Inbox" class=tip>
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li><a href="http://192.168.1.36/lms/student/gallery" title="Photo Gallery" class=tip>
+                                    <i class="fa fa-image" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li><a href="http://192.168.1.36/lms/student/project/submission" title="Project" class=tip>
+                                    <i class="fa fa-book" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li><a href="http://192.168.1.36/lms/student/profile" title="Profile" class=tip>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End search -->
+                    <!-- Start .sidebar-inner -->
+                    <div class=sidebar-inner>
+                        <!-- Start .sidebar-scrollarea -->
+                        <div class=sidebar-scrollarea>
+                            <div class=sidenav>
+                                <div class="sidebar-widget mb0">
+                                    <h6 class="title mb0">Navigation</h6>
+                                </div>
+                                <!-- End .sidenav-widget -->
+                                <div class=mainnav>
+                                    <ul>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/dashboard"><i class="fa fa-desktop" aria-hidden="true"></i><span class=txt>Dashboard</span></a>
+                                        </li>
+
+                                        
+                                        <li class="hasSub">
+                                            <a href="#" class="notExpand"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="fa fa-envelope"></i>
+                                                <span class="txt">Email </span></a>
+                                            <ul class="sub">
+                                                <li>
+                                                    <a id="link-compose" href="http://192.168.1.36/lms/student/email_compose">
+                                                        <i class="fa fa-envelope"></i>
+                                                        <span class="txt">Compose E-Mail</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a id="link-inbox" href="http://192.168.1.36/lms/student/email_inbox">
+                                                        <i class="fa fa-inbox"></i>
+                                                        <span class="txt">Inbox</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a id="link-sent" href="http://192.168.1.36/lms/student/email_sent">
+                                                        <i class="s16 icomoon-icon-file-2"></i>
+                                                        <span class="txt">Sent</span>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/class_routine">
+                                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                                <span class=txt>Class Routine</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/syllabus">
+                                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                                <span class=txt>Syllabus</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/assignment/"><i class="s16 fa fa-table"></i><span class="txt">Assignments </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/project/submission/"><i class="s16 icomoon-icon-cube"></i><span class="txt">Projects </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/exam"><i class="s16 fa fa-picture-o"></i>
+                                                <span class=txt>Exam</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/exam_marks">
+                                                <i class="s16 fa fa-clock-o"></i>
+                                                <span class=txt>Exam Marks</span>
+                                            </a>
+                                        </li>                                        
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/student_fees"><i class="s16 fa fa-dollar"></i>
+                                                <span class=txt>Pay Online </span>
+                                            </a>
+                                        </li> 
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/fee_record"><i class="s16 fa fa-newspaper-o"></i><span class=txt>Fee Record </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/video_streaming"><i class="s16 fa fa-desktop"></i><span class=txt>Video Streaming </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/holiday">
+                                                <i class="s16 fa fa-book"></i>
+                                                <span class=txt>Holiday </span>
+                                            </a>
+                                        </li>   
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/assessment">
+                                                <i class="s16 icomoon-icon-map"></i>
+                                                <span class=txt>Assessment </span>
+                                            </a>
+                                        </li>   
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/courseware">
+                                                <i class="s16 fa fa-file-o"></i>
+                                                <span class=txt>Courseware</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/vocationalcourse">
+                                                <i class="s16 fa fa-spinner"></i>
+                                                <span class=txt>Vocational Course</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  href="http://192.168.1.36/lms/student/gallery"><i class="s16 fa fa-picture-o"></i>
+                                                <span class=txt>Gallery </span>
+                                            </a>
+                                        </li>  
+                                                                                    <li>
+                                                <a  href="http://192.168.1.36/lms/pages/academics">
+                                                    <i class="s16 fa fa-universal-access"></i>
+                                                    <span class=txt>Academics </span>
+                                                </a>
+                                            </li>
+                                                                                    <li>
+                                                <a  href="http://192.168.1.36/lms/pages/programmes">
+                                                    <i class="s16 fa fa-universal-access"></i>
+                                                    <span class=txt>Programmes </span>
+                                                </a>
+                                            </li>
+                                                                                    <li>
+                                                <a  href="http://192.168.1.36/lms/pages/admissions">
+                                                    <i class="s16 fa fa-universal-access"></i>
+                                                    <span class=txt>Admissions </span>
+                                                </a>
+                                            </li>
+                                        
+
+                                    </ul> 
+                                </div>
+                            </div>
+                            <!-- End sidenav -->
+
+                            <!-- End .sidenav-widget -->
+                        </div>
+                        <!-- End .sidebar-scrollarea -->
+                    </div>
+                    <!-- End .sidebar-inner -->
+                </div>
+                <!-- End #sidebar -->
+                <!--Sidebar background-->
+                <!--Body content-->
+                <div id="content" class="page-content clearfix ">
+                    <div class=contentwrapper>
+                        <!--Content wrapper-->
+                        <div class=heading>
+                            <!--  .heading-->
+                            <h3>Upload</h3>
+                            <div class=resBtnSearch><a href=#><span class="s16 icomoon-icon-search-3"></span></a>
+                            </div>
+                            <div class="search_box">
+                                <!-- .search -->
+                                <form action="http://192.168.1.36/lms/student/search" method="post" class="form-horizontal" id="searchform">
+                                    <input value="" placeholder="Search here ..." class="top-search from-control" name="search"> 
+                                    <input type="submit" class="search-btn">
+                                    <div class="category">
+                                        <a aria-expanded="false" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            Category                                     
+                                        </a>
+
+                                        <ul class="dropdown-menu" style="margin-left: -46.3833px;">
+                                            <li class="menu">
+                                                <ul>
+                                                    <li>
+                                                        <label>
+                                                            <div class="checkbox-custom">
+                                                                <input type="checkbox" name="exam" value="exam" 
+                                                                       ><label for="chbox0"></label></div>
+                                                            <span>Exam</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label>
+                                                            <div class="checkbox-custom">
+                                                                <input type="checkbox" name="assignment" value="assignment"
+                                                                       ><label for="chbox1"></label></div>
+                                                            <span>Assignment</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label>
+                                                            <div class="checkbox-custom">
+                                                                <input type="checkbox" name="participate" value="participate"
+                                                                       ><label for="chbox2"></label></div>
+                                                            <span>Participate</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label>
+                                                            <div class="checkbox-custom">
+                                                                <input type="checkbox" name="event" value="event"
+                                                                       ><label for="chbox3"></label></div>
+                                                            <span>Events</span>
+                                                        </label>
+                                                    </li> 
+                                                </ul>                                           
+                                            </li>
+                                        </ul> 
+                                    </div>
+                                </form>
+                            </div>
+                            <!--  /search -->  
+                            <ul class="breadcrumb1"><li>You are here:</li><li><a title="" class="tip" href="http://192.168.1.36/lms/" data-original-title="Home"><i class="s16 icomoon-icon-screen-2"></i></a></li><span class="divider"><i class="s16 icomoon-icon-arrow-right-3"></i></span><li><a class="tip" data-original-title="Student" href="http://192.168.1.36/lms/index.php/student">Student</a></li> <span class="divider"><i class="s16 icomoon-icon-arrow-right-3"></i></span><li><a class="tip" data-original-title="Uploads" href="http://192.168.1.36/lms/index.php/student/uploads">Uploads</a></li> <span class="divider"><i class="s16 icomoon-icon-arrow-right-3"></i></span><li><a class="tip" data-original-title="Project_file" href="http://192.168.1.36/lms/index.php/student/uploads/project_file">Project File</a></li> </ul>    
+
+                                        <script>
+                $('#link-upload_data').addClass('active');
+            </script>
+                                    </div>
+                        <!-- End  / heading--><!-- Start .row -->
+<div class=row>                      
+
+    <div class=col-lg-12>
+        <!-- col-lg-12 start here -->
+        <div class="panel-default toggle panelMove panelClose panelRefresh">
+            <!-- Start .panel -->
+            <!--            <div class=panel-heading>
+                            <h4 class=panel-title>Upload</h4>
+                            <div class="panel-controls panel-controls-right">
+                                <a class="panel-refresh" href="#"><i class="fa fa-refresh s12"></i></a>
+                                <a class="toggle panel-minimize" href="#"><i class="fa fa-plus s12"></i></a>
+                                <a class="panel-close" href="#"><i class="fa fa-times s12"></i></a>
+                            </div>
+                        </div>-->
+            <div class=panel-body>
+                <form action="http://192.168.1.36/lms/student/uploads/" class="form-horizontal form-groups-bordered validate" role="form" id="frmproject" target="_top" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                <div class="padded">											
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Upload <span style="color:red">* </span> </label>
+                        <div class="col-sm-5">
+                            <input type="file" name="fileupload" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-5">
+                            <button type="submit" class="btn btn-primary">Upload File</button>
+                        </div>
+                    </div>
+                </div>
+                </form>            </div>
+            <!-- End .panel -->
+        </div>
+        <!-- col-lg-12 end here -->
+    </div>
+    <!-- End .row -->
+</div>
+<!-- End contentwrapper -->
+</div>
+<!-- End #content -->
+
+<script type="text/javascript" src="http://192.168.1.36/lms/assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    $.validator.setDefaults({
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+    $(document).ready(function () {
+
+        jQuery.validator.addMethod("character", function (value, element) {
+            return this.optional(element) || /^[A-z]+$/.test(value);
+        }, 'Please enter a valid character');
+
+        $("#frmproject").validate({
+            rules: {
+               
+                fileupload: { required:true,
+                extension:"gif|jpg|png|jpeg|pdf|xlsx|xls|doc|docx|ppt|pptx|pdf|txt",  
+                }
+            },
+            messages: {
+               
+                fileupload:{
+                    required: "Please browse file.",
+                    extension:"Please upload valid file"
+                    
+                }
+            }
+        });
+    });
+</script></div>
+</div>
+</div>
+<div id=footer class="clearfix sidebar-page">
+    <!-- Start #footer  Copyright © 2016 Lore Brain. All Rights Reserved  -->
+
+    <p class=pull-left>Copyrights &copy; 2016 <a href="#" class="color-blue strong" target=_blank>Learning Management System</a>. All rights reserved.</p>
+
+</p>
+</div>
+<!-- End #footer  -->
+</div>
+<!-- / #wrapper --><!-- Back to top -->
+<div id=back-to-top><a href=#>Back to Top</a></div>
+<style type="text/css">
+    .panel.panel-default.toggle.panelMove.panelClose.panelRefresh {overflow: hidden;}
+</style>
+<!-- Javascripts -->
+
+<script src=http://192.168.1.36/lms/assets/plugins/core/pace/pace.min.js></script>
+
+<!-- Important javascript libs(put in all pages) -->
+<script src="http://192.168.1.36/lms/assets/js/jquery-ui.min.js"></script>
+<script src="http://192.168.1.36/lms/assets/js/jquery-migrate-1.2.1.min.js"></script>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="js/libs/excanvas.min.js"></script>
+    <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script type="text/javascript" src="js/libs/respond.min.js"></script>
+    <![endif]-->
+
+<script src="http://192.168.1.36/lms/assets/plugins/forms/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+<script src="http://192.168.1.36/lms/assets/plugins/forms/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+<script src="http://192.168.1.36/lms/assets/plugins/forms/select2/select2.js"></script>
+<script src="http://192.168.1.36/lms/assets/plugins/forms/dual-list-box/jquery.bootstrap-duallistbox.js"></script>
+<script src="http://192.168.1.36/lms/assets/plugins/forms/summernote/summernote.js"></script>
+<script src="http://192.168.1.36/lms/assets/js/pages/forms-validation.js"></script>
+<script src="http://192.168.1.36/lms/assets/js/pages/tables-data.js"></script>
+<script src="http://192.168.1.36/lms/assets/js/custom.js"></script>
+
+<script src="http://192.168.1.36/lms/assets/js/jquery.toaster.js"></script>
+<script src="http://192.168.1.36/lms/assets/js/multiselect.min.js"></script>
+<script>
+</script> 
+
+<script>
+    var method_name = 'uploads';
+    if (method_name == 'dashboard' || method_name == 'index') {
+        $('#body').addClass('dashboard');
+    }
+</script>
+
+
+<script>
+
+    jQuery(window).resize(function () {
+
+
+        $('#modal_ajax').on('shown', function () {
+            var offset = 0;
+            $(this).find('.modal-body').attr('style', 'max-height:' + ($(window).height() - offset) + 'px !important;');
+        });
+        $('modal.fade.in').on('shown', function () {
+            var offset = 0;
+            $(this).find('.modal-body').attr('style', 'max-height:' + ($(window).height() - offset) + 'px !important;');
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function showAjaxModal(url)
+    {
+        if (url.indexOf("edit_") >= 0) {
+            $('#myModalLabel2').html('');
+        } else if (url.indexOf("add") >= 0) {
+            $('#myModalLabel2').html('');
+        } else if (url.indexOf('detail') >= 0) {
+            $('#myModalLabel2').html('');
+        } else {
+            $('#myModalLabel2').html('Upload');
+        }
+
+        if (url.indexOf("edit_participate") >= 0) {
+            $('#myModalLabel2').html('Update Participate');
+        } else if (url.indexOf('edit_question') >= 0) {
+            $('#myModalLabel2').html('Update Question');
+        }
+        else if (url.indexOf('modal_submit_assignment') >= 0) {
+            $('#myModalLabel2').html('Submit Assignment');
+        }
+        // SHOWING AJAX PRELOADER IMAGE
+        jQuery('#modal_ajax .modal-body').html('<div style="text-align:center;margin-top:200px;"><img src="http://192.168.1.36/lms/assets/img/preloader.gif" /></div>');
+
+        // LOADING THE AJAX MODAL
+        jQuery('#modal_ajax').modal('show', {backdrop: 'true'});
+
+        // SHOW AJAX RESPONSE ON REQUEST SUCCESS
+        $.ajax({
+            url: url,
+            success: function (response)
+            {
+                jQuery('#modal_ajax .modal-body').html(response);
+            }
+        });
+    }
+</script>
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="modal_ajax" class="modal fade">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 id="myModalLabel2" class="modal-title">Learning Management System</h4>
+            </div>
+            <div class="modal-body"></div>
+
+            <div class="modal-footer"><button data-dismiss="modal" class="btn btn-default" type="button">Close</button></div>
+        </div>
+    </div>
+</div>
+<!-- (Ajax Modal)-->
+<div class="modal fade" id="modal_ajax">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Learning Management System</h4>
+            </div>
+
+            <div class="modal-body" style=" overflow:auto;">
+
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    function confirm_modal(delete_url)
+    {
+        jQuery('#modal-4').modal('show', {backdrop: 'static'});
+        document.getElementById('delete_link').setAttribute('href', delete_url);
+    }
+</script>
+
+<!-- (Normal Modal)-->
+<div class="modal fade" id="modal-4">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top:100px;">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" style="text-align:center;">Are you sure to remove this information ?</h4>
+            </div>
+
+
+            <div class="modal-footer" style="margin:0px; border-top:0px; text-align:center;">
+                <a href="" class="btn btn-danger" id="delete_link">Remove</a>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div></head>
+</body>
+</html>
