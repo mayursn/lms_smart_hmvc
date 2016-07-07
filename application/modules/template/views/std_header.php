@@ -278,7 +278,32 @@
                                             <a <?php echo active_single_menu('gallery', $page); ?> href="<?php echo base_url(); ?>media/photo_gallery"><i class="s16 fa fa-picture-o"></i>
                                                 <span class=txt>Gallery </span>
                                             </a>
-                                        </li>  
+                                        </li> 
+                                        <?php
+                                    $pages = [
+                                        'quiz', 'questions', 'result', 'quiz_history'
+                                    ];
+                                    ?>
+
+                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-book"></i>
+                                            <span class="txt">Quiz</span></a>
+                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                            <li>
+                                                <a id="link-role" href="<?php echo base_url(); ?>quiz">
+                                                    <i class="s16 fa fa-list"></i>
+                                                    <span class="menu-text">Quiz</span>  
+                                                </a>
+                                            </li>
+                                            <li >
+                                                <a id="link-user" href="<?php echo base_url(); ?>quiz/user-quiz-history">
+                                                    <i class="s16 fa fa-desktop"></i>
+                                                    <span class="menu-text">Quiz History</span>  
+                                                </a>
+                                            </li>  
+                                        </ul>
+                                    </li>
+     
                                         <?php
                                         $news_conent = $this->db->get_where('cms_manager', array('c_status' => 1))->result_array();
                                         foreach ($news_conent as $row) {

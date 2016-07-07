@@ -134,7 +134,7 @@
                             $user_id = $this->session->userdata('user_id');
                             $user = $this->User_model->get($user_id);
                             ?>
-                            <a href=# class="dropdown-toggle avatar" data-toggle=dropdown><img src=<?php echo base_url() . 'system_image/' . $user->profile_pic; ?> alt="" class="image"> 
+                            <a href=# class="dropdown-toggle avatar" data-toggle=dropdown><img src=<?php echo base_url() . 'uploads/system_image/' . $user->profile_pic; ?> alt="" class="image"> 
                                 <span class=txt><?php echo $user->first_name . ' ' . $user->last_name; ?></span> <b class=caret></b>
                             </a>
                             <ul class="dropdown-menu right">
@@ -537,19 +537,19 @@
                                                 <span class="txt">Email </span></a>
                                             <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
                                                 <li>
-                                                    <a id="link-compose" href="<?php echo base_url(); ?>email_compose">
+                                                    <a id="link-compose" href="<?php echo base_url(); ?>email/compose">
                                                         <i class="s16 fa fa-envelope"></i>
                                                         <span class="txt">Compose EMail</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a id="link-inbox" href="<?php echo base_url(); ?>email_inbox">
+                                                    <a id="link-inbox" href="<?php echo base_url(); ?>email/inbox">
                                                         <i class="s16 fa fa-inbox"></i>
                                                         <span class="txt">Inbox</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a id="link-sent" href="<?php echo base_url(); ?>email_sent">
+                                                    <a id="link-sent" href="<?php echo base_url(); ?>email/sent">
                                                         <i class="s16 fa fa-send"></i>
                                                         <span class="txt">Sent Email</span>
                                                     </a>
@@ -570,7 +570,7 @@
                                             <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
                                                 <?php if (check_permission($permission, 'Import')) { ?>
                                                     <li>
-                                                        <a id="link-import" href="<?php echo base_url(); ?>import">
+                                                        <a id="link-import" href="<?php echo base_url(); ?>import_export/import">
                                                             <i class="s16 fa fa-upload"></i>
                                                             <span class="txt">Import</span>
                                                         </a>
@@ -578,7 +578,7 @@
                                                 <?php } ?>
                                                 <?php if (check_permission($permission, 'Export')) { ?>
                                                     <li>
-                                                        <a id="link-export" href="<?php echo base_url(); ?>export">
+                                                        <a id="link-export" href="<?php echo base_url(); ?>import_export/export">
                                                             <i class="s16 fa fa-download"></i>
                                                             <span class="txt">Export</span>
                                                         </a>
@@ -785,6 +785,32 @@
                                             </ul>
                                         </li> 
                                     <?php } ?>
+                                        
+                                    <?php
+                                    $pages = [
+                                        'quiz', 'questions', 'result', 'quiz_history'
+                                    ];
+                                    ?>
+
+                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-book"></i>
+                                            <span class="txt">Quiz</span></a>
+                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                            <li>
+                                                <a id="link-role" href="<?php echo base_url(); ?>quiz">
+                                                    <i class="s16 fa fa-list"></i>
+                                                    <span class="menu-text">Quiz</span>  
+                                                </a>
+                                            </li>
+                                            <li >
+                                                <a id="link-user" href="<?php echo base_url(); ?>quiz/user-quiz-history">
+                                                    <i class="s16 fa fa-desktop"></i>
+                                                    <span class="menu-text">Quiz History</span>  
+                                                </a>
+                                            </li>  
+                                        </ul>
+                                    </li>
+     
 
                                     <?php
                                     $pages = [
@@ -815,6 +841,7 @@
                                             </ul>
                                         </li>
                                     <?php } ?>
+                                        
                             </div>
                         </div>
                         <!-- End sidenav -->
