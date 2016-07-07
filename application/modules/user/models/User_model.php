@@ -55,6 +55,17 @@ class User_model extends MY_Model {
                         ])->get()->result();
     }
     
+<<<<<<< HEAD
+=======
+    function get_user()
+    {
+        return $this->db->select()
+                        ->from('user')
+                        ->join('role', 'role.role_id = user.role_id')
+                        ->where('user_id',$this->session->userdata('user_id'))->get()->result();
+    }
+
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
     
 
 }

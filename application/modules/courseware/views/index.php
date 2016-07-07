@@ -11,7 +11,7 @@ $delete = delete_permission($permission, 'Courseware');
     <div class=col-lg-12>
         <!-- col-lg-12 start here -->
         <div class="panel-default toggle panelMove panelClose panelRefresh">
-           
+
             <div class=panel-body>
                  <?php if ($create) { ?>
                 <a href="#" class="links" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/courseware_create/');" data-original-title="" data-toggle="tooltip" data-placement="top"><i class="fa fa-plus"></i> Courseware</a>

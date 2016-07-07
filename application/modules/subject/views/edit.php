@@ -1,6 +1,12 @@
 <?php
 $degree = $this->db->order_by('d_name', 'ASC')->get('degree')->result_array();
 $edit_data = $this->db->get_where('subject_manager', array('sm_id' => $param2))->result_array();
+<<<<<<< HEAD
+=======
+$branch = $this->db->order_by('course_id', 'ASC')->get_where('course', [
+    'course_id' => $edit_data[0]['sm_course_id']
+])->row();
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
 foreach ($edit_data as $row):
     ?>
     <div class=row>                      

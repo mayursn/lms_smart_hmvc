@@ -22,8 +22,13 @@ $delete = delete_permission($permission, 'Project');
                 <th>File</th>
                 <th>Date of submission</th>			
                 <?php if($update || $delete){ ?>
+<<<<<<< HEAD
                                             <th>Action</th>	
                                             <?php } ?>
+=======
+                <th>Action</th>	
+                <?php } ?>
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
             </tr>
         </thead>
         <tbody>
@@ -132,6 +137,17 @@ $delete = delete_permission($permission, 'Project');
             <?php endforeach; ?>						
         </tbody> 
     </table>
+<<<<<<< HEAD
+=======
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        "use strict";
+        $('#data-tables').dataTable({"language": {"emptyTable": "No data available"}});
+    });   
+</script>
+
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
 <?php } ?>
     <?php
 }
@@ -219,14 +235,22 @@ if ($param == 'submitted') {
         </tbody>
     </table>
 
+<<<<<<< HEAD
 <?php } ?>
 <script type="text/javascript">
     $(document).ready(function () {
         "use strict";
         $('#data-tables').dataTable({"language": {"emptyTable": "No data available"}});
     });
+=======
+<script type="text/javascript">  
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
     $(document).ready(function () {
         "use strict";
         $('#data-tabless').dataTable({"language": {"emptyTable": "No data available"}});
     });
 </script>
+<<<<<<< HEAD
+=======
+<?php } ?>
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3

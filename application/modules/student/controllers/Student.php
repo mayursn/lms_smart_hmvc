@@ -64,8 +64,13 @@ class Student extends MY_Controller {
         $this->data['page'] = 'dashboard';
         $this->__template('student/dashboard', $this->data);
     }
+<<<<<<< HEAD
 
     /**
+=======
+    
+/**
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
      * Create student user
      * @param array $student
      * @return int
@@ -316,7 +321,11 @@ class Student extends MY_Controller {
         
     }
 
+<<<<<<< HEAD
 
+=======
+     
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
     /**
      * Compare and update password
      * @param string $user_id
@@ -334,6 +343,10 @@ class Student extends MY_Controller {
             ));
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
     
 
      /**
@@ -668,7 +681,11 @@ function student_exam_marks()
         $std_id =$this->session->userdata('std_id');
         $this->data['student'] = $this->Student_model->get($std_id);
         $student = $this->data['student'];
+<<<<<<< HEAD
        $course_id = $student->course_id;
+=======
+        $course_id = $student->course_id;
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
         $semester_id = $student->semester_id;
         
         $this->data['subjects'] = $this->Student_model->student_subject_list(

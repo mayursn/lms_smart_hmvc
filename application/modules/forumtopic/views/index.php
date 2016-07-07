@@ -4,6 +4,15 @@ $create = create_permission($permission, 'Forum_Topics');
 $read = read_permission($permission, 'Forum_Topics');
 $update = update_permisssion($permission, 'Forum_Topics');
 $delete = delete_permission($permission, 'Forum_Topics');
+<<<<<<< HEAD
+=======
+
+
+$create_comment = create_permission($permission, 'Forum_Comments');
+$read_comment = read_permission($permission, 'Forum_Comments');
+$update_comment = update_permisssion($permission, 'Forum_Comments');
+$delete_comment = delete_permission($permission, 'Forum_Comments');
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
 ?>
 <div class=row>                      
 
@@ -24,9 +33,19 @@ $delete = delete_permission($permission, 'Forum_Topics');
                             <th>Started By</th>
                             <th>Status</th>
                             <th>Date</th>
+<<<<<<< HEAD
                             <th>File</th>
                             <th>View Comments</th>                            
                             <th>Add Comment</th>  
+=======
+                            <th>File</th>                            
+                            <?php if($create_comment || $read_comment || $update_comment || $delete_comment){ ?>
+                            <th>View Comments</th>                            
+                            <?php } ?>
+                            <?php if($create_comment) {?>
+                            <th>Add Comment</th>  
+                            <?php } ?>
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
                             <?php if( $update || $delete){ ?>
                             <th>Action</th>
                             <?php } ?>
@@ -58,6 +77,7 @@ $delete = delete_permission($permission, 'Forum_Topics');
                                     <?php } ?>
                                     
                                 </td>
+<<<<<<< HEAD
                                 
                                 <td><a href="<?php echo base_url() . 'comments/viewcomments/' . $row->forum_topic_id; ?>"  data-toggle="tooltip" data-placement="top" class="icon_link"><i class="fa fa-file-o"></i></a>                                   
                                     <span class="notification2"><?php echo countcommenttopic($row->forum_topic_id); ?></span>
@@ -65,6 +85,18 @@ $delete = delete_permission($permission, 'Forum_Topics');
                                 <td>
                                     <a href="#" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/comments_create/<?php echo $row->forum_topic_id; ?>');" data-toggle="modal">
                                     <span class="label label-primary mr6 mb6"><i aria-hidden="true" class="fa fa-plus"></i>Add</span></a></td>
+=======
+                                <?php if($create_comment || $read_comment || $update_comment || $delete_comment){ ?>
+                                <td><a href="<?php echo base_url() . 'comments/viewcomments/' . $row->forum_topic_id; ?>"  data-toggle="tooltip" data-placement="top" class="icon_link"><i class="fa fa-file-o"></i></a>                                   
+                                    <span class="notification2"><?php echo countcommenttopic($row->forum_topic_id); ?></span>
+                                </td>
+                                <?php } ?>
+                                <?php if($create_comment) {?>
+                                <td>
+                                    <a href="#" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/comments_create/<?php echo $row->forum_topic_id; ?>');" data-toggle="modal">
+                                    <span class="label label-primary mr6 mb6"><i aria-hidden="true" class="fa fa-plus"></i>Add</span></a></td>
+                                <?php } ?>
+>>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
                                 <?php if($update || $delete){ ?>
                                 <td>
                                 <?php if( $update){ ?>
