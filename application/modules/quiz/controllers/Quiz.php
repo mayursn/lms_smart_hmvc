@@ -288,8 +288,9 @@ class Quiz extends MY_Controller {
      */
     function is_quiz_available_to_user($quiz_id = '', $user_id = '') {
         $quiz = $this->Quiz_model->get($quiz_id);
-        if ($quiz->validity_type == 'Day') {
-            
+        if ($quiz->validity_type == 'Day') {            
+            //$end =  date('Y-m-d', strtotime($quiz->end_date. ' + 2 days'));
+            //  && strtotime(date('Y-m-d')) >= $end
             if (strtotime(date('Y-m-d')) <= strtotime($quiz->end_date)) {
                 return TRUE;
             }
