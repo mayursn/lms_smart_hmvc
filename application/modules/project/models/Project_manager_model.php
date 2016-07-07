@@ -7,6 +7,7 @@ class Project_manager_model extends MY_Model {
     protected $primary_key = 'pm_id';
     public $before_create = array('timestamps');
     public $before_get = array('department_filter');
+    public $before_update = array('update_timestamps');
     /**
      * Set timestamp field
      * @param array $degree
@@ -15,10 +16,18 @@ class Project_manager_model extends MY_Model {
     
     
     protected function timestamps($assignment) {
-        $assignment['created_date'] = date('Y-m-d H:i:s');
+         if(check_role_approval())
+        {
+            $assignment['pm_status'] = 0;
+        }
+        $assignment['created_date'] = $assignment['updated_date'] = date('Y-m-d H:i:s');
         return $assignment;
     }
-    
+     protected function update_timestamps($project)
+    {
+        $project['updated_date'] = date('Y-m-d H:i:s');
+        return $project;
+    }
     function department_filter()
     {
         if($this->session->userdata('professor_id'))

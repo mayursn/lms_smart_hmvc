@@ -61,7 +61,7 @@ class Studyresource extends MY_Controller {
                 $data['study_url'] = $file_url;
                 $data['study_sem'] = $this->input->post('semester');
                 $data['study_course'] = $this->input->post('course');
-                $data['study_status'] = 1;
+                $data['study_status'] = $this->input->post('status');
                 $data['created_date'] = date('Y-m-d');               
                 $last_id = $this->Study_resources_model->insert($data);                 
                 $batch = $data['study_batch'];
@@ -163,7 +163,7 @@ class Studyresource extends MY_Controller {
                 $data['study_url'] = $file_url;
                 $data['study_sem'] = $this->input->post('semester');
                 $data['study_course'] = $this->input->post('course');
-                $data['study_status'] = 1;
+                $data['study_status'] = $this->input->post('status');
   
                $this->Study_resources_model->update($id,$data);
                 $this->session->set_flashdata('flash_message', 'Studyresource Updated Successfully');

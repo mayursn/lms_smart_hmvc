@@ -65,7 +65,7 @@ class Participate extends MY_Controller {
             $data['pp_semester'] = $this->input->post('semester');
             $data['pp_desc'] = $this->input->post('description');
             $data['pp_dos'] = $this->input->post('dateofsubmission');
-            $data['pp_status'] = 1;
+            $data['pp_status'] = $this->input->post('status');
 
             $data['pp_course'] = $this->input->post('course');
             $data['created_date'] = date('Y-m-d');
@@ -166,7 +166,7 @@ class Participate extends MY_Controller {
             $data['pp_desc'] = $this->input->post('description');
             $data['pp_dos'] = $this->input->post('dateofsubmission1');
             $data['pp_course'] = $this->input->post('course');
-            $data['pp_status'] = 1;
+            $data['pp_status'] = $this->input->post('status');
             $this->Participate_manager_model->update($id, $data);
             $this->flash_notification('Participate Updated Successfully');
         }

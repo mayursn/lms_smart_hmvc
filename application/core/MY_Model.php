@@ -779,7 +779,7 @@ class MY_Model extends CI_Model {
         $method = ($multi) ? 'result' : 'row';
         return $this->_temporary_return_type == 'array' ? $method . '_array' : $method;
     }
-    
+
     /**
      * Grab data by order
      * @param string $column
@@ -788,8 +788,45 @@ class MY_Model extends CI_Model {
      */
     public function order_by_column($column, $order = 'ASC') {
         $this->_database->order_by($column, $order);
-        
+
         return $this->get_all();
+    }
+
+    /**
+     * Get last record by condition
+     * @param array $where
+     * @return object
+     */
+    public function last_record_by_condition($where) {
+        $this->_database->from($this->_table);
+        $this->_database->where($where);
+        $this->_database->order_by($this->primary_key, 'DESC');
+        $this->_database->limit(2);
+
+        return $this->_database->get()->result();
+    }
+
+    /**
+     * Get last record
+     * @return object
+     */
+    public function last_record() {
+        $this->_database->from($this->_table);
+        $this->_database->order_by($this->primary_key, 'DESC');
+        $this->_database->limit(1);
+
+        return $this->_database->get()->row();
+    }
+
+    /**
+     * Fetch first record
+     * @return object
+     */
+    public function first_record() {
+        $this->_database->from($this->_table);
+        $this->_database->limit(1);
+
+        return $this->_database->get()->row;
     }
 
 }

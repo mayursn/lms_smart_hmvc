@@ -22,6 +22,7 @@ $delete = delete_permission($permission, 'Event');
                         <th>Location</th>
                         <th>Event Date</th>
                         <th>Event Time</th>
+<th>Status</th>
                         <?php if ($update || $delete) { ?>
                         <th>Action</th>
                         <?php } ?>
@@ -39,6 +40,13 @@ $delete = delete_permission($permission, 'Event');
                             <td><?php echo $row->event_location; ?></td>                          
                             <td><?php echo date_formats($row->event_date); ?></td> 
                             <td><?php echo date('h:i A', strtotime($row->event_date)); ?></td> 
+                            <td>
+                                 <?php if ($row->status == '1') { ?>
+                                     <span class="label label-primary mr6 mb6" >Active</span>
+                                 <?php } else { ?>	
+                                     <span class="label label-danger mr6 mb6" >InActive</span>
+                                 <?php } ?>
+                            </td>
                             <?php if ($update || $delete) { ?>
                             <td class="menu-action">
                                  <?php if($update) { ?>

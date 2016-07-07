@@ -37,9 +37,7 @@ if($this->session->userdata('role_name')!='Student')
                             <th><?php echo ucwords("course fee"); ?></th>
                             <th><?php echo ucwords("professor name"); ?></th>
                             <th>Status</th>
-                            <?php if ($update || $delete) { ?>
-                                    <th>Actions</th>
-                                <?php } ?> 
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
@@ -64,16 +62,16 @@ if($this->session->userdata('role_name')!='Student')
                                 <td><?php
                                     
                                     foreach ($professor as $pro) {
-                                        if ($pro->professor_id == $row->professor_id) {
+                                        if ($pro->user_id == $row->professor_id) {
                                             echo $pro->name;
                                         }
                                     }
                                     ?></td>   
                                 <td>
                                     <?php if ($row->status == '1') { ?>
-                                        <span>Active</span>
+                                        <span class="label label-primary mr6 mb6">Active</span>
                                     <?php } else { ?>	
-                                        <span>InActive</span>
+                                        <span  class="label label-danger mr6 mb6" >InActive</span>
                                     <?php } ?>
                                 </td>
                                 <td class="menu-action">
@@ -107,7 +105,7 @@ if($this->session->userdata('role_name')!='Student')
 <!-- End #content -->
 <?php
 }
-elseif($this->session->userdata('role_name')=="Student")
+else
 {
    ?>
 <div class=row>                      
@@ -127,7 +125,7 @@ elseif($this->session->userdata('role_name')=="Student")
                     </ul>
                     <div id="import-tab-content" class="tab-content">
                         <div class="tab-pane fade active in" id="course-list">
-                            <table id="vocational-course-list" class="table table-striped table-bordered table-responsive" cellspacing=0 width=100%>
+                            <table id="student-course-list" class="table table-striped table-bordered table-responsive" cellspacing=0 width=100%>
                     <thead>
                         <tr>
                             <th>No</th>
@@ -172,7 +170,7 @@ elseif($this->session->userdata('role_name')=="Student")
                                 <td><?php
                                     
                                     foreach ($professor as $pro) {
-                                        if ($pro->professor_id == $row->professor_id) {
+                                        if ($pro->user_id == $row->professor_id) {
                                             echo $pro->name;
                                         }
                                     }
@@ -211,7 +209,7 @@ elseif($this->session->userdata('role_name')=="Student")
                 </table>
                         </div>
                         <div class="tab-pane fade" id="submitted-course-list">
-                              <table id="datatable-list-course" class="table table-striped table-bordered table-responsive" cellspacing=0 width=100%>
+                              <table id="register-course-list" class="table table-striped table-bordered table-responsive" cellspacing=0 width=100%>
                     <thead>
                         <tr>
                             <th>No</th>

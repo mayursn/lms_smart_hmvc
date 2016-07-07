@@ -32,12 +32,12 @@ $delete = delete_permission($permission, 'Admission_Type');
                             <?php foreach ($admission_type as $row): ?>
                                 <tr>
                                     <td></td>
-                                    <td><?php echo $row->at_name; ?></td>                         
+                                    <td><?php echo $row->at_name; ?></td>  
                                     <td>
                                         <?php if ($row->at_status == '1') { ?>
-                                            <span>Active</span>
+                                            <span class="label label-primary mr6 mb6" >Active</span>
                                         <?php } else { ?>	
-                                            <span>InActive</span>
+                                            <span class="label label-danger mr6 mb6" >InActive</span>
                                         <?php } ?>
                                     </td>
                                     <?php if ($update || $delete) { ?>

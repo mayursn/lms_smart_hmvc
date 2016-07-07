@@ -7,7 +7,8 @@ class Courseware_model extends MY_Model {
     protected $primary_key = 'courseware_id';
     
     public $before_create = array('timestamps');
-    
+    public $before_update = array('update_timestamps');
+
     
     /**
      * Set timestamp fields
@@ -15,20 +16,37 @@ class Courseware_model extends MY_Model {
      * @return array
      */
     protected function timestamps($courseware) {
-        $courseware['created_date'] = date('Y-m-d H:i:s');
+         if(check_role_approval())
+        {
+            $courseware['status'] = 0;
+        }
+        $courseware['created_date'] = $courseware['updated_date'] = date('Y-m-d H:i:s');
         
         return $courseware;
     }
-    
+    protected function update_timestamps($courseware)
+    {
+        if(check_role_approval())
+        {
+            $courseware['status'] = 0;
+        }
+        
+        $courseware['updated_date'] = date('Y-m-d H:i:s');
+        return $courseware;
+    }
     
     public  function get_courseware()
     {
          $this->db->select('cw.courseware_id, cw.topic, cw.status, cw.chapter, cw.description, '
                 . 'cw.attachment, c.course_id, c.c_name, sub.subject_name');
         $this->db->from('courseware cw');
-        $this->db->join('course c', 'c.course_id=cw.branch_id');
-        
+        $this->db->join('course c', 'c.course_id=cw.branch_id');        
         $this->db->join('subject_manager sub', 'sub.sm_id=cw.subject_id');
+          if($this->session->userdata('std_id'))
+          {
+                $course_id = $this->session->userdata('course_id');
+                $this->db->where("cw.branch_id",$course_id);            
+          }
         return $this->db->get()->result_array();
     }
  

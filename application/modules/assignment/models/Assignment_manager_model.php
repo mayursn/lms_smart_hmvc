@@ -19,6 +19,11 @@ class Assignment_manager_model extends MY_Model {
      * @return array
      */
     protected function timestamps($assignment) {
+         if(check_role_approval())
+            {
+                $assignment['assign_status'] = 0;
+            }
+
         $assignment['created_date'] = date('Y-m-d H:i:s');        
         return $assignment;
     }

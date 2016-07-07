@@ -87,7 +87,7 @@ class Assignment extends MY_Controller {
             $data['assign_desc'] = $this->input->post('description');
             $data['assign_dos'] = nice_date($this->input->post('submissiondate'), 'Y-m-d');
             $data['assignment_instruction'] = $this->input->post('instruction');
-            $data['assign_status'] = 1;
+            $data['assign_status'] = $this->input->post('status');
             $data['created_date'] = date('Y-m-d');
             $data['assign_degree'] = $this->input->post('degree');
 

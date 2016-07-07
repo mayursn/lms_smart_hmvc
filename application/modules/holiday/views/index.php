@@ -41,9 +41,9 @@ $delete = delete_permission($permission, 'Holiday');
                             <td><?php echo $row->holiday_year; ?></td>   
                             <td>
                                 <?php if ($row->holiday_status == '1') { ?>
-                                    <span>Active</span>
+                                    <span class="label label-primary mr6 mb6" >Active</span>
                                 <?php } else { ?>	
-                                    <span>InActive</span>
+                                    <span class="label label-danger mr6 mb6" >InActive</span>
                                 <?php } ?>
                             </td>
                              <?php if ($update || $delete) { ?>

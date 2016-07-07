@@ -36,16 +36,17 @@ class Professor extends MY_Controller {
         $this->data['recent_activity'] = $this->Last_activity_model->get_recent_activity();
         $this->__template('professor/dashboard', $this->data);
     }
-
     /**
      * Create professor
      */
     function create() {
         if ($_POST) {
+            $user_id = $this->create_professor_user($_POST, $_FILES); 
             $this->Professor_model->insert(array(
+                'user_id'=>$user_id,
                 'name' => $this->input->post('professor_name'),
                 'email' => $this->input->post('email'),
-                'password' => hash('md5', $this->input->post('password')),
+                'password' =>Modules::run('user/__hash', $this->input->post('password')),
                 'real_pass' => $this->input->post('password'),
                 'address' => $this->input->post('address'),
                 'city' => $this->input->post('city'),
@@ -56,45 +57,143 @@ class Professor extends MY_Controller {
                 'designation' => $this->input->post('designation'),
                 'department' => $this->input->post('degree'),
                 'branch' => $this->input->post('branch'),
-                'about' => $this->input->post('about'),
-                'subjects' => implode(',', $_POST['subjects'])
+                'about' => $this->input->post('about')
             ));
         }
 
         redirect(base_url('professor'));
     }
 
-    function create_professor_user($professor, $files) {
+   function create_professor_user($professor, $files) {
         $this->load->model('user/User_model');
         $this->load->model('user/Role_model');
         $role = $this->Role_model->get_by(array(
-            'role_name' => 'Professor'
+            'role_name' => 'Staff'
         ));
 
         $user_id = $this->User_model->insert(array(
             'first_name' => $professor['professor_name'],
             'last_name' => '',
-            'email' => $student['email'],
-            'password' => Modules::run('user/__hash', $student['password']),
-            'gender' => ucfirst($student['gen']),
-            'zip_code' => $student['zip_code'],
+            'email' => $professor['email'],
+            'password' => Modules::run('user/__hash', $professor['password']),
+            'gender' => '',
+            'zip_code' => $professor['zip_code'],
+            'mobile'  => $professor['mobile'],
+            'city'  => $professor['city'],    
+            'address'  => $professor['address'],  
             'role_id' => $role->role_id,
             'is_active' => 1,
-            //'profile_pic' => $this->upload_student_profile_pic($files)
+            'profile_pic' => $this->upload_professor_profile_pic($files)
         ));
+        return $user_id;
     }
 
+     /**
+     * Upload student profile picture
+     * @param array $_FILES
+     * @return string
+     */
+    function upload_professor_profile_pic($files) {
+        if ($files['userfile']['name'] != '') {
+            $config['upload_path'] = 'uploads/system_image';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if (!$this->upload->do_upload('userfile')) {
+                $this->session->set_flashdata('flash_message', "Invalid File!");
+                redirect(base_url('professor'));
+            } else {
+                $file = $this->upload->data();
+                $data['profile_photo'] = $file['file_name'];
+                //$file_url = base_url().'uploads/project_file/'.$data['lm_filename'];
+            }
+        } else {
+            $data['profile_photo'] = '';
+        }
+
+        return $data['profile_photo'];
+    }
+    
+    function update_professor_profile_pic($files)
+    {
+        if ($files['userfile']['name'] != '') {
+            $config['upload_path'] = 'uploads/system_image';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if (!$this->upload->do_upload('userfile')) {
+                $this->session->set_flashdata('flash_message', "Invalid File!");
+                redirect(base_url('professor'));
+            } else {
+                $file = $this->upload->data();
+                $data['profile_photo'] = $file['file_name'];
+            } 
+             return $data['profile_photo'];
+        }
+    }
+    
     function delete($id) {
-        
+        $this->load->model('user/User_model');
+        $this->Professor_model->delete($id);
+        $this->session->set_flashdata('flash_message', 'Professor is successfully deleted.');
+
+        redirect(base_url('professor'));
     }
 
     function update($id) {
-        if($_POST) {
-            echo '<pre>';
-            var_dump($_POST);
-            exit;
+       if($_POST) {
+              $user_id = $this->update_professor_user($id,$_POST, $_FILES); 
+              
+                $this->Professor_model->update($id,array(
+                'name' => $this->input->post('professor_name'),
+                'email' => $this->input->post('email'),
+                'password' =>Modules::run('user/__hash', $this->input->post('password')),
+                'real_pass' => $this->input->post('password'),
+                'address' => $this->input->post('address'),
+                'city' => $this->input->post('city'),
+                'zip' => $this->input->post('zip_code'),
+                'mobile' => $this->input->post('mobile'),
+                'dob' => $this->input->post('dob'),
+                'occupation' => $this->input->post('occupation'),
+                'designation' => $this->input->post('designation'),
+                'department' => $this->input->post('degree'),
+                'branch' => $this->input->post('branch'),
+                'about' => $this->input->post('about')
+            ));
+              $this->flash_notification('Professor is successfully updated.');
         }
+         redirect(base_url('professor'));
     }
+    
+    function update_professor_user($id,$professor, $files)
+    {
+         if ($professor) {
+            $this->load->model('user/User_model');
+            $data=array(
+                        'first_name' => $professor['professor_name'],
+                        'last_name' => '',
+                        'email' => $professor['email'],
+                        'password' => Modules::run('user/__hash', $professor['password']),
+                        'gender' => '',
+                        'zip_code' => $professor['zip_code'],
+                        'mobile'  => $professor['mobile'],
+                        'city'  => $professor['city'],    
+                        'address'  => $professor['address'], 
+                    );
+            
+             $filedata=$this->update_professor_profile_pic($files); 
+            if($filedata!="")
+            {
+               $data['profile_pic']=$filedata; 
+            }
+            
+            $user_id = $this->User_model->update($id,$data);
+         }
+         return $user_id;
+    }
+   
     
      /**
      * Professor class routine

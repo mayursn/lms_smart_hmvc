@@ -13,13 +13,12 @@ class MY_Controller extends MX_Controller {
      */
     function __construct() {
         parent::__construct();
-        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Origin: *'); 
         $this->load->language('lms');
         $this->data['currency'] = system_info('currency');
 
         if ($this->is_user_logged_in()) {
-            $this->login_user_role_permission();
-            //$this->data['permission'] = array();
+            $this->login_user_role_permission();           
             if(!count($this->data['permission'])) {
                 echo '<h3>You don\'t have permission to access any module. Pleace contact admin</h3>';
                 exit;
@@ -110,6 +109,23 @@ class MY_Controller extends MX_Controller {
             $this->data['permission'][$module] = array();
             array_push($this->data['permission'][$module], str_split($row->user_permission));
         }
+    }
+
+    /**
+     * Email configuration and load library
+     */
+    function __config_and_load_email_library() {
+        $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'mayur.ghadiya@searchnative.in',
+            'smtp_pass' => 'the mayurz97375',
+            'mailtype' => 'html',
+            'charset' => 'iso-8859-1'
+        );
+        
+        return $config;
     }
 
 }

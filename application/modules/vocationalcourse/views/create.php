@@ -61,7 +61,7 @@
                                 <select id="professor" name="professor" class="form-control">
                                     <option value="">Select professor</option>
                                     <?php foreach ($professor as $srow) { ?>
-                                        <option value="<?php echo $srow['professor_id']; ?>"><?php echo $srow['name']; ?>
+                                        <option value="<?php echo $srow['user_id']; ?>"><?php echo $srow['name']; ?>
                                         </option>
                                     <?php } ?>
                                 </select>

@@ -7,17 +7,31 @@ class Participate_manager_model extends MY_Model {
     protected $primary_key = 'pp_id';
     
     public $before_create = array('timestamps');
-    
+    public $before_update = array('update_timestamps');
     /**
      * Set timestamp field
      * @param array $participate
      * @return array
      */
     protected function timestamps($participate) {
-        $participate['created_date'] = date('Y-m-d H:i:s');        
+         if(check_role_approval())
+        {
+            $participate['pp_status'] = 0;
+        }
+        
+        $participate['created_date'] =  $participate['updated_date'] = date('Y-m-d H:i:s');        
         return $participate;
     }
-    
+    protected function update_timestamps($participate)
+    {
+        if(check_role_approval())
+        {
+            $participate['pp_status'] = 0;
+        }
+        
+        $participate['updated_date'] = date('Y-m-d H:i:s');
+        return $participate;
+    }
     public function get_survey()
     {
           $this->db->select("ls.*,s.*");

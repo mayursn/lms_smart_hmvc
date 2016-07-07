@@ -30,8 +30,7 @@ class Class_model extends MY_Model {
         $class['updated_date'] = date('Y-m-d H:i:s');
         
         return $class;
-    }
-    
+    }    
     
     public function get_class_name($class_id)
     {

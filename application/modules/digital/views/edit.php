@@ -155,6 +155,18 @@ $row = $this->Library_manager_model->get($param2);
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-4 control-label"><?php echo ucwords("status");?></label>
+                                <div class="col-sm-8">
+                                    <select name="status"  class="form-control">
+                                      <option value="1" <?php if($row['lm_status'] == '1'){ echo "selected"; } ?>>Active</option>
+                                        <option value="0" <?php if($row['lm_status'] == '0'){ echo "selected"; } ?>>Inactive</option>	
+                                    </select>
+                                    <lable class="error" id="error_lable_exist" style="color:red"></lable>
+
+                                </div>
+
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <button type="submit" class="submit btn btn-info vd_bg-green"><?php echo ucwords("Update"); ?></button>
                                 </div>

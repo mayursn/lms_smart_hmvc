@@ -75,6 +75,7 @@ $delete = delete_permission($permission, 'Study_Resource');
                                     <th>Batch</th>											
                                     <th>Semester</th>											                                                                                               
                                     <th>File</th>
+				    <th>Status</th>
                                     <?php if ($update || $delete) { ?>
                                         <th>Action</th>											
                                     <?php } ?>
@@ -141,7 +142,15 @@ $delete = delete_permission($permission, 'Study_Resource');
                                             ?>
 
                                         </td>	
+
                                         <td id="downloadedfile"><a href="<?php echo base_url() . 'uploads/project_file/' . $row->study_filename; ?>" download=""  title="download"><i class="fa fa-download"></i></a></td>	
+					<td>
+                                            <?php if ($row->study_status == '1') { ?>
+                                                <span class="label label-primary mr6 mb6" >Active</span>
+                                            <?php } else { ?>	
+                                                <span class="label label-danger mr6 mb6" >InActive</span>
+                                            <?php } ?>
+                                        </td>
                                         <?php if ($update || $delete) { ?>
                                             <td class="menu-action">
                                                 <?php if ($update) { ?>

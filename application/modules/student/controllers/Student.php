@@ -13,13 +13,18 @@ class Student extends MY_Controller {
          {
          $notification = show_notification($this->session->userdata('std_id'));                            
          $this->session->set_userdata('notifications', $notification);
-         }
+           date_default_timezone_set('Etc/UTC');
+         }         
     }
 
     /**
      * Index action
      */
     function index() {
+        if($this->session->userdata('professor_id'))
+        {
+            redirect(base_url('student/professor_student'));
+        }
         $this->data['title'] = 'Student';
         $this->data['page'] = 'student';
         $this->data['department'] = $this->Degree_model->order_by_column('d_name');
@@ -61,36 +66,218 @@ class Student extends MY_Controller {
     }
 
     /**
-     * Create student
+     * Create student user
+     * @param array $student
+     * @return int
      */
-    function create() {
-        if ($_POST) {
+    function create_student_user($student, $files) {
+        $user_id = 0;
+       
+        if ($student) {
+            
             $this->load->model('user/Role_model');
             $this->load->model('user/User_model');
             $role = $this->Role_model->get_by(array(
                 'role_name' => 'Student'
             ));
-            
-            $role_array = array("first_name"=>$_POST['f_name'],
-                            "last_name"=>$_POST['l_name'],
-                            "email"=>$_POST['email_id'],
-                            "password"=>$this->__hash($_POST['password']),
-                             "role_id"=>"3");
-            $insert_id = $this->User_model->insert($role_array);
-            $array = array("user_id"=>$insert_id,
-                            "name"=>$_POST['f_name'].' '.$_POST['l_name'],
-                            "std_first_name"=>$_POST['f_name'],
-                            "std_last_name"=>$_POST['l_name'],
-                            "email"=>$_POST['email_id'],
-                            "std_batch"=>$_POST['batch'],
-                            "semester_id"=>$_POST['semester'],
-                            "std_degree"=>$_POST['degree'],
-                            "course_id"=>$_POST['course'],
-                            "class_id"=>$_POST['class']);
-            
-            
-             $this->Student_model->insert($array);
+           
+            $user_id = $this->User_model->insert(array(
+                'first_name' => $student['f_name'],
+                'last_name' => $student['l_name'],
+                'email' => $student['email_id'],
+                'password' => Modules::run('user/__hash', $student['password']),
+                'gender' => ucfirst($student['gen']),
+                'zip_code'  => $student['zip'],
+                'mobile'  => $student['mobileno'],
+                'city'  => $student['city'],    
+                'address'  => $student['address'],    
+                'role_id' => $role->role_id,
+                'is_active' => $student['status'],
+                'profile_pic'   => $this->upload_student_profile_pic($files)
+            ));
         }
+        return $user_id;
+    }
+     /**
+     * Create student
+     */
+    function create() {
+        if ($_POST) {
+           
+            $user_id = $this->create_student_user($_POST, $_FILES); 
+            $student_id = $this->Student_model->insert(array(
+                'user_id' => $user_id,
+                'email' => $_POST['email_id'],
+                'std_first_name'    => $_POST['f_name'],
+                'std_last_name' => $_POST['l_name'],
+                'std_gender'    => ucfirst($_POST['gen']),
+                'address'   => $_POST['address'],
+                'city'  => $_POST['city'],
+                'zip'   => $_POST['zip'],
+                'std_birthdate' => date('Y-m-d', strtotime($_POST['birthdate'])),
+                'std_marital'   => $_POST['maritalstatus'],
+                'std_batch' => $_POST['batch'],
+                'semester_id'   => $_POST['semester'],
+                'std_degree'    => $_POST['degree'],
+                'course_id' => $_POST['course'],
+                'class_id'  => $_POST['class'],
+                'std_about' => $_POST['std_about'],
+                'std_mobile'    => $_POST['mobileno'],
+                'parent_name'   => $_POST['parentname'],
+                'parent_contact'    => $_POST['parentcontact'],
+                'parent_email'  => $_POST['parent_email_id'],
+                'admission_type_id' => $_POST['admissiontype'],
+                'std_fb'    => $_POST['facebook'],
+                'std_twitter'   => $_POST['twitter'],
+                'std_status'=>1
+            ));   
+            $student=array('f_name'=>$_POST['f_name'],
+                           'l_name'=>$_POST['l_name'],
+                           'email_id'=>$_POST['email_id'],
+                           'password'=>$_POST['password'],
+                        );
+            $this->assign_student_roll($_POST['course'], $_POST['semester'], $student_id);
+            $this->email_student_credential($student);
+            $this->flash_notification('Student is successfully inserted.');
+        }        
+        redirect(base_url('student'));
+    }
+    /**
+       * Update student
+       * @param string $id
+       */
+      function update($id) {
+          if($_POST) {
+              $user_id = $this->update_student_user($id,$_POST, $_FILES); 
+              
+                $student_id = $this->Student_model->update($this->input->post('studentid'),array(
+                'email' => $_POST['email_id'],
+                'std_first_name'    => $_POST['f_name'],
+                'std_last_name' => $_POST['l_name'],
+                'std_gender'    => ucfirst($_POST['gen']),
+                'address'   => $_POST['address'],
+                'city'  => $_POST['city'],
+                'zip'   => $_POST['zip'],
+                'std_birthdate' => date('Y-m-d', strtotime($_POST['birthdate'])),
+                'std_marital'   => $_POST['maritalstatus'],
+                'std_batch' => $_POST['batch'],
+                'semester_id'   => $_POST['semester'],
+                'std_degree'    => $_POST['degree'],
+                'course_id' => $_POST['course'],
+                'class_id'  => $_POST['class'],
+                'std_about' => $_POST['std_about'],
+                'std_mobile'    => $_POST['mobileno'],
+                'parent_name'   => $_POST['parentname'],
+                'parent_contact'    => $_POST['parentcontact'],
+                'parent_email'  => $_POST['parent_email_id'],
+                'admission_type_id' => $_POST['admissiontype'],
+                'std_fb'    => $_POST['facebook'],
+                'std_twitter'   => $_POST['twitter'],
+                'std_status'=>1
+            ));  
+               $this->flash_notification('Student is successfully updated.');
+          }
+          redirect(base_url('student'));
+      }
+       function update_professor_profile_pic($files)
+        {
+            if ($files['userfile']['name'] != '') {
+                $config['upload_path'] = 'uploads/system_image';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload('userfile')) {
+                    $this->session->set_flashdata('flash_message', "Invalid File!");
+                    redirect(base_url('professor'));
+                } else {
+                    $file = $this->upload->data();
+                    $data['profile_photo'] = $file['file_name'];
+                } 
+                 return $data['profile_photo'];
+            }
+        }
+       function update_student_user($id,$student, $files) {
+      
+        if ($student) {
+            $this->load->model('user/User_model');
+            $data=array(
+                        'first_name' => $student['f_name'],
+                        'last_name' => $student['l_name'],
+                        'email' => $student['email_id'],
+                        'password' => Modules::run('user/__hash', $student['password']),
+                        'gender' => ucfirst($student['gen']),
+                        'zip_code'  => $student['zip'],
+                        'mobile'  => $student['mobileno'],
+                        'city'  => $student['city'],    
+                        'address'  => $student['address'],  
+                        'is_active' => $student['status']
+                    );
+            $filedata=$this->update_professor_profile_pic($files); 
+            if($filedata!="")
+            {
+               $data['profile_pic']=$filedata; 
+            }
+            $user_id = $this->User_model->update($id,$data);
+             
+        }
+        return $user_id;
+    }
+    /**
+     * Generate student roll no
+     * @param string $branch
+     * @param string $semester
+     * @param string $student_id
+     * @return int
+     */
+    function generate_student_roll($branch, $semester, $student_id) {
+        $roll_no = 0;
+        $student = $this->Student_model->last_record_by_condition(array(
+            'course_id' => $branch,
+            'semester_id' => $semester
+        ));
+        if ($student) {
+            $roll_no = date('Y') . $branch . $semester . $student_id;
+        } else {           
+             $roll_no = date('Y') . $branch . $semester . $student_id;
+        }
+
+        return $roll_no;
+    }
+
+    /**
+     * Assign student roll number
+     * @param string $branch
+     * @param string $semester
+     * @param string $student_id
+     */
+    function assign_student_roll($branch, $semester, $student_id) {
+        $student_roll_number = $this->generate_student_roll($branch, $semester, $student_id);
+
+        $this->Student_model->update($student_id, array(
+            'std_roll' => $student_roll_number
+        ));
+    }
+    
+     /**
+     * Email student credentials
+     * @param type $student
+     */
+    function email_student_credential($student) {
+        
+        $this->load->model('email/Email_model');
+        $this->load->helper('email/system_email');
+        
+        $subject = 'LMS Login Credentials';
+        $message = 'Hello, ' . $student['f_name'] . ' ' . $student['l_name'];
+        $message .= "<br/>Your email address is registered with LMS. ";
+        $message .= "Now you can access your LMS account by following credentials.";
+        $message .= "<br/>Url: " .base_url().'user/login';
+        $message .= "<br/>Email: " . $student['email_id'];
+        $message .= "<br/>Password: " . $student['password'];
+        
+         Modules::run('email/email/setemail', $student['email_id'], $subject, $message, $attachment=array());
+        return;
     }
 
     /**
@@ -99,8 +286,8 @@ class Student extends MY_Controller {
      * @return string
      */
     function upload_student_profile_pic($files) {
-        if ($files['profilefile']['name'] != '') {
-            $config['upload_path'] = 'uploads/student_image';
+        if ($files['userfile']['name'] != '') {
+            $config['upload_path'] = 'uploads/system_image';
             $config['allowed_types'] = 'gif|jpg|png';
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
@@ -116,36 +303,55 @@ class Student extends MY_Controller {
         } else {
             $data['profile_photo'] = '';
         }
-        
+
         return $data['profile_photo'];
     }
     
-    function create_student_user($student) {
+   
+    /**
+     * Delete student
+     * @param string $id
+     */
+    function delete($id) {
         
     }
 
-    function delete() {
-        
-    }
-
-    function update($id) {
-        
-    }
 
     /**
+     * Compare and update password
+     * @param string $user_id
+     * @param string $password
+     * @return string
+     */
+    function password_compare_and_update($user_id, $password) {
+        $this->load->model('user/User_model');
+        $user = $this->User_model->get($user_id);
+
+        if ($user->password !== $password) {
+            $password = Modules::run('user/__hash', $password);
+            $this->User_model->update($user_id, array(
+                'password' => $password
+            ));
+        }
+    }
+    
+
+     /**
      * Load filtered students
      */
     function filtered_student() {
-        $data['datastudent'] = $this->Student_model->get_many_by(array(
+        $this->load->model('user/User_model');
+        Modules::run('MY_Controller');
+        $this->load->helper('role_permission_helper');
+        
+        $this->data['student']=$this->Student_model->with('user')->get_many_by(array(
             'std_degree' => $_POST['degree'],
             'course_id' => $_POST['course'],
             'std_batch' => $_POST['batch'],
             'semester_id' => $_POST['sem'],
             'class_id' => $_POST['divclass'],
-            'std_status' => 1
         ));
-
-        $this->load->view('student/filtered_student', $data);
+        $this->load->view('student/filtered_student',  $this->data);
     }
 
     /**
@@ -163,7 +369,50 @@ class Student extends MY_Controller {
             echo "true";
         }
     }
-    
+    /**
+     * Check student email
+     */
+//    function check_student_email($param="") {
+//        $this->load->model('user/User_model');
+//         
+//        if($param=="")
+//        {
+//            $email = $this->input->post('eid');
+//            $data = $this->User_model->get_by(array(
+//                'email' => $email
+//            ));
+//            if ($data) {
+//                echo "false";
+//            } else {
+//                echo "true";
+//            }
+//        }
+//        else
+//        {
+//            $email = $this->input->post('eid');
+//            $data = $this->User_model->get_by(array(
+//                'email' => $email
+//            ));
+//            if ($data) {
+//                echo "false";
+//            } else {
+//                echo "true";
+//            }
+//        }
+//       
+//    }
+
+    function student_profile($param1='')
+    {
+         $this->data['profile'] = $this->Student_model->student_details($param1); 
+         $this->data['submitassignment'] = $this->Student_model->submitassignment($this->data['profile']->std_id); 
+         $this->data['exam_listing'] = $this->Student_model->
+                student_exam_list($this->data['profile']->course_id, $this->data['profile']->semester_id);
+       
+        $this->data['title'] = 'Student Profile';
+        $this->data['page'] = 'student';
+         $this->__template('student/student_profile', $this->data);
+    }
    /**
      * Student list by degree, course, batch, and semester
      * @param type $degree
@@ -186,7 +435,15 @@ class Student extends MY_Controller {
     function __hash($str) {
         return hash('md5', $str . config_item('encryption_key'));
     }
-    
+function student_exam_marks()
+    {
+        $id=$this->input->post('exam_id');
+        $student_id=$this->input->post('student_id');
+         $this->data['exam_details'] = $this->Student_model->student_exam_detail($student_id, $id);
+        $this->data['student_marks'] = $this->Student_model->student_marks($student_id, $id);
+        
+        $this->load->view('student/student_exam_marks',$this->data);
+    }
     
     function student_exam_listing_widget($student_details) {       
        
@@ -265,6 +522,23 @@ class Student extends MY_Controller {
         return $data;
     }
 
+    function professor_student()
+    {
+        $this->load->model('professor/Professor_model');
+        $this->load->model('user/User_model');
+
+        $this->data['title'] = 'Student';
+        $this->data['page'] = 'professor_student';
+        $userid=$this->session->userdata('professor_id');
+        $wherearray=array("user_id" => $userid);
+        $professor=$this->Professor_model->get_by($wherearray);
+        
+        $wherearray=array("std_degree" => $professor->department,'course_id'=>$professor->branch);
+
+        $this->data['student']=$this->Student_model->with('user')->get_many_by($wherearray);
+
+        $this->__template('student/professor_student', $this->data);
+    }
     /**
      * Exam marks
      * @param string $exam_id
@@ -410,5 +684,51 @@ class Student extends MY_Controller {
                 $this->session->userdata('std_id'), $subject_id);
         $this->__template('student/attendance_report_detail', $this->data);
     }
+    
+    
+    /**
+     * Student class routine
+     */
+    function class_routine() {
+        date_default_timezone_set('Etc/UTC');
+        $this->data['title'] = 'Class Routine';
+        $this->data['page'] = 'class_routine';
+        $this->__template('student/class_routine', $this->data);
+    }
+    
+     /**
+     * Student class routine data
+     */
+    function class_routine_data() {
+        date_default_timezone_set('Etc/UTC');
+        $this->load->model('class_routine/Class_routine_model');
+        $student = $this->Student_model->get($this->session->userdata('std_id'));
+        $class_routine = $this->Class_routine_model->get_many_by(
+                array("DepartmentID"=>$student->std_degree, 
+                "BranchID"=>$student->course_id, 
+                "BatchID"=>$student->std_batch, 
+                "SemesterID"=>$student->semester_id, 
+                "ClassID"=>$student->class_id));
+        echo json_encode($class_routine);
+    }
+
+/**
+     * Get student by department, branch, batch and semester
+     * @param string $department
+     * @param string $branch
+     * @param string $batch
+     * @param string $semester
+     */
+    function student_list($department, $branch, $batch, $semester) {
+        $students = $this->Student_model->get_many_by(array(
+            'std_degree' => $department,
+            'course_id' => $branch,
+            'std_batch' => $batch,
+            'semester_id' => $semester
+        ));
+        
+        echo json_encode($students);
+    }   
+
 
 }

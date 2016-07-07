@@ -128,7 +128,7 @@ class Project extends MY_Controller {
             $data['class_id'] = $this->input->post('class');
             $data['pm_desc'] = $this->input->post('description');
             $data['pm_dos'] = $this->input->post('dateofsubmission');
-            $data['pm_status'] = 1;
+            $data['pm_status'] = $this->input->post('status');
             // $data['pm_student_id'] = $this->input->post('student');
             $stud = implode(',', $this->input->post('student'));
             $data['pm_student_id'] = $stud;
@@ -265,7 +265,7 @@ class Project extends MY_Controller {
             $data['class_id'] = $this->input->post('class2');
             $data['pm_desc'] = $this->input->post('description');
             $data['pm_dos'] = $this->input->post('dateofsubmission1');
-            $data['pm_status'] = 1;
+            $data['pm_status'] = $this->input->post('status');
             $stud = implode(',', $this->input->post('student'));
             $data['pm_student_id'] = $stud;
             $data['pm_course'] = $this->input->post('course');

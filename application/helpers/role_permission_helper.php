@@ -97,5 +97,19 @@ if (!function_exists('delete_permission')) {
 
         return FALSE;
     }
+	
+    function check_role_approval()
+    {
+         $CI = & get_instance();
+       $roledata=array('Admin','Staff');
+        if(!in_array($CI->session->userdata('role_name'),$roledata))
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
 
 }

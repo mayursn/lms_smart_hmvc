@@ -10,11 +10,14 @@ $delete = delete_permission($permission, 'Subject');
     <div class=col-lg-12>
         <!-- col-lg-12 start here -->
         <div class="panel-default toggle panelMove panelClose panelRefresh">
-            <div class=panel-body>
+            <div class="panel-default toggle">
                  <?php if ($create) { ?>
                 <a class="links" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/subject_create/');" href="#" id="navfixed" data-toggle="tab"><i class="fa fa-plus"></i> Subject</a>
                  <?php } ?>
-                
+                 <div class=panel-heading>
+                    <h4 class=panel-title>Assigned Subject List</h4>
+                </div>
+                 <div class="panel-body">
                  <?php if ($create || $read || $update || $delete) { ?>
                 <table id="datatable-list" class="table table-striped table-bordered table-responsive" cellspacing=0 width=100%>
                     <thead>
@@ -22,6 +25,7 @@ $delete = delete_permission($permission, 'Subject');
                             <th>No</th>											
                             <th>Subject Name</th>											
                             <th>Subject Code</th>											
+                            <th>Department</th>											
                             <th>Branch</th>											
                             <th>Semester</th>	
                              <?php 
@@ -39,25 +43,9 @@ $delete = delete_permission($permission, 'Subject');
                                 <td></td>	
                                 <td><?php echo $row->subject_name; ?></td>												
                                 <td><?php echo $row->subject_code; ?></td>
-                                <td>
-                                    <?php
-                                    foreach ($course as $crs) {
-                                        if ($crs->course_id == $row->course_id) {
-                                            echo $crs->c_name;
-                                        }
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    foreach ($semester as $sem) {
-                                        if ($sem->s_id == $row->sem_id) {
-                                            echo $sem->s_name;
-                                        }
-                                    }
-                                    ?>
-
-                                </td>
+                                <td><?php echo $row->d_name; ?> </td>
+                                <td><?php echo $row->c_name; ?> </td>
+                                <td><?php echo $row->s_name; ?> </td>
                                   <?php 
                                 if($update || $delete) { ?>
                                 <td>
@@ -78,6 +66,7 @@ $delete = delete_permission($permission, 'Subject');
                     </tbody>
                 </table>
                 <?php } ?>
+                </div>
             </div>
         </div>
         <!-- End .panel -->

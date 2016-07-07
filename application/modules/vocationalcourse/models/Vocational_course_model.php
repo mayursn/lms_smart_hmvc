@@ -7,7 +7,7 @@ class Vocational_course_model extends MY_Model {
     protected $primary_key = 'vocational_course_id';
     
     public $before_create = array('timestamps');
-    
+    public $before_update = array('update_timestamps');
     public $before_get = array('professor_vocational_course');
 
 
@@ -17,8 +17,24 @@ class Vocational_course_model extends MY_Model {
      * @return array
      */
     protected function timestamps($vocationalcourse) {
+        if(check_role_approval())
+        {
+            $vocationalcourse['status'] = 0;
+        }
         $vocationalcourse['created_date	'] = date('Y-m-d H:i:s');
         
+        return $vocationalcourse;
+    }
+
+     protected function update_timestamps($vocationalcourse)
+    {
+        if(check_role_approval())
+        {
+            $vocationalcourse['status'] = 0;
+        }
+        
+        $vocationalcourse['updated_date'] = date('Y-m-d H:i:s');
+       
         return $vocationalcourse;
     }
     function professor_vocational_course()

@@ -1,10 +1,10 @@
 <!-- Start .row -->
 <!-- Start .row -->
 <?php
-$create = create_permission($permission, 'UniversityToppers');
-$read = read_permission($permission, 'UniversityToppers');
-$update = update_permisssion($permission, 'UniversityToppers');
-$delete = delete_permission($permission, 'UniversityToppers');
+$create = create_permission($permission, 'University_Toppers');
+$read = read_permission($permission, 'University_Toppers');
+$update = update_permisssion($permission, 'University_Toppers');
+$delete = delete_permission($permission, 'University_Toppers');
 ?>
 <div class=row>                      
 

@@ -7,6 +7,8 @@ class Study_resources_model extends MY_Model {
     protected $primary_key = 'study_id';
     
     public $before_create = array('timestamps');
+    public $before_update = array('update_timestamps');
+
     
     /**
      * Set timestamp field
@@ -14,7 +16,22 @@ class Study_resources_model extends MY_Model {
      * @return array
      */
     protected function timestamps($studyresource) {
-        $studyresource['created_date'] = date('Y-m-d H:i:s');        
+         if(check_role_approval())
+        {
+            $studyresource['study_status'] = 0;
+        }
+        
+        $studyresource['created_date'] = $studyresource['updated_date'] = date('Y-m-d H:i:s');        
+        return $studyresource;
+    }
+     protected function update_timestamps($studyresource)
+    {
+        if(check_role_approval())
+        {
+            $studyresource['study_status'] = 0;
+        }
+        
+        $studyresource['updated_date'] = date('Y-m-d H:i:s');
         return $studyresource;
     }
 }

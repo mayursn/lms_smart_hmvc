@@ -1,10 +1,11 @@
 <?php
-$professor = $this->db->get_where('professor', ['professor_id' => $param2])->row();
+    $this->db->select();
+    $this->db->where('professor_id',$param2);
+    $this->db->from('professor p');
+    $this->db->join('user u','u.user_id=p.user_id');
+    $professor=$this->db->get()->row();
+//$professor = $this->db->get_where('professor', ['professor_id' => $param2])->row();
 $degree_list = $this->db->get('degree')->result();
-$subjects = $this->db->get_where('subject_manager', [
-            'sm_status' => 1
-        ])->result();
-$assigned_subjects = explode(',', $professor->subjects);
 ?>
 
 <div class=col-lg-12>
@@ -12,12 +13,13 @@ $assigned_subjects = explode(',', $professor->subjects);
     <div class="panel-default toggle panelMove panelClose panelRefresh">
         <div class=panel-body>
             <?php echo form_open(base_url() . 'professor/update/' . $professor->professor_id, array('class' => 'form-horizontal form-groups-bordered validate', 'role' => 'form', 'id' => 'professor-form', 'enctype' => 'multipart/form-data', 'target' => '_top')); ?>
+            <input type="hidden" name="txtuserid" id="txtuserid" value="<?php echo $professor->user_id;?>">
                 <div class="padded">
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?php echo ucwords("professor name"); ?><span style="color:red">*</span></label>
                         <div class="col-sm-8">
                             <input id="professor-name" class="form-control" type="text" name="professor_name" required=""
-                                   value="<?php echo $professor->name; ?>"/>
+                                   value="<?php echo $professor->first_name; ?>"/>
                         </div>	
                     </div>
                     <div class="form-group">
@@ -30,8 +32,8 @@ $assigned_subjects = explode(',', $professor->subjects);
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?php echo ucwords("password"); ?><span style="color:red">*</span></label>
                         <div class="col-sm-8">
-                            <input id="password" class="form-control" type="password" name="password" required=""
-                                   value="<?php echo $professor->real_pass; ?>"/>
+                            <input id="password" class="form-control" type="password" name="password" readonly
+                                   value="12345"/>
                         </div>	
                     </div>
                     <div class="form-group">
@@ -102,23 +104,14 @@ $assigned_subjects = explode(',', $professor->subjects);
                             </select>
                         </div>	
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label"><?php echo ucwords("Subject"); ?><span style="color:red">*</span></label>
-                        <div class="col-sm-8">
-                            <select required="" id="subjects" name="subjects[]" class="form-control" multiple="">
-                                <?php foreach ($subjects as $subject) { ?>
-                                    <option value="<?php echo $subject->sm_id; ?>"
-                                            <?php if (in_array($subject->sm_id, $assigned_subjects)) echo 'selected'; ?>><?php echo $subject->subject_name; ?></option>
-                                        <?php } ?>
-                            </select>
-                        </div>	
-                    </div>
+                    
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?php echo ucwords("photo"); ?></label>
                         <div class="col-sm-8">
+                            <input type="hidden"name="txtoldfile" id="txtoldfile" value="<?php echo $professor->profile_pic; ?>" />
                             <input id="photo" class="coverimage2" type="file" name="userfile" accept="image/*"/>
                         </div>	
-                        <div id="image_container1" class="col-lg-2 col-md-2 col-sm-6 col-xs-12"><img class='img-thumbnail' src='<?php echo base_url('uploads/professor/' . $professor->image_path) ?>' ></div>
+                        <div id="image_container1" class="col-lg-2 col-md-2 col-sm-6 col-xs-12"><img class='img-thumbnail' src='<?php echo base_url('uploads/system_image/' . $professor->profile_pic) ?>' ></div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?php echo ucwords("about"); ?></label>
@@ -151,11 +144,14 @@ $assigned_subjects = explode(',', $professor->subjects);
                 email: {
                     required: true,
                     remote: {
-                        url: "<?php echo base_url() . 'user/check_user_email/' . $param2; ?>",
+                        url: "<?php echo base_url() . 'user/check_user_email/edit' ?>",
                         type: "post",
                         data: {
-                            course: function () {
-                                return $("#d_name").val();
+                             email: function () {
+                                return $("#email_id").val();
+                            },
+                            userid: function () {
+                                return $("#txtuserid").val();
                             },
                         }
                     }

@@ -12,7 +12,7 @@ class Modal extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Crud_model');
-        $this->load->model('Professor_model');
+        $this->load->model('Professor_model');	
     }
 
     /**
@@ -26,7 +26,7 @@ class Modal extends MY_Controller {
         $page_name = '';
 
         $filter = array(
-            'user', 'media','subject'
+            'user', 'media','subject','cms'
         );
 
         if (in_array($module_page[0], $filter)) {

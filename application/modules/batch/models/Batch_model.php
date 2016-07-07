@@ -29,9 +29,5 @@ class Batch_model extends MY_Model {
         
         return $batch;
     }
-    
-    
-    
-    
 
 }

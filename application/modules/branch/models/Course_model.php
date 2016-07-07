@@ -8,17 +8,33 @@ class Course_model extends MY_Model {
     public $belongs_to = array('degree/degree');
     public $before_create = array('timestamps');
     public $before_get = array('course_filter');
+    public $before_update = array('update_timestamps');
 
     /**
      * Set the timestamp
      * @param array $branch
      */
-    protected function timestamps($branch) {
-        $branch['created_date'] = date('Y-m-d H:i:s');
+    protected function timestamps($branch) {  
+        if(check_role_approval())
+        {
+            $branch['course_status'] = 0;
+        }
+        
+        $branch['created_date'] =  $branch['updated_date'] = date('Y-m-d H:i:s');
 
         return $branch;
     }
 
+     protected function update_timestamps($branch)
+    {
+        if(check_role_approval())
+        {
+            $branch['course_status'] = 0;
+        }
+        
+        $branch['updated_date'] = date('Y-m-d H:i:s');
+        return $branch;
+    }
     function course_filter()
     {
         if($this->session->userdata('professor_id'))
@@ -27,6 +43,9 @@ class Course_model extends MY_Model {
             $this->db->where("degree_id",$dept);
         }
     }
+
+
+
     /**
      * Branch with degree
      * @return array

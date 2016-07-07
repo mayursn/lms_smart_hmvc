@@ -34,9 +34,9 @@ $delete = delete_permission($permission, 'Department');
                                     <td><?php echo $row->d_name; ?></td>
                                     <td>
                                         <?php if ($row->d_status == '1') { ?>
-                                            <span>Active</span>
+                                            <span class="label label-primary mr6 mb6" >Active</span>
                                         <?php } else { ?>	
-                                            <span>Inactive</span>
+                                            <span class="label label-danger mr6 mb6" >InActive</span>
                                         <?php } ?>
                                     </td>
                                     <?php if ($update || $delete) { ?>

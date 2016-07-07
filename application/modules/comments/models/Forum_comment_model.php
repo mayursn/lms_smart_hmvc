@@ -7,6 +7,7 @@ class Forum_comment_model extends MY_Model {
     protected $primary_key = 'forum_comment_id';
     
     public $before_create = array('timestamps');
+    public $before_update = array('update_timestamps');
     
     /**
      * Set timestamp field
@@ -14,8 +15,23 @@ class Forum_comment_model extends MY_Model {
      * @return array
      */
     protected function timestamps($forumcomment) {
-        $forumcomment['created_date'] = date('Y-m-d H:i:s');
+          if(check_role_approval())
+        {
+            $forumcomment['foram_comment_status'] = 0;
+        }
         
+        $forumcomment['created_date'] =  $forumcomment['updated_date'] = date('Y-m-d H:i:s');
+        
+        return $forumcomment;
+    }
+     protected function update_timestamps($forumcomment)
+    {
+        if(check_role_approval())
+        {
+            $forumcomment['foram_comment_status'] = 0;
+        }
+        
+        $forumcomment['updated_date'] = date('Y-m-d H:i:s');
         return $forumcomment;
     }
 }

@@ -19,7 +19,13 @@ class Template extends MY_Controller {
      * @param mixed $data
      */
     function render($page_name='', $data = array()) {
-        $this->load->view('header', $data);
+        if($this->session->userdata('std_id'))
+        {
+            $this->load->view('std_header', $data);
+        }
+        else{
+            $this->load->view('header', $data);
+        }
         $this->load->view($page_name);
         $this->load->view('footer');
     }

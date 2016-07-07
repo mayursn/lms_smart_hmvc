@@ -38,9 +38,9 @@ $delete = delete_permission($permission, 'Forum');
                                 <td><?php echo $row->forum_title; ?></td>                                                                                                                               
                                 <td>
                                     <?php if ($row->forum_status == '1') { ?>
-                                        <span>Active</span>
+                                        <span class="label label-primary mr6 mb6" >Active</span>
                                     <?php } else { ?>	
-                                        <span>InActive</span>
+                                        <span class="label label-danger mr6 mb6" >InActive</span>
                                     <?php } ?>
                                 </td>
                                 <td class="menu-action">

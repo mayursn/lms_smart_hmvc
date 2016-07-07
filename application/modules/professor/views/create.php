@@ -1,9 +1,6 @@
 <?php
 $this->load->model('department/Degree_model');
 $department = $this->Degree_model->order_by_column('d_name');
-$subjects = $this->db->get_where('subject_manager', [
-            'sm_status' => 1
-        ])->result();
 ?>
 <div class="row">
     <div class=col-lg-12>
@@ -90,14 +87,7 @@ $subjects = $this->db->get_where('subject_manager', [
                         </select>
                     </div>	
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label"><?php echo ucwords("Subject"); ?><span style="color:red">*</span></label>
-                    <div class="col-sm-8">
-                        <select required="" id="subjects" name="subjects[]" class="form-control" multiple="">
-
-                        </select>
-                    </div>	
-                </div>
+               
                 <div class="form-group">
                     <label class="col-sm-4 control-label"><?php echo ucwords("photo"); ?></label>
                     <div class="col-sm-8">
@@ -144,8 +134,8 @@ $subjects = $this->db->get_where('subject_manager', [
                                 url: "<?php echo base_url() . 'user/check_user_email'; ?>",
                                 type: "post",
                                 data: {
-                                    course: function () {
-                                        return $("#d_name").val();
+                                    email: function () {
+                                        return $("#email").val();
                                     },
                                 }
                             }
@@ -216,21 +206,21 @@ $subjects = $this->db->get_where('subject_manager', [
                 }
             });
         });
-
-        $('#branch').on('change', function () {
-            $('#subjects').find('option').remove().end();
-            var branch_id = $(this).val();
-            $.ajax({
-                url: '<?php echo base_url(); ?>subject/branch_subject/' + branch_id,
-                type: 'get',
-                success: function (content) {
-                    var branch = jQuery.parseJSON(content);
-                    $.each(branch, function (key, value) {
-                        $('#subjects').append('<option value=' + value.sm_id + '>' + value.subject_name + '</option>');
-                    });
-                }
-            });
-        });
+//
+//        $('#branch').on('change', function () {
+//            $('#subjects').find('option').remove().end();
+//            var branch_id = $(this).val();
+//            $.ajax({
+//                url: '<?php echo base_url(); ?>subject/branch_subject/' + branch_id,
+//                type: 'get',
+//                success: function (content) {
+//                    var branch = jQuery.parseJSON(content);
+//                    $.each(branch, function (key, value) {
+//                        $('#subjects').append('<option value=' + value.sm_id + '>' + value.subject_name + '</option>');
+//                    });
+//                }
+//            });
+//        });
 
     });
 </script>

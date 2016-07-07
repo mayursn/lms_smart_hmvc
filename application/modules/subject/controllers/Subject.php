@@ -28,12 +28,18 @@ class Subject extends MY_Controller {
     
     function subject_detail($id)
     {
+           Modules::run('MY_Controller');
+        $this->load->helper('role_permission_helper');
         $this->load->model('user/User_model');
 
         $this->data['title'] = 'Subject Detail';
         $this->data['page'] = 'subject detail';
         $this->data['param'] = $id;           
         $this->data['subjectdetail']= $this->Subject_manager_model->subjectdetail($id);
+
+	$wherearray=array("sm_id" => $id);
+        $this->data['subject']=$this->Subject_manager_model->get_by($wherearray);
+
         $this->data['user']=$this->User_model->get_all();
         $this->__template('subject/subjectdetail/index', $this->data);
     }
@@ -42,7 +48,7 @@ class Subject extends MY_Controller {
             
             $data['subject_name'] = $this->input->post('subname');
             $data['subject_code'] = $this->input->post('subcode');
-            $data['sm_status'] = 1;
+            $data['sm_status'] = $this->input->post('status');
             $this->Subject_manager_model->insert($data);
             $this->flash_notification('Subject is successfully added.');
         }
@@ -172,10 +178,13 @@ class Subject extends MY_Controller {
         $this->load->model('branch/Course_model');
         $this->load->model('semester/Semester_model');
         
-        $this->db->select('sa.*,sm.*');
+        $this->db->select('sa.*,sm.*,d.d_name,c.c_name,s.s_name');
         $this->db->where("FIND_IN_SET('".$this->session->userdata('user_id')."',sa.professor_id) !=",0);
         $this->db->from('subject_association sa');
         $this->db->join('subject_manager sm','sm.sm_id=sa.sm_id');
+        $this->db->join('degree d','d.d_id=sa.degree_id');
+        $this->db->join('course c','c.course_id=sa.course_id');
+        $this->db->join('semester s','s.s_id=sa.sem_id');
         $this->data['subject']= $this->db->get()->result();
         
         $this->data['course'] = $this->Course_model->get_all();

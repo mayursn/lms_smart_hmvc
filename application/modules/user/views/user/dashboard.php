@@ -723,6 +723,16 @@ foreach ($students as $student) {
                 <div id="eventCalendarHumanDate"></div>
             </div>
         </div>
+<div class="row" id="divevent">
+             <div class=panel-heading>
+                <h4 class=panel-title>Today's Event List</h4>
+             </div>
+            <div class="col-lg-12 col-md-12 col-xs-12" >
+                <div class="panel-body" id="todayevent">
+                    
+                </div>
+            </div>
+        </div>
         <!-- End .panel -->
         <!-- start todo & time line -->
         <!-- To do list Start div-->
@@ -926,6 +936,33 @@ foreach ($students as $student) {
 <!-- End #content -->
 
 
+<script>
+$(document).ready(function(){
+        $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() . 'user/get_today_event'; ?>",
+                dataType:'json',
+                success: function (response) {
+                    if(response.length==0)
+                    {
+                        $("#divevent").remove();
+                    }
+                    else
+                    {
+                       var str='';
+                        for(var i=0;i<response.length;i++)
+                        {
+                               str +="<i class='fa fa-hand-o-right'></i><a href='#'>"+response[i].event_name+"</a>  ";
+                        }  
+                            // str= str.slice(0, -2);
+                        var str1="<marquee>"+str+"</marquee>";
+                        $("#todayevent").html(str1);
+                    }
+                    
+                }
+            });
+});
+</script>
 <!-- Event Calendar Start JS-->
 <script>
     $(document).ready(function () {

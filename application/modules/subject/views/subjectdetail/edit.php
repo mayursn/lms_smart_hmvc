@@ -75,7 +75,7 @@ foreach ($edit_data as $row):
                                     <?php foreach ($professor as $prof) :
                                         $proid=explode(',',$row['professor_id']);
                                         ?>
-                                        <option value="<?php echo $prof['professor_id'];?>" <?php if(in_array($prof['professor_id'],$proid)) { echo "selected"; } ?>><?php echo $prof['name']; ?></option>
+                                         <option value="<?php echo $prof['user_id'];?>" <?php if(in_array($prof['user_id'],$proid)) { echo "selected"; } ?>><?php echo $prof['name']; ?></option>
                                     <?php endforeach; ?>
 
                                 </select>

@@ -7,6 +7,7 @@ class Subject_manager_model extends MY_Model {
     protected $primary_key = 'sm_id';
     
     public $before_create = array('timestamps');
+    public $before_update = array('update_timestamps');
     
     /**
      * Set timestamp field
@@ -14,8 +15,23 @@ class Subject_manager_model extends MY_Model {
      * @return array
      */
     protected function timestamps($subject) {
-        $subject['created_date'] = date('Y-m-d H:i:s');
+	  if(check_role_approval())
+        {
+            $subject['sm_status'] = 0;
+        }
+        $subject['created_date'] = $subject['updated_date'] = date('Y-m-d H:i:s');
         
+        return $subject;
+    }
+
+  protected function update_timestamps($subject)
+    {
+        if(check_role_approval())
+        {
+            $subject['sm_status'] = 0;
+        }
+        
+        $subject['updated_date'] = date('Y-m-d H:i:s');
         return $subject;
     }
     
@@ -23,6 +39,7 @@ class Subject_manager_model extends MY_Model {
     {
          $this->db->select('sa.*,d.d_name,c.c_name,s.s_name,sm.subject_name,sm.subject_code');
              $this->db->where('sa.sm_id', $id);
+             $this->db->order_by('d_name');
              $this->db->from('subject_association sa');
              $this->db->join('degree d','d.d_id=sa.degree_id');
              $this->db->join('course c','c.course_id=sa.course_id');
@@ -53,8 +70,7 @@ class Subject_manager_model extends MY_Model {
         $this->db->from('subject_association sa');
         $this->db->join('subject_manager s','s.sm_id=sa.sm_id');
         return $this->db->get()->result();
-    }
-    
+    }    
     function get_subject_name($id)
     {
         $this->db->where('sm_id',$id);

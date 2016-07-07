@@ -83,58 +83,59 @@
                         <li class="dropdown">
                             <a href=# class="dropdown-toggle" data-toggle=dropdown>
                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                <?php  if($this->session->userdata('notifications')['total_notification'] > 0){ ?>   <span class="notification"><?php echo $this->session->userdata('notifications')['total_notification']; ?></span><?php } ?>
+                                <?php if ($this->session->userdata('notifications')['total_notification'] > 0) { ?>   <span class="notification"><?php echo $this->session->userdata('notifications')['total_notification']; ?></span><?php } ?>
                             </a>
                             <ul class="dropdown-menu right">
                                 <li class=menu>
-                                     <ul class=notif>
-                                            <li class=header><strong>Notifications</strong> (<?php echo $this->session->userdata('notifications')['total_notification']; ?>) items</li>
-                                            <?php if (isset($this->session->userdata('notifications')['fees_structure'])) { ?>
-                                                <li><a href="<?php echo base_url('student/student_fees'); ?>"><span class=icon>
-                                                            <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                                        </span> <span class=event> New fee structure was added.</span></a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (isset($this->session->userdata('notifications')['exam_manager']) || isset($this->session->userdata('notifications')['exam_time_table'])) { ?>
-                                                <li><a href="<?php echo base_url('student/exam_listing'); ?>"><span class=icon><i class="s16 fa fa-commenting"></i></span> <span class=event>New Exam or Exam schedule was added.</span></a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (isset($this->session->userdata('notifications')['assignment_manager'])) { ?>
-                                                <li><a href="<?php echo base_url('assignment/submission'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Assignment was added.</span></a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (isset($this->session->userdata('notifications')['project_manager'])) { ?>
-                                                <li><a href="<?php echo base_url('project/submission'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Project was added.</span></a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (isset($this->session->userdata('notifications')['marks_manager'])) { ?>
-                                                <li><a href="<?php echo base_url('student/exam_marks'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>Exam marks was added.</span></a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (isset($this->session->userdata('notifications')['participate_manager'])) { ?>
-                                                <li><a href="<?php echo base_url('participate/volunteer'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Participate was added.</span></a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (isset($this->session->userdata('notifications')['study_resources'])) { ?>
-                                                <li><a href="<?php echo base_url('student/studyresources'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Study Resources was added.</span></a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (isset($this->session->userdata('notifications')['library_manager'])) { ?>
-                                                <li><a href="<?php echo base_url('student/digitallibrary'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Digital Library was added.</span></a>
-                                                </li>
-                                            <?php } ?>
-                               
-                                        </ul>
+                                    <ul class=notif>
+                                        <li class=header><strong>Notifications</strong> (<?php echo $this->session->userdata('notifications')['total_notification']; ?>) items</li>
+                                        <?php if (isset($this->session->userdata('notifications')['fees_structure'])) { ?>
+                                            <li><a href="<?php echo base_url('student/student_fees'); ?>"><span class=icon>
+                                                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                                    </span> <span class=event> New fee structure was added.</span></a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (isset($this->session->userdata('notifications')['exam_manager']) || isset($this->session->userdata('notifications')['exam_time_table'])) { ?>
+                                            <li><a href="<?php echo base_url('student/exam_listing'); ?>"><span class=icon><i class="s16 fa fa-commenting"></i></span> <span class=event>New Exam or Exam schedule was added.</span></a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (isset($this->session->userdata('notifications')['assignment_manager'])) { ?>
+                                            <li><a href="<?php echo base_url('assignment/submission'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Assignment was added.</span></a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (isset($this->session->userdata('notifications')['project_manager'])) { ?>
+                                            <li><a href="<?php echo base_url('project/submission'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Project was added.</span></a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (isset($this->session->userdata('notifications')['marks_manager'])) { ?>
+                                            <li><a href="<?php echo base_url('student/exam_marks'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>Exam marks was added.</span></a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (isset($this->session->userdata('notifications')['participate_manager'])) { ?>
+                                            <li><a href="<?php echo base_url('participate/volunteer'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Participate was added.</span></a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (isset($this->session->userdata('notifications')['study_resources'])) { ?>
+                                            <li><a href="<?php echo base_url('student/studyresources'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Study Resources was added.</span></a>
+                                            </li>
+                                        <?php } ?>
+                                        <?php if (isset($this->session->userdata('notifications')['library_manager'])) { ?>
+                                            <li><a href="<?php echo base_url('student/digitallibrary'); ?>"><span class=icon><i class="s16 fa fa-newspaper-o"></i></span> <span class=event>New Digital Library was added.</span></a>
+                                            </li>
+                                        <?php } ?>
+
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
                         <li class=dropdown>
-                            <?php $this->load->model('user/User_model');
+                            <?php
+                            $this->load->model('user/User_model');
                             $user_id = $this->session->userdata('user_id');
                             $user = $this->User_model->get($user_id);
                             ?>
-                            <a href=# class="dropdown-toggle avatar" data-toggle=dropdown><img src=<?php echo base_url().'system_image/'.$user->profile_pic; ?> alt="" class="image"> 
-                                <span class=txt><?php echo $user->first_name.' '.$user->last_name; ?></span> <b class=caret></b>
+                            <a href=# class="dropdown-toggle avatar" data-toggle=dropdown><img src=<?php echo base_url() . 'system_image/' . $user->profile_pic; ?> alt="" class="image"> 
+                                <span class=txt><?php echo $user->first_name . ' ' . $user->last_name; ?></span> <b class=caret></b>
                             </a>
                             <ul class="dropdown-menu right">
                                 <li class=menu>
@@ -215,6 +216,22 @@
                                     ];
                                     ?>                                    
 
+   <?php if (check_permission($permission, 'Department')
+           || check_permission($permission, 'Branch')
+           || check_permission($permission, 'Batch')
+           || check_permission($permission, 'Semester')
+           || check_permission($permission, 'Class')
+           || check_permission($permission, 'Admission_Type')
+           || check_permission($permission, 'Student')
+           || check_permission($permission, 'Subject')
+           || check_permission($permission, 'Syllabus')
+           || check_permission($permission, 'Holiday')
+           || check_permission($permission, 'Chancellor')
+           || check_permission($permission, 'Course_Category')
+           || check_permission($permission, 'Vocational_Course')
+           || check_permission($permission, 'Assessment')
+           || check_permission($permission, 'Academic_Year')
+           ) { ?>                                    
                                     <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
                                         <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-chain"></i>
                                             <span class="txt">Basic Management</span></a>
@@ -237,13 +254,14 @@
                                                     </a>
                                                 </li>
                                             <?php } ?>                                            
-
+<?php if (check_permission($permission, 'Batch')) { ?>
                                             <li class="hide">
                                                 <a id="link-batch" href="<?php echo base_url(); ?>batch">
                                                     <i class="s16 fa fa-share-alt"></i>
                                                     <span class="txt">Batch</span>
                                                 </a>
                                             </li>
+<?php } ?>
 
                                             <?php if (check_permission($permission, 'Semester')) { ?>
                                                 <li>
@@ -253,84 +271,98 @@
                                                     </a>
                                                 </li>
                                             <?php } ?>
+                                            <?php if (check_permission($permission, 'Class')) { ?>
+                                                <li>
+                                                    <a id="link-class" href="<?php echo base_url(); ?>classes">
+                                                        <i class="s16 icomoon-icon-unlocked"></i>
+                                                        <span class="txt">Class</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Admission_Type')) { ?>
+                                                <li>
+                                                    <a id="link-admission_type" href="<?php echo base_url(); ?>admission_type">
+                                                        <i class="s16 fa fa-key"></i>
+                                                        <span class="txt">Admission Type</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Student')) { ?>
+                                                <li>
+                                                    <a id="link-student" href="<?php echo base_url(); ?>student">
+                                                        <i class="s16 icomoon-icon-user-plus-2"></i>
+                                                        <span class="txt">Student</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Subject')) { ?>
+                                                <li>
+                                                    <a id="link-subject" href="<?php echo base_url(); ?>subject">
+                                                        <i class="s16 fa fa-book"></i>
+                                                        <span class="txt">Subject</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Syllabus')) { ?>
+                                                <li>
+                                                    <a id="link-syllabus" href="<?php echo base_url(); ?>syllabus">
+                                                        <i class="s16 icomoon-icon-file-2"></i>
+                                                        <span class="txt">Syllabus</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Holiday')) { ?>
+                                                <li>
+                                                    <a id="link-holiday" href="<?php echo base_url(); ?>holiday">
+                                                        <i class="s16 icomoon-icon-file"></i>
+                                                        <span class="txt">Holiday</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Chancellor')) { ?>
+                                                <li>
+                                                    <a id="link-chancellor" href="<?php echo base_url(); ?>chancellor">
+                                                        <i class="s16 fa fa-user"></i>
+                                                        <span class="txt">Chancellor</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Course_Category')) { ?>
+                                                <li>
+                                                    <a id="link-course_category" href="<?php echo base_url(); ?>category">
+                                                        <i class="s16 fa fa-globe"></i>
+                                                        <span class="txt"> Course Category</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Vocational_Course')) { ?>
+                                                <li>
+                                                    <a id="link-vocational_course" href="<?php echo base_url(); ?>vocationalcourse">
+                                                        <i class="s16 fa fa-life-ring"></i>
+                                                        <span class="txt">Vocational Course</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Assessment')) { ?>
 
-                                            <li>
-                                                <a id="link-class" href="<?php echo base_url(); ?>classes">
-                                                    <i class="s16 icomoon-icon-unlocked"></i>
-                                                    <span class="txt">Class</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-admission_type" href="<?php echo base_url(); ?>admission_type">
-                                                    <i class="s16 fa fa-key"></i>
-                                                    <span class="txt">Admission Type</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-student" href="<?php echo base_url(); ?>student">
-                                                    <i class="s16 icomoon-icon-user-plus-2"></i>
-                                                    <span class="txt">Student</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-subject" href="<?php echo base_url(); ?>subject">
-                                                    <i class="s16 fa fa-book"></i>
-                                                    <span class="txt">Subject</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-syllabus" href="<?php echo base_url(); ?>syllabus">
-                                                    <i class="s16 icomoon-icon-file-2"></i>
-                                                    <span class="txt">Syllabus</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-holiday" href="<?php echo base_url(); ?>holiday">
-                                                    <i class="s16 icomoon-icon-file"></i>
-                                                    <span class="txt">Holiday</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-chancellor" href="<?php echo base_url(); ?>chancellor">
-                                                    <i class="s16 fa fa-user"></i>
-                                                    <span class="txt">Chancellor</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-course_category" href="<?php echo base_url(); ?>category">
-                                                    <i class="s16 fa fa-globe"></i>
-                                                    <span class="txt"> Course Category</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-vocational_course" href="<?php echo base_url(); ?>vocationalcourse">
-                                                    <i class="s16 fa fa-life-ring"></i>
-                                                    <span class="txt">Vocational Course</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a id="link-assessments" href="<?php echo base_url(); ?>assessments">
-                                                    <i class="s16 icomoon-icon-file"></i>
-                                                    <span class="txt">Assessment</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-assessments" href="<?php echo base_url(); ?>academic_year">
-                                                    <i class="s16 icomoon-icon-file"></i>
-                                                    <span class="txt">Academic Year</span>
-                                                </a>
-                                            </li>
-                                            
-                                            <!--<li>
-                                                <a id="link-timeline" href="<?php echo base_url(); ?>admin/time_line">
-                                                    <i class="s16 icomoon-icon-file"></i>
-                                                    <span class="txt">Time Line</span>
-                                                </a>
-                                            </li>-->                                               
+                                                <li>
+                                                    <a id="link-assessments" href="<?php echo base_url(); ?>assessments">
+                                                        <i class="s16 icomoon-icon-file"></i>
+                                                        <span class="txt">Assessment</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Academic_Year')) { ?>
+                                                <li>
+                                                    <a id="link-assessments" href="<?php echo base_url(); ?>academic_year">
+                                                        <i class="s16 icomoon-icon-file"></i>
+                                                        <span class="txt">Academic Year</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>                                                                                          
                                         </ul>
                                     </li>
-
+           <?php } ?>
                                     <?php
                                     $pages = [
                                         'event', 'assignment', 'studyresource', 'project', 'library', 'courseware', 'subscriber',
@@ -342,78 +374,96 @@
                                         <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-try"></i>
                                             <span class="txt">Assets Management</span></a>
                                         <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                             <?php if (check_permission($permission, 'Event')) { ?>
-                                            <li>
-                                                <a id="link-event" href="<?php echo base_url(); ?>event">
-                                                    <i class="s16 fa fa-calendar"></i>
-                                                    <span class="txt">Events</span>
-                                                </a>
-                                            </li> 
-                                             <?php } ?>
-                                               <?php if (check_permission($permission, 'Assignment')) { ?>
-                                            <li>
-                                                <a id="link-assignment" href="<?php echo base_url(); ?>assignment">
-                                                    <i class="s16 icomoon-icon-file-2"></i>
-                                                    <span class="txt">Assignments</span>
-                                                </a>
-                                            </li> 
-                                               <?php } ?>
-                                            <li>
-                                                <a id="link-studyresource" href="<?php echo base_url(); ?>studyresource">
-                                                    <i class="s16 icomoon-icon-attachment"></i>
-                                                    <span class="txt">Study Resources</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-project" href="<?php echo base_url(); ?>project">
-                                                    <i class="s16 icomoon-icon-unlocked"></i>
-                                                    <span class="txt">Project/Synopsis</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-library" href="<?php echo base_url(); ?>digital">
-                                                    <i class="s16 icomoon-icon-file-2"></i>
-                                                    <span class="txt">Digital Library</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-participate" href="<?php echo base_url(); ?>participate">
-                                                    <i class="s16 icomoon-icon-user-plus-2"></i>
-                                                    <span class="txt">Participate</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-courseware" href="<?php echo base_url(); ?>courseware">
-                                                    <i class="s16 icomoon-icon-attachment"></i>
-                                                    <span class="txt">Courseware</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-subscriber" href="<?php echo base_url(); ?>subscriber">
-                                                    <i class="s16 icomoon-icon-user-plus-2"></i>
-                                                    <span class="txt">Subscriber</span>
-                                                </a>
-                                            </li>
+                                            <?php if (check_permission($permission, 'Event')) { ?>
+                                                <li>
+                                                    <a id="link-event" href="<?php echo base_url(); ?>event">
+                                                        <i class="s16 fa fa-calendar"></i>
+                                                        <span class="txt">Events</span>
+                                                    </a>
+                                                </li> 
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Assignment')) { ?>
+                                                <li>
+                                                    <a id="link-assignment" href="<?php echo base_url(); ?>assignment">
+                                                        <i class="s16 icomoon-icon-file-2"></i>
+                                                        <span class="txt">Assignments</span>
+                                                    </a>
+                                                </li> 
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Study_Resource')) { ?>
+                                                <li>
+                                                    <a id="link-studyresource" href="<?php echo base_url(); ?>studyresource">
+                                                        <i class="s16 icomoon-icon-attachment"></i>
+                                                        <span class="txt">Study Resources</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Project')) { ?>                                            
+                                                <li>
+                                                    <a id="link-project" href="<?php echo base_url(); ?>project">
+                                                        <i class="s16 icomoon-icon-unlocked"></i>
+                                                        <span class="txt">Project/Synopsis</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Library')) { ?>
+                                                <li>
+                                                    <a id="link-library" href="<?php echo base_url(); ?>digital">
+                                                        <i class="s16 icomoon-icon-file-2"></i>
+                                                        <span class="txt">Digital Library</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Participate')) { ?>                                           
+                                                <li>                                                
+                                                    <a id="link-participate" href="<?php echo base_url(); ?>participate">
+                                                        <i class="s16 icomoon-icon-user-plus-2"></i>
+                                                        <span class="txt">Participate</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Courseware')) { ?>                                           
+                                                <li>
+                                                    <a id="link-courseware" href="<?php echo base_url(); ?>courseware">
+                                                        <i class="s16 icomoon-icon-attachment"></i>
+                                                        <span class="txt">Courseware</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (check_permission($permission, 'Subscriber')) { ?>
+                                                <li>
+                                                    <a id="link-subscriber" href="<?php echo base_url(); ?>subscriber">
+                                                        <i class="s16 icomoon-icon-user-plus-2"></i>
+                                                        <span class="txt">Subscriber</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a <?php echo active_single_menu('class_routine', $page); ?> href="<?php echo base_url() . 'class_routine' ?>">
-                                            <i class="s16 fa fa-book"></i>
-                                            <span class=txt>Class Routine </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a <?php echo active_single_menu('attendance', $page); ?> href="<?php echo base_url() . 'attendance' ?>">
-                                            <i class="s16 fa fa-bars"></i>
-                                            <span class=txt>Attendance </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a <?php echo active_single_menu('video_streaming', $page); ?> href="<?php echo base_url(); ?>video_streaming">
-                                            <i class="s16 fa fa-video-camera"></i>
-                                            <span class=txt>Video Streaming </span>
-                                        </a>
-                                    </li>                                    
+                                    <?php if (check_permission($permission, 'Class_Routine')) { ?>
+                                        <li>
+                                            <a <?php echo active_single_menu('class_routine', $page); ?> href="<?php echo base_url() . 'class_routine' ?>">
+                                                <i class="s16 fa fa-book"></i>
+                                                <span class=txt>Class Routine </span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (check_permission($permission, 'Attendance')) { ?>
+                                        <li>
+                                            <a <?php echo active_single_menu('attendance', $page); ?> href="<?php echo base_url() . 'attendance' ?>">
+                                                <i class="s16 fa fa-bars"></i>
+                                                <span class=txt>Attendance </span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (check_permission($permission, 'Video_Streaming')) { ?>
+                                        <li>
+                                            <a <?php echo active_single_menu('video_streaming', $page); ?> href="<?php echo base_url(); ?>video_streaming">
+                                                <i class="s16 fa fa-video-camera"></i>
+                                                <span class=txt>Video Streaming </span>
+                                            </a>
+                                        </li>      
+                                    <?php } ?>
 
                                     <?php
                                     $pages = [
@@ -421,288 +471,350 @@
                                     ];
                                     ?>
 
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-comment"></i>
-                                            <span class="txt">Forum</span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li>
-                                                <a id="link-forum" href="<?php echo base_url(); ?>forum">
-                                                    <i class="s16 icomoon-icon-file-2"></i>
-                                                    <span class="txt">Forum & Discussion</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-forum_topic" href="<?php echo base_url(); ?>forumtopic">
-                                                    <i class="s16 icomoon-icon-file-2"></i>
-                                                    <span class="txt">Forum Topics</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    <?php if (check_permission($permission, 'Forum')) { ?>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-comment"></i>
+                                                <span class="txt">Forum</span></a>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                                <?php if (check_permission($permission, 'Forum')) { ?>
+                                                    <li>
+                                                        <a id="link-forum" href="<?php echo base_url(); ?>forum">
+                                                            <i class="s16 icomoon-icon-file-2"></i>
+                                                            <span class="txt">Forum & Discussion</span>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Forum_Topics')) { ?>                                           
+                                                    <li>
+                                                        <a id="link-forum_topic" href="<?php echo base_url(); ?>forumtopic">
+                                                            <i class="s16 icomoon-icon-file-2"></i>
+                                                            <span class="txt">Forum Topics</span>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+
+                                            </ul>
+                                        </li>
+                                    <?php } ?>
                                     <?php
                                     $pages = [
                                         'photo_gallery', 'banner_slider'
                                     ];
                                     ?>
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-picture-o"></i>
-                                            <span class="txt">Media</span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li>
-                                                <a id="link-photo_gallery" href="<?php echo base_url(); ?>media/photo_gallery">
-                                                    <i class="s16 fa fa-picture-o"></i>
-                                                    <span class="txt">Photo Gallery</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-banner_slider" href="<?php echo base_url(); ?>media/banner_slider">
-                                                    <i class="s16 fa fa-desktop"></i>
-                                                    <span class="txt">Banner Slider</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    <?php if (check_permission($permission, 'Media')) { ?>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-picture-o"></i>
+                                                <span class="txt">Media</span></a>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+
+                                                <li>
+                                                    <a id="link-photo_gallery" href="<?php echo base_url(); ?>media/photo_gallery">
+                                                        <i class="s16 fa fa-picture-o"></i>
+                                                        <span class="txt">Photo Gallery</span>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a id="link-banner_slider" href="<?php echo base_url(); ?>media/banner_slider">
+                                                        <i class="s16 fa fa-desktop"></i>
+                                                        <span class="txt">Banner Slider</span>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+                                    <?php } ?>  
 
                                     <?php
                                     $pages = [
                                         'compose', 'inbox', 'sent', 'reply'
                                     ];
                                     ?>
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-envelope"></i>
-                                            <span class="txt">Email </span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li>
-                                                <a id="link-compose" href="<?php echo base_url(); ?>email_compose">
-                                                    <i class="s16 fa fa-envelope"></i>
-                                                    <span class="txt">Compose EMail</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-inbox" href="<?php echo base_url(); ?>email_inbox">
-                                                    <i class="s16 fa fa-inbox"></i>
-                                                    <span class="txt">Inbox</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-sent" href="<?php echo base_url(); ?>email_sent">
-                                                    <i class="s16 fa fa-send"></i>
-                                                    <span class="txt">Sent Email</span>
-                                                </a>
-                                            </li>
+                                    <?php if (check_permission($permission, 'Email')) { ?>                                           
 
-                                        </ul>
-                                    </li>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-envelope"></i>
+                                                <span class="txt">Email </span></a>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                                <li>
+                                                    <a id="link-compose" href="<?php echo base_url(); ?>email_compose">
+                                                        <i class="s16 fa fa-envelope"></i>
+                                                        <span class="txt">Compose EMail</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a id="link-inbox" href="<?php echo base_url(); ?>email_inbox">
+                                                        <i class="s16 fa fa-inbox"></i>
+                                                        <span class="txt">Inbox</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a id="link-sent" href="<?php echo base_url(); ?>email_sent">
+                                                        <i class="s16 fa fa-send"></i>
+                                                        <span class="txt">Sent Email</span>
+                                                    </a>
+                                                </li>
 
+                                            </ul>
+                                        </li>
+                                    <?php } ?>
                                     <?php
                                     $pages = [
                                         'import', 'export'
                                     ];
                                     ?>
-
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 icomoon-icon-folder"></i>
-                                            <span class="txt">Import & Export </span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li>
-                                                <a id="link-import" href="<?php echo base_url(); ?>import">
-                                                    <i class="s16 fa fa-upload"></i>
-                                                    <span class="txt">Import</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a id="link-export" href="<?php echo base_url(); ?>export">
-                                                    <i class="s16 fa fa-download"></i>
-                                                    <span class="txt">Export</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    <?php if (check_permission($permission, 'Import') || check_permission($permission, 'Export')) { ?>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 icomoon-icon-folder"></i>
+                                                <span class="txt">Import & Export </span></a>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                                <?php if (check_permission($permission, 'Import')) { ?>
+                                                    <li>
+                                                        <a id="link-import" href="<?php echo base_url(); ?>import">
+                                                            <i class="s16 fa fa-upload"></i>
+                                                            <span class="txt">Import</span>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Export')) { ?>
+                                                    <li>
+                                                        <a id="link-export" href="<?php echo base_url(); ?>export">
+                                                            <i class="s16 fa fa-download"></i>
+                                                            <span class="txt">Export</span>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </li>
+                                    <?php } ?> 
 
                                     <?php
                                     $pages = [
                                         'system_setting', 'authorize_config'
                                     ];
                                     ?>
+                                    <?php if (check_permission($permission, 'System_Settings') || check_permission($permission, 'Payment_Configuration')) { ?>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-gears"></i>
+                                                <span class="txt">System Setting</span></a>
 
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-gears"></i>
-                                            <span class="txt">System Setting</span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li>
-                                                <a id="link-system_setting" href="<?php echo base_url(); ?>system_settings">
-                                                    <i class="s16 fa fa-gears"></i>
-                                                    <span class="txt">System Settings</span>
-                                                </a>
-                                            </li> 
-                                            <li>
-                                                <a id="link-authorize_config" href="<?php echo base_url(); ?>payment_gateway_config">
-                                                    <i class="s16 fa fa-globe"></i>
-                                                    <span class="txt">Authorize.net Config</span>
-                                                </a>
-                                            </li>                                                 
-                                        </ul>
-                                    </li>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                                <?php if (check_permission($permission, 'System_Settings')) { ?>
+                                                    <li>
+                                                        <a id="link-system_setting" href="<?php echo base_url(); ?>system_settings">
+                                                            <i class="s16 fa fa-gears"></i>
+                                                            <span class="txt">System Settings</span>
+                                                        </a>
+                                                    </li> 
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Payment_Configuration')) { ?>
+                                                    <li>
+                                                        <a id="link-authorize_config" href="<?php echo base_url(); ?>payment_gateway_config">
+                                                            <i class="s16 fa fa-globe"></i>
+                                                            <span class="txt">Authorize.net Config</span>
+                                                        </a>
+                                                    </li>      
+                                                <?php } ?>
+                                            </ul>
+                                        </li>
+                                    <?php } ?>
 
                                     <?php
                                     $pages = [
                                         'graduate', 'charity'
                                     ];
                                     ?>
-
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-building"></i>
-                                            <span class="txt">University</span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li>
-                                                <a id="link-graduate" href="<?php echo base_url(); ?>graduate">
-                                                    <i class="s16 fa fa-graduation-cap"></i>
-                                                    <span class="txt">Toppers Graduate</span>
-                                                </a>
-                                            </li> 
-                                            <li>
-                                                <a id="link-charity" href="<?php echo base_url(); ?>charity_fund">
-                                                    <i class="s16 fa fa-money"></i>
-                                                    <span class="txt">Charity Fund</span>
-                                                </a>
-                                            </li>                                                 
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a <?php echo active_single_menu('professor', $page); ?> href="<?php echo base_url(); ?>professor">
-                                            <i class="s16 fa fa-user"></i>
-                                            <span class=txt>Staff </span>
-                                        </a>
-                                    </li>
+                                    <?php if (check_permission($permission, 'University_Toppers') || check_permission($permission, 'Charity_Fund')) { ?>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-building"></i>
+                                                <span class="txt">University</span></a>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                                <?php if (check_permission($permission, 'University_Toppers')) { ?>
+                                                    <li>
+                                                        <a id="link-graduate" href="<?php echo base_url(); ?>graduate">
+                                                            <i class="s16 fa fa-graduation-cap"></i>
+                                                            <span class="txt">Toppers Graduate</span>
+                                                        </a>
+                                                    </li> 
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Charity_Fund')) { ?>
+                                                    <li>
+                                                        <a id="link-charity" href="<?php echo base_url(); ?>charity_fund">
+                                                            <i class="s16 fa fa-money"></i>
+                                                            <span class="txt">Charity Fund</span>
+                                                        </a>
+                                                    </li>   
+                                                <?php } ?>
+                                            </ul>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (check_permission($permission, 'Professor')) { ?>
+                                        <li>
+                                            <a <?php echo active_single_menu('professor', $page); ?> href="<?php echo base_url(); ?>professor">
+                                                <i class="s16 fa fa-user"></i>
+                                                <span class=txt>Staff </span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
 
                                     <?php
                                     $pages = [
                                         'exam', 'exam_schedule', 'exam_grade', 'marks', 'exam_report'
                                     ];
                                     ?>
-
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-pencil"></i>
-                                            <span class="txt">Examination</span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li>
-                                                <a id="link-exam" href="<?php echo base_url(); ?>exam">
-                                                    <i class="s16 fa fa-paper-plane-o"></i>
-                                                    <span class="txt">Exam</span>
-                                                </a>
-                                            </li> 
-                                            <li>
-                                                <a id="link-exam_schedule" href="<?php echo base_url(); ?>examschedule">
-                                                    <i class="s16 fa fa-history"></i>
-                                                    <span class="txt">Exam Schedule</span>
-                                                </a>
-                                            </li> 
-                                            <li>
-                                                <a id="link-marks" href="<?php echo base_url(); ?>marks">
-                                                    <i class="s16 fa fa-star-o"></i>
-                                                    <span class="txt">Exam Marks</span>
-                                                </a>
-                                            </li>     
-                                            <li>
-                                                <a id="link-exam_grade" href="<?php echo base_url(); ?>examgrade">
-                                                    <i class="s16 fa fa-pencil"></i>
-                                                    <span class="txt">Exam Grade</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a <?php echo active_single_menu('cms', $page); ?> href="<?php echo base_url(); ?>cms_pages">
-                                            <i class="s16 fa fa-pagelines"></i>
-                                            <span class=txt>CMS Pages</span></a>
-                                    </li>
+                                    <?php if (check_permission($permission, 'Exam') || check_permission($permission, 'Exam_Schedual') || check_permission($permission, 'Exam_Marks') || check_permission($permission, 'Exam_Grade')) { ?>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-pencil"></i>
+                                                <span class="txt">Examination</span></a>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                                <?php if (check_permission($permission, 'Exam')) { ?>
+                                                    <li>
+                                                        <a id="link-exam" href="<?php echo base_url(); ?>exam">
+                                                            <i class="s16 fa fa-paper-plane-o"></i>
+                                                            <span class="txt">Exam</span>
+                                                        </a>
+                                                    </li> 
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Exam_Schedual')) { ?>
+                                                    <li>
+                                                        <a id="link-exam_schedule" href="<?php echo base_url(); ?>examschedule">
+                                                            <i class="s16 fa fa-history"></i>
+                                                            <span class="txt">Exam Schedule</span>
+                                                        </a>
+                                                    </li> 
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Exam_Marks')) { ?>
+                                                    <li>
+                                                        <a id="link-marks" href="<?php echo base_url(); ?>marks">
+                                                            <i class="s16 fa fa-star-o"></i>
+                                                            <span class="txt">Exam Marks</span>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Exam_Grade')) { ?>
+                                                    <li>
+                                                        <a id="link-exam_grade" href="<?php echo base_url(); ?>examgrade">
+                                                            <i class="s16 fa fa-pencil"></i>
+                                                            <span class="txt">Exam Grade</span>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (check_permission($permission, 'CMS_Page')) { ?>
+                                        <li>
+                                            <a <?php echo active_single_menu('cms', $page); ?> href="<?php echo base_url(); ?>cms_pages">
+                                                <i class="s16 fa fa-pagelines"></i>
+                                                <span class=txt>CMS Pages</span></a>
+                                        </li>
+                                    <?php } ?>
 
                                     <?php
                                     $pages = [
                                         'fee_structure', 'make_payment', 'due_amount'
                                     ];
                                     ?>
-
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-money"></i>
-                                            <span class="txt">Payment</span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li>
-                                                <a id="link-fee_structure" href="<?php echo base_url(); ?>fees">
-                                                    <i class="s16 fa fa-code-fork"></i>
-                                                    <span class="txt">Fee Structure</span>
-                                                </a>
-                                            </li> 
-                                            <li>
-                                                <a id="link-make_payment" href="<?php echo base_url(); ?>payment">
-                                                    <i class="s16 fa fa-credit-card"></i>
-                                                    <span class="txt">Make Payment</span>
-                                                </a>
-                                            </li> 
-                                            <li>
-                                                <a id="link-due_amount" href="<?php echo base_url(); ?>payment/due_amount">
-                                                    <i class="s16 fa fa-recycle"></i>
-                                                    <span class="txt">Due Amount</span>
-                                                </a>
-                                            </li> 
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a <?php echo active_single_menu('report_chart', $page); ?> href="<?php echo base_url(); ?>report_chart">
-                                            <i class="s16 fa fa-bar-chart"></i>
-                                            <span class=txt>Reports</span>
-                                        </a>
-                                    </li>
+                                    <?php if (check_permission($permission, 'Fee') || check_permission($permission, 'Payment')) { ?>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-money"></i>
+                                                <span class="txt">Payment</span></a>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                                <?php if (check_permission($permission, 'Fee')) { ?>
+                                                    <li>                                                
+                                                        <a id="link-fee_structure" href="<?php echo base_url(); ?>fees">
+                                                            <i class="s16 fa fa-code-fork"></i>
+                                                            <span class="txt">Fee Structure</span>
+                                                        </a>
+                                                    </li> 
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Payment')) { ?>
+                                                    <li>
+                                                        <a id="link-make_payment" href="<?php echo base_url(); ?>payment">
+                                                            <i class="s16 fa fa-credit-card"></i>
+                                                            <span class="txt">Make Payment</span>
+                                                        </a>
+                                                    </li> 
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Payment')) { ?>
+                                                    <li>
+                                                        <a id="link-due_amount" href="<?php echo base_url(); ?>payment/due_amount">
+                                                            <i class="s16 fa fa-recycle"></i>
+                                                            <span class="txt">Due Amount</span>
+                                                        </a>
+                                                    </li> 
+                                                <?php } ?>
+                                            </ul>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (check_permission($permission, 'Report')) { ?>
+                                        <li>
+                                            <a <?php echo active_single_menu('report_chart', $page); ?> href="<?php echo base_url(); ?>report_chart">
+                                                <i class="s16 fa fa-bar-chart"></i>
+                                                <span class=txt>Reports</span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
 
                                     <?php
                                     $pages = [
                                         'backup', 'restore'
                                     ];
                                     ?>
-
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-download"></i>
-                                            <span class="txt">Backup/Restore</span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li>
-                                                <a id="link-backup" href="<?php echo base_url(); ?>backup">
-                                                    <i class="s16 fa fa-cloud-download"></i>
-                                                    <span class="txt">System Backup</span>
-                                                </a>
-                                            </li> 
-                                            <li>
-                                                <a id="link-restore" href="<?php echo base_url(); ?>restore">
-                                                    <i class="s16 fa fa-cloud-upload"></i>
-                                                    <span class="txt">System Restore</span>
-                                                </a>
-                                            </li>                                                 
-                                        </ul>
-                                    </li>                                    
+                                    <?php if (check_permission($permission, 'Backup') || check_permission($permission, 'Restore')) { ?>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-download"></i>
+                                                <span class="txt">Backup/Restore</span></a>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
+                                                <?php if (check_permission($permission, 'Backup')) { ?>
+                                                    <li>
+                                                        <a id="link-backup" href="<?php echo base_url(); ?>backup">
+                                                            <i class="s16 fa fa-cloud-download"></i>
+                                                            <span class="txt">System Backup</span>
+                                                        </a>
+                                                    </li> 
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Restore')) { ?>
+                                                    <li>
+                                                        <a id="link-restore" href="<?php echo base_url(); ?>restore">
+                                                            <i class="s16 fa fa-cloud-upload"></i>
+                                                            <span class="txt">System Restore</span>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </li> 
+                                    <?php } ?>
 
                                     <?php
                                     $pages = [
                                         'role', 'user'
                                     ];
                                     ?>
-
-                                    <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
-                                        <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-users"></i>
-                                            <span class="txt">User Management</span></a>
-                                        <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
-                                            <li >
-                                                <a id="link-role" href="<?php echo base_url(); ?>user/role">
-                                                    <i class="s16 fa fa-list"></i>
-                                                    <span class="menu-text">Role Management</span>  
-                                                </a>
-                                            </li>
-                                            <li >
-                                                <a id="link-user" href="<?php echo base_url(); ?>user/user_list">
-                                                    <i class="s16 fa fa-group"></i>
-                                                    <span class="menu-text">Users</span>  
-                                                </a>
-                                            </li>                                                                                     
-                                        </ul>
-                                    </li>
+                                    <?php if (check_permission($permission, 'User_Role') || check_permission($permission, 'User_Permission')) { ?>
+                                        <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
+                                            <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-users"></i>
+                                                <span class="txt">User Management</span></a>
+                                            <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>                                            
+                                                <?php if (check_permission($permission, 'User_Role')) { ?>
+                                                    <li >
+                                                        <a id="link-role" href="<?php echo base_url(); ?>user/role">
+                                                            <i class="s16 fa fa-list"></i>
+                                                            <span class="menu-text">Role Management</span>  
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'User_Permission')) { ?>
+                                                    <li >
+                                                        <a id="link-user" href="<?php echo base_url(); ?>user/user_list">
+                                                            <i class="s16 fa fa-group"></i>
+                                                            <span class="menu-text">Users</span>  
+                                                        </a>
+                                                    </li>                          
+                                                <?php } ?>
+                                            </ul>
+                                        </li>
+                                    <?php } ?>
                             </div>
                         </div>
                         <!-- End sidenav -->

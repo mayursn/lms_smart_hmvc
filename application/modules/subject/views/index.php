@@ -26,6 +26,7 @@ $delete = delete_permission($permission, 'Subject');
                             <th>No</th>											
                             <th><?php echo ucwords("Subject Name"); ?></th>											
                             <th><?php echo ucwords("Subject Code"); ?></th>	
+                            <th><?php echo ucwords("status"); ?></th>	
                             <th>Actions</th>								
                         </tr>
                     </thead>
@@ -38,6 +39,13 @@ $delete = delete_permission($permission, 'Subject');
                                 <td><?php echo $count++; ?></td>	
                                 <td><?php echo $row->subject_name; ?></td>												
                                 <td><?php echo $row->subject_code; ?></td>						                                             
+				 <td>
+                                    <?php if ($row->sm_status == '1') { ?>
+                                        <span class="label label-primary mr6 mb6" >Active</span>
+                                    <?php } else { ?>	
+                                        <span class="label label-danger mr6 mb6" >InActive</span>
+                                    <?php } ?>
+                                </td>
                                 <td class="menu-action">
                                       <?php 
                                             if($update) { ?>
@@ -48,7 +56,7 @@ $delete = delete_permission($permission, 'Subject');
                                 if($delete) { ?>
                                     <a href="#" onclick="confirm_modal('<?php echo base_url(); ?>subject/delete/<?php echo $row->sm_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-danger mr6 mb6"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span></a>
                                    <?php } ?>   
-                                    <a href="<?php echo base_url(); ?>subject/subject_detail/<?php echo $row->sm_id; ?>" data-toggle="tooltip" data-placement="top" ><span class="label label-danger mr6 mb6">Subject Detail</span></a>
+                                    <a href="<?php echo base_url(); ?>subject/subject_detail/<?php echo $row->sm_id; ?>" data-toggle="tooltip" data-placement="top" ><span class="label label-primary mr6 mb6">Subject Detail</span></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>						

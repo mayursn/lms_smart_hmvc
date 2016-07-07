@@ -22,6 +22,16 @@
                                 <input type="text" class="form-control" name="subcode" id="subcode" />
                             </div>
                         </div>
+			<div class="form-group">
+                            <label class="col-sm-4 control-label"><?php echo ucwords("status"); ?></label>
+                            <div class="col-sm-8">
+                                <select name="status"  class="form-control">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>	
+                                </select>
+                                <lable class="error" id="error_lable_exist" style="color:red"></lable>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
                                 <button type="submit" id="addsubject" class="btn btn-info vd_bg-green"><?php echo ucwords("Add "); ?></button>

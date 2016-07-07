@@ -38,12 +38,11 @@ $delete = delete_permission($permission, 'Branch');
                                     <td><?php echo $row->c_name; ?></td>
                                     <td><?php echo $row->d_name; ?></td>
                                     <td>
-                                        <?php
-                                        if ($row->course_status == 1)
-                                            echo 'Active';
-                                        else
-                                            echo 'Inactive';
-                                        ?>
+                                        <?php if ($row->course_status == '1') { ?>
+                                            <span class="label label-primary mr6 mb6" >Active</span>
+                                        <?php } else { ?>	
+                                            <span class="label label-danger mr6 mb6" >InActive</span>
+                                        <?php } ?>
                                     </td>
                                     <?php if ($update || $delete) { ?>
                                         <td class="menu-action">

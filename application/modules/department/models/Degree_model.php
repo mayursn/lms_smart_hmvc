@@ -8,6 +8,7 @@ class Degree_model extends MY_Model {
     
     public $before_create = array('timestamps');
     public $before_get = array('department_filter');
+    public $before_update = array('update_timestamps');
 
     /**
      * Set timestamp field
@@ -15,11 +16,25 @@ class Degree_model extends MY_Model {
      * @return array
      */
     protected function timestamps($degree) {
-        $degree['created_date'] = date('Y-m-d H:i:s');
+        if(check_role_approval())
+        {
+            $degree['d_status'] = 0;
+        }
+        
+        $degree['created_date'] = $degree['updated_date']= date('Y-m-d H:i:s');
         
         return $degree;
     }
-    
+    protected function update_timestamps($degree)
+    {
+        if(check_role_approval())
+        {
+            $degree['d_status'] = 0;
+        }
+        
+        $degree['updated_date'] = date('Y-m-d H:i:s');
+        return $degree;
+    }
    function department_filter()
    {
        

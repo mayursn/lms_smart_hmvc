@@ -97,6 +97,7 @@ $delete = delete_permission($permission, 'Assignment');
                                             <th>Description</th>
                                             <th>File</th>
                                             <th>Submission Date</th>												
+	 				    <th>Status</th>
                                            <?php if ($update || $delete) { ?>
                                             <th>Actions</th>
                                             <?php } ?>                           										
@@ -159,6 +160,13 @@ $delete = delete_permission($permission, 'Assignment');
                                                 <td  ><?php echo wordwrap($row->assign_desc, 30, "<br>\n"); ?></td>
                                                 <td id="downloadedfile"><a href="<?php echo base_url() . 'uploads/project_file/' . $row->assign_filename; ?>" download="" title="download"><i class="fa fa-download"></i></a></td>	
                                                 <td ><?php echo date_formats($row->assign_dos); ?></td>	
+                                                <td>
+                                                    <?php if ($row->assign_status == '1') { ?>
+                                                        <span class="label label-primary mr6 mb6" >Active</span>
+                                                    <?php } else { ?>	
+                                                        <span class="label label-danger mr6 mb6" >InActive</span>
+                                                    <?php } ?>
+                                                </td>
                                                 <?php if ($update || $delete) { ?>
                                                 <td class="menu-action">
                                                      <?php 

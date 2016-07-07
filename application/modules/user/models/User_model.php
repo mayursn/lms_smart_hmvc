@@ -15,19 +15,30 @@ class User_model extends MY_Model {
      * @return mixed
      */
     protected function timestamps($user) {
+        
+        if(check_role_approval())
+        {
+            $user['is_active'] = 0;
+        }
+        
         $user['created_at'] = $user['updated_at'] = date('Y-m-d H:i:s');
-
+       
         return $user;
     }
 
-    /**
+   /**
      * Set the update timestamps 
      * @param mixed $user
      * @return mixed
      */
     protected function update_timestamps($user) {
+        
+        if(check_role_approval())
+        {
+            $user['is_active'] = 0;
+        }
+        
         $user['updated_at'] = date('Y-m-d H:i:s');
-
         return $user;
     }
 

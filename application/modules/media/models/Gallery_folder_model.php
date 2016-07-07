@@ -6,6 +6,7 @@ class Gallery_folder_model extends MY_Model {
 
     protected $primary_key = 'folder_id';
     public $before_create = array('timestamps');
+    public $before_update = array('update_timestamps');
 
     /**
      * Set the timestamp
@@ -13,10 +14,25 @@ class Gallery_folder_model extends MY_Model {
      * @return array
      */
     protected function timestamps($folder) {
+	if(check_role_approval())
+        {
+            $folder['folder_status'] = 0;
+        }
         $folder['created_at'] = date('Y-m-d H:i:s');
         return $folder;
     }
     
+     protected function update_timestamps($folder)
+    {
+        if(check_role_approval())
+        {
+            $folder['folder_status'] = 0;
+        }
+        
+        $folder['updated_date'] = date('Y-m-d H:i:s');
+        return $folder;
+    }
+
     public function get_all_folder_view()
     {
         return $this->db->get('gallery_folder')->result();

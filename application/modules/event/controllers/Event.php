@@ -32,6 +32,7 @@ class Event extends MY_Controller
                 $data['event_date'] = date('Y-m-d H:i:s', strtotime($event_date.' '.$_POST['event_time']));                                
                 $data['event_end_date'] = $this->input->post('event_end_date');
                 $data['group_id'] = $this->input->post('group');
+                $data['status'] = $this->input->post('status');
             $this->Event_manager_model->insert($data);            
              $this->flash_notification('Event is successfully added.');   
         }
@@ -57,6 +58,7 @@ class Event extends MY_Controller
                 $data['event_date'] = date('Y-m-d H:i:s', strtotime($event_date.' '.$_POST['event_time']));                                
                 $data['event_end_date'] = $this->input->post('event_end_date');
                 $data['group_id'] = $this->input->post('group');
+                $data['status'] = $this->input->post('status');
             $this->Event_manager_model->update($id,$data);
             $this->flash_notification('Event is successfully updated.');
         }

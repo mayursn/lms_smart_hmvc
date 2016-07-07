@@ -47,14 +47,13 @@
                                     <?php } ?>
 
                                 </td>
-                                <td >
+                                <td>
                                     <?php if ($row->forum_comment_status == '1') { ?>
-                                        <span>Active</span>
+                                        <span class="label label-primary mr6 mb6" >Active</span>
                                     <?php } else { ?>	
-                                        <span>InActive</span>
+                                        <span class="label label-danger mr6 mb6" >InActive</span>
                                     <?php } ?>
-
-                                </td>                                
+                                </td>                               
                                 <td class="menu-action">                                                            
                                     <a href="#" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/comments_edit/<?php echo $row->forum_comment_id; ?>/<?php echo $row->forum_topic_id; ?>');"  data-toggle="tooltip" data-placement="top"><span class="label label-primary mr6 mb6"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span></a>
                                     <a href="#" onclick="confirm_modal('<?php echo base_url(); ?>comments/delete/<?php echo $row->forum_comment_id; ?>/<?php echo $row->forum_topic_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-danger mr6 mb6"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span></a>

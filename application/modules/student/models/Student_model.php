@@ -5,7 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Student_model extends MY_Model {
 
     protected $primary_key = 'std_id';
-    
+    public $belongs_to = array('user');
+
     public $before_create = array('timestamps');
 
     /**
@@ -19,6 +20,18 @@ class Student_model extends MY_Model {
         return $student;
     }
     
+     function student_details($student_id) {
+        return $this->db->select('student.*,u.*, student.created_date AS Joining_date, course.course_id,course.c_name, semester.*, batch.b_id,batch.b_name, degree.d_name')
+                        ->from('student')
+                        ->join('user u', 'u.user_id = student.user_id')
+                        ->join('course', 'course.course_id = student.course_id')
+                        ->join('semester', 'semester.s_id = student.semester_id')
+                        ->join('batch', 'batch.b_id = student.std_batch')
+                        ->join('degree', 'degree.d_id = student.std_degree')
+                        ->where('student.std_id', $student_id)
+                        ->get()
+                        ->row();
+    }
      /**
      * Student list from degree, course, batch, and semester
      * @param string $degree
@@ -36,6 +49,14 @@ class Student_model extends MY_Model {
                 ))->result();
     }
     
+    function submitassignment($id)
+    {
+        $this->db->select('s.*,a.*');
+        $this->db->where('s.student_id',$id);
+       $this->db->from('assignment_submission s');
+       $this->db->join('assignment_manager a', 'a.assign_id=s.assign_id');                       
+       return $this->db->get()->result();
+    }
     /**
      * studen to do list
      * @return mixed
@@ -261,6 +282,37 @@ class Student_model extends MY_Model {
         
        
         
+    }
+    
+    
+    /**
+     * Student class routine information
+     * @param string $degree
+     * @param string $branch
+     * @param string $batch
+     * @param string $semester
+     * @param string $class
+     * @return mixed
+     */
+    function student_class_routine($degree, $branch, $batch, $semester, $class) {
+        return $this->db->get_where('class_routine', [
+                    'DepartmentID' => $degree,
+                    'BranchID' => $branch,
+                    'BatchID' => $batch,
+                    'SemesterID' => $semester,
+                    'ClassID' => $class
+                ])->result();
+    }
+     function student_exam_detail($student_id,$exam_id) {
+        return $this->db->select()
+                        ->from('exam_manager')
+                        ->join('course', 'course.course_id = exam_manager.course_id')
+                        ->join('semester', 'semester.s_id = exam_manager.em_semester')
+                        ->join('exam_seat_no', 'exam_seat_no.exam_id = exam_manager.em_id')
+                        ->where('em_id', $exam_id)
+                        ->where('exam_seat_no.student_id',$student_id)
+                        ->get()
+                        ->row();
     }
 
 }

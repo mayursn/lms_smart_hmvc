@@ -55,6 +55,7 @@
                                  <th width="12.5%"><?php echo ucwords("Batch"); ?></th>
                                  <th width="12.5%"><?php echo ucwords("Semester"); ?></th>
                                  <th width="12.5%"><?php echo ucwords("Date of submission"); ?></th>
+				 <th width="12.5%"><?php echo ucwords("status"); ?></th>
                                  <?php if ($update || $delete) { ?>
                                  <th width="12.5%"><?php echo ucwords("Action"); ?></th>
                                  <?php } ?>
@@ -123,6 +124,13 @@
                                        }
                                        ?>                                            
                                  <td width="12.5%"><?php echo date_formats($row->pp_dos); ?></td>
+			 	<td>
+                                    <?php if ($row->pp_status == '1') { ?>
+                                        <span class="label label-primary mr6 mb6" >Active</span>
+                                    <?php } else { ?>	
+                                        <span class="label label-danger mr6 mb6" >InActive</span>
+                                    <?php } ?>
+                                </td>
                                  <td width="12.5%" class="menu-action">
                                     <?php if ($update) { ?>
                                     <a href="#" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/participate_edit/<?php echo $row->pp_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-primary mr6 mb6"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span></a>

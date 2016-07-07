@@ -6,6 +6,7 @@ class Semester_model extends MY_Model {
 
     protected $primary_key = 's_id';
     public $before_create = array('timestamps');
+    public $before_update = array('update_timestamps');
 
     /**
      * Set the timestamp
@@ -13,8 +14,23 @@ class Semester_model extends MY_Model {
      * @return array
      */
     protected function timestamps($semester) {
-        $semester['created_date'] = date('Y-m-d H:i:s');
+         if(check_role_approval())
+        {
+            $semester['s_status'] = 0;
+        }
+        $semester['created_date'] = $semester['updated_date'] = date('Y-m-d H:i:s');
 
+        return $semester;
+    }
+
+     protected function update_timestamps($semester)
+    {
+        if(check_role_approval())
+        {
+            $semester['s_status'] = 0;
+        }
+        
+        $semester['updated_date'] = date('Y-m-d H:i:s');
         return $semester;
     }
 

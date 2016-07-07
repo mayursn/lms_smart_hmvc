@@ -71,7 +71,7 @@ class Digital extends MY_Controller {
                 $data['lm_url'] = $file_url;
                 $data['lm_semester'] = $this->input->post('semester');
                 $data['lm_desc'] = $this->input->post('description');
-                $data['lm_status'] = 1;
+                $data['lm_status'] = $this->input->post('status');
                 //  $data['lm_student_id'] = $this->input->post('student');
                 $data['lm_course'] = $this->input->post('course');
                 $data['created_date'] = date('Y-m-d');                
@@ -188,7 +188,7 @@ class Digital extends MY_Controller {
                 $data['lm_url'] = $file_url;
                 $data['lm_semester'] = $this->input->post('semester');
                 $data['lm_desc'] = $this->input->post('description');
-                $data['lm_status'] = 1;
+                $data['lm_status'] = $this->input->post('status');
                 //  $data['lm_student_id'] = $this->input->post('student');
                 $data['lm_course'] = $this->input->post('course');                
                 

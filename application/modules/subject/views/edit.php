@@ -1,9 +1,6 @@
 <?php
 $degree = $this->db->order_by('d_name', 'ASC')->get('degree')->result_array();
 $edit_data = $this->db->get_where('subject_manager', array('sm_id' => $param2))->result_array();
-$branch = $this->db->order_by('course_id', 'ASC')->get_where('course', [
-    'course_id' => $edit_data[0]['sm_course_id']
-])->row();
 foreach ($edit_data as $row):
     ?>
     <div class=row>                      
@@ -30,6 +27,18 @@ foreach ($edit_data as $row):
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" name="subcode" id="subcode" value="<?php echo $row['subject_code']; ?>" />
                                 </div>
+                            </div>
+ 				<div class="form-group">
+                                <label class="col-sm-4 control-label"><?php echo ucwords("status");?></label>
+                                <div class="col-sm-8">
+                                    <select name="status"  class="form-control">
+                                        <option value="1" <?php if($row['sm_status'] == '1'){ echo "selected"; } ?>>Active</option>
+                                        <option value="0" <?php if($row['sm_status'] == '0'){ echo "selected"; } ?>>Inactive</option>	
+                                    </select>
+                                    <lable class="error" id="error_lable_exist" style="color:red"></lable>
+
+                                </div>
+
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">

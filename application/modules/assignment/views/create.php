@@ -114,6 +114,16 @@
                             <div class="col-sm-8">
                                 <input type="file" class="form-control" name="assignmentfile" id="assignmentfile" />
                             </div>
+                        </div>		
+	          <div class="form-group">
+                            <label class="col-sm-4 control-label"><?php echo ucwords("status"); ?></label>
+                            <div class="col-sm-8">
+                                <select name="status"  class="form-control">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>	
+                                </select>
+                                <lable class="error" id="error_lable_exist" style="color:red"></lable>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">

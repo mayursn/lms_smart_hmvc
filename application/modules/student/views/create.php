@@ -172,28 +172,7 @@ $class = $this->Class_model->order_by_column('class_name');
                             <input type="text" class="form-control" name="twitter" id="twitter" />
                         </div>
                     </div>	
-                    <div class="form-group hide">
-                        <label class="col-sm-4 control-label"><?php echo ucwords("Group"); ?></label>
-                        <div class="col-sm-8">
-                            <select class="form-control" name="group" id="group">
-                                <option> Select group</option>  
-                                <?php
-                                $group = $this->db->get_where('group', array('user_type' => 'student'))->result_array();
-                                foreach ($group as $g) {
-                                    ?>
-                                    <option value="<?php echo $g['g_id']; ?>"><?php echo $g['group_name']; ?></option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group hide">
-                        <label class="col-sm-4 control-label"><?php echo ucwords("User Type"); ?></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="usertype" id="usertype" placeholder="readonly" readonly />
-                        </div>
-                    </div>	
+                   	
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?php echo ucwords("Admission Type"); ?><span style="color:red">*</span></label>
                         <div class="col-sm-8">
@@ -208,7 +187,7 @@ $class = $this->Class_model->order_by_column('class_name');
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?php echo ucwords("Profile Photo"); ?><span style="color:red">*</span></label>
                         <div class="col-sm-8">
-                            <input type="file" class="form-control" name="profilefile" id="profilefile" onchange="return filecheck(this.value);" />
+                            <input type="file" class="form-control" name="profilefile" id="profilefile" />
                             <span id="imgerror" style="color:red;"></span>
                         </div>
                     </div>
@@ -217,7 +196,17 @@ $class = $this->Class_model->order_by_column('class_name');
                         <div class="col-sm-8">
                             <textarea class="form-control" name="std_about" id="std_about" ></textarea>
                         </div>
-                    </div>	
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><?php echo ucwords("status"); ?></label>
+                        <div class="col-sm-8">
+                            <select name="status"  class="form-control">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>	
+                            </select>
+                            <lable class="error" id="error_lable_exist" style="color:red"></lable>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-sm-offset-4 col-sm-8">
                             <button type="submit" class="btn btn-info vd_bg-green"><?php echo ucwords("Add"); ?></button>
@@ -341,14 +330,14 @@ $class = $this->Class_model->order_by_column('class_name');
                 email_id:
                         {
                             required: true,
-                            email_id: true,
+                            email: true,
                             remote: {
-                                url: "<?php echo base_url(); ?>student/check_student_email",
+                                url: "<?php echo base_url(); ?>user/check_user_email",
                                 type: "post",
                                 data: {
-                                    eid: function () {
+                                     email: function () {
                                         return $("#email_id").val();
-                                    }
+                                    },
                                 }
                             }
                         },

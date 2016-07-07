@@ -1,3 +1,11 @@
+<?php
+$create = create_permission($permission, 'Student');    
+$read = read_permission($permission, 'Student');
+$update = update_permisssion($permission, 'Student');
+$delete = delete_permission($permission, 'Student');
+
+?>
+
 <!-- Start .row -->
 <div class=row>                      
 
@@ -5,7 +13,10 @@
         <!-- col-lg-12 start here -->
         <div class="panel-default">
             <div class=panel-body>
-                <a class="links"  onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/student_create');" href="#" id="navfixed" data-toggle="tab"><i class="fa fa-plus"></i> Student </a>
+                 <?php if ($create) { ?>
+                     <a class="links"  onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/student_create');" href="#" id="navfixed" data-toggle="tab"><i class="fa fa-plus"></i> Student </a>
+                <?php } ?>
+                     
                 <div class="row filter-row">
                     <form id="frmstudentlist" name="frmfilterlist" action="#" enctype="multipart/form-data" class="form-vertical form-groups-bordered validate">
                         <div class="form-group col-sm-2">

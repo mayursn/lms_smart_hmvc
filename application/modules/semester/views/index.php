@@ -33,13 +33,12 @@ $delete = delete_permission($permission, 'Semester');
                                 <tr>
                                     <td></td>
                                     <td><?php echo $row->s_name; ?></td>
-                                    <td>
-                                        <?php
-                                        if ($row->s_status == 1)
-                                            echo 'Active';
-                                        else
-                                            echo 'Inactive';
-                                        ?>
+                                     <td>
+                                        <?php if ($row->s_status == '1') { ?>
+                                            <span class="label label-primary mr6 mb6" >Active</span>
+                                        <?php } else { ?>	
+                                            <span class="label label-danger mr6 mb6" >InActive</span>
+                                        <?php } ?>
                                     </td>
                                     <?php if ($update || $delete) { ?>
                                         <td class="menu-action">

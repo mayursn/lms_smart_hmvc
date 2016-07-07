@@ -154,7 +154,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Forgot Password</h4>
                         </div>
-                        <form class="form-horizontal" action="<?php echo base_url(); ?>site/forgot_password" method="post">
+                        <form class="form-horizontal" action="<?php echo base_url(); ?>user/forgot_password" method="post">
                             <div class="modal-body">
                                 <?php
                                 $error = $this->session->flashdata('email_not_found');
