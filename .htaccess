@@ -40,3 +40,4 @@
     Header set Access-Control-Allow-Origin "*"
   </FilesMatch>
 </IfModule>
+php_value max_input_vars 1000000 
