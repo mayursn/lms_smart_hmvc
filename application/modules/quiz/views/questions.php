@@ -20,8 +20,9 @@ $question_option = $this->Quiz_question_options_model->get_many_by(array(
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Question<span style="color:red">*</span></label>
                             <div class="col-sm-9">
-                                <textarea name="question" class="form-control" rows="3"><?php echo $question->question; ?></textarea>									</div>
+                                <textarea name="question" class="form-control" rows="3"><?php echo $question->question.$question->quiz_id; ?></textarea>									</div>
                         </div>
+                        <input type="hidden" name="quiz_id" value="<?php echo $question->quiz_id; ?>" />
                         <div class="form-group">
                             <label class="col-sm-3 control-label"><?php echo ucwords("question type"); ?><span style="color:red">*</span></label>
                             <div class="col-sm-9">
@@ -52,6 +53,7 @@ $question_option = $this->Quiz_question_options_model->get_many_by(array(
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="currect_answer" 
                                        value="<?php echo $question->currect_answer; ?>"/>
+                                <span style="font-size: 10px;"> <strong style="color:red">Note :</strong> If you choose question type is Multiple Answer then answer enter like 1,2,3 </span>
                             </div>
                         </div>
 

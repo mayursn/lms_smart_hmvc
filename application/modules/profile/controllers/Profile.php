@@ -13,12 +13,21 @@ class Profile extends MY_Controller {
         parent::__construct();
         $this->load->model('profile/Profile_model');
         $this->load->model('user/User_model');
+        $this->load->model('student/Student_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     function index() {
         $this->data['title'] = 'Profile';
         $this->data['page'] = 'profile';
          $this->data['profile'] = $this->User_model->get_user();
+         if($this->session->userdata('role_name')=='Student')
+         {
+             $this->data['studentprofile'] = $this->Student_model->get_by(array('user_id'=>$this->session->userdata('user_id')));
+         }
         $this->__template('profile/index', $this->data);
     }
     
@@ -76,5 +85,16 @@ class Profile extends MY_Controller {
             $this->Profile_model->professor_update($this->session->userdata('user_id'),$dataprofessor);
         }
          redirect(base_url('profile'));
+    }
+    function student_change_profile()
+    {
+         $data=array('parent_name'=>$this->input->post('parentname'),
+                    'parent_contact'=>$this->input->post('parentcontact'),
+                    'parent_email'=>$this->input->post('parent_email_id'),
+                    'std_fb'=>$this->input->post('facebook'),
+                    'std_twitter'=>$this->input->post('twitter')
+            );
+          $this->Profile_model->student_update($this->session->userdata('user_id'),$data);
+          redirect(base_url('profile'));
     }
 }

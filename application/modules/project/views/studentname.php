@@ -2,10 +2,10 @@
 $this->load->model('student/Student_model');
 $student = $this->Student_model->get_student_optimize();
 $this->load->model('project/Project_manager_model');
-$edit_data = $this->Project_manager_model->get($param2);
+$row = $this->Project_manager_model->get($param2);
 
 
-foreach ($edit_data as $row):
+
     ?>
 
 
@@ -44,6 +44,3 @@ foreach ($edit_data as $row):
         </div>
     </div>
 
-
-
-<?php endforeach; ?>

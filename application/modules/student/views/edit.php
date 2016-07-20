@@ -60,25 +60,7 @@ foreach ($edit_data as $row):
                                         <input type="radio" name="gen" value="female" <?php echo $female; ?>>Female
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label"><?php echo ucwords("Parent Name"); ?><span style="color:red">*</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="parentname" id="parentname" value="<?php echo $row['parent_name'] ?>" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label"><?php echo ucwords("Parent Contact No"); ?><span style="color:red">*</span></label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="parentcontact" id="parentcontact" value="<?php echo $row['parent_contact'] ?>" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label"><?php echo ucwords("Parent Email Id"); ?><span style="color:red"></span></label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="parent_email_id" id="parent_email_id" value="<?php echo $row['parent_email'] ?>" />
-                                        <span id="emailerror" style="color: red"></span>
-                                    </div>
-                                </div>
+                                
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label"><?php echo ucwords("Address"); ?><span style="color:red">*</span></label>
                                     <div class="col-sm-8">
@@ -103,33 +85,7 @@ foreach ($edit_data as $row):
                                         <input type="text" class="form-control" name="birthdate" id="basic-datepicker" value="<?php echo date("F d, Y",strtotime($row['std_birthdate'])); ?>" />
                                     </div>
                                 </div>	
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label"><?php echo ucwords("Marital Status"); ?></label>
-                                    <div class="col-sm-8">
-                                        <?php
-                                        $single = "";
-                                        $married = "";
-                                        $separated = "";
-                                        $widowed = "";
-                                        if ($row['std_marital'] == 'Single') {
-                                            $single = "selected";
-                                        } elseif ($row['std_marital'] == 'Married') {
-                                            $married = "selected";
-                                        } elseif ($row['std_marital'] == 'Separated') {
-                                            $separated = "selected";
-                                        } elseif ($row['std_marital'] == 'Widowed') {
-                                            $widowed = "selected";
-                                        }
-                                        ?>
-                                        <select name="maritalstatus" class="form-control" id="maritalstatus">
-                                            <option value="">Select marital status</option>
-                                            <option value="single" <?= $single; ?>>Single</option>
-                                            <option value="married" <?= $married; ?>>Married</option>
-                                            <option value="separated" <?= $separated; ?>>Separated</option>
-                                            <option value="widowed" <?= $widowed; ?>>Widowed</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label"><?php echo ucwords("department"); ?><span style="color:red">*</span></label>
                                     <div class="col-sm-8">
@@ -248,18 +204,7 @@ foreach ($edit_data as $row):
                                         <input type="text" class="form-control" name="mobileno" id="mobileno"  value="<?php echo $row['std_mobile'] ?>"/>
                                     </div>
                                 </div>	
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label"><?php echo ucwords("Facebook URL"); ?></label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="facebook" id="facebook" value="<?php echo $row['std_fb'] ?>"/>
-                                    </div>
-                                </div>	
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label"><?php echo ucwords("Twitter URL"); ?></label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="twitter" id="twitter" value="<?php echo $row['std_twitter'] ?>"/>
-                                    </div>
-                                </div>		
+                                	
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label"><?php echo ucwords("Admission Type"); ?><span style="color:red">*</span></label>
                                     <div class="col-sm-8">
@@ -289,7 +234,7 @@ foreach ($edit_data as $row):
                                     <label class="col-sm-4 control-label"><?php echo ucwords("File Upload"); ?></label>
                                     <div class="col-sm-8">
                                         <input type="hidden" name="txtoldfile" id="txtoldfile" value="<?php echo $row['profile_pic']; ?>" />
-                                        <input type="file" class="form-control" name="userfile" id="userfile" />
+                                        <input type="file" class="form-control" name="profilefile" id="profilefile" />
 
                                         <img src="<?= base_url() ?>/uploads/system_image/<?= $row['profile_pic']; ?>" height="100px" width="100px" id="blah"  />
 

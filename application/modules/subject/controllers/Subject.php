@@ -12,6 +12,10 @@ class Subject extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('subject/Subject_manager_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     function index() {
@@ -183,7 +187,6 @@ class Subject extends MY_Controller {
         $this->db->from('subject_association sa');
         $this->db->join('subject_manager sm','sm.sm_id=sa.sm_id');
         $this->db->join('degree d','d.d_id=sa.degree_id');
-	$this->db->join('degree d','d.d_id=sa.degree_id');
         $this->db->join('course c','c.course_id=sa.course_id');
         $this->db->join('semester s','s.s_id=sa.sem_id');
         $this->data['subject']= $this->db->get()->result();
@@ -202,6 +205,15 @@ class Subject extends MY_Controller {
         $this->db->where("sa.degree_id",$dept);
         $this->db->where("sa.course_id",$branch);
         $this->db->where("sa.sem_id",$sem);
+        $res = $this->db->get_where("subject_association sa")->result();
+        echo json_encode($res);
+    }
+    
+    function subejct_list_branch_sem($branch,$semester)    
+    {
+         $this->db->join("subject_manager s","s.sm_id = sa.sm_id");        
+        $this->db->where("sa.course_id",$branch);
+        $this->db->where("sa.sem_id",$semester);
         $res = $this->db->get_where("subject_association sa")->result();
         echo json_encode($res);
     }

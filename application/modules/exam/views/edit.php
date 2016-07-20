@@ -150,7 +150,27 @@ $centerlist = $this->db->get('center_user')->result();
                         <input readonly="" type="text"  name="end_date_time" id="end-date" class="form-control datepicker-normal-edit"
                                value="<?php echo date_formats($edit_data->em_end_time); ?>"/>
                     </div>
-                </div>	
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"><?php echo ucwords("result type"); ?><span style="color:red">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="resulttype" id="resulttype">
+                            <option value="">Select</option>
+                            <option value="grade" <?php if ($edit_data->result_type == 'grade') {echo "selected";} ?>>Grade</option>
+                            <option value="marks" <?php if ($edit_data->result_type == 'marks') {echo "selected";} ?> >Marks</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"><?php echo ucwords("exam mode"); ?><span style="color:red">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="exammode" id="exammode">
+                            <option value="">Select</option>
+                            <option value="written" <?php if ($edit_data->exam_mode == 'written') {echo "selected";} ?>>Written</option>
+                            <option value="mcq" <?php if ($edit_data->exam_mode == 'mcq') {echo "selected";} ?>>MCQ</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
                         <button type="submit" class="submit btn btn-info vd_bg-green"><?php echo ucwords("Update"); ?></button>
@@ -173,25 +193,28 @@ $centerlist = $this->db->get('center_user')->result();
             format: js_date_format,
             autoclose: true,
             todayHighlight: true,
-        });
+        }).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        $('#end-date').datepicker('setStartDate', minDate);
+    });
         $("#end-date").datepicker({
             format: js_date_format,
             autoclose: true
         });
 
-        $('#start-date').on('change', function () {
-            date = new Date($(this).val());
-            start_date = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-            console.log(start_date);
-
-            setTimeout(function () {
-                $("#end-date").datepicker({
-                    format: js_date_format,
-                    autoclose: true,
-                    startDate: start_date
-                });
-            }, 700);
-        });
+//        $('#start-date').on('change', function () {
+//            date = new Date($(this).val());
+//            start_date = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+//            console.log(start_date);
+//
+//            setTimeout(function () {
+//                $("#end-date").datepicker({
+//                    format: js_date_format,
+//                    autoclose: true,
+//                    startDate: start_date
+//                });
+//            }, 700);
+//        });
     })
 </script>
 
@@ -217,7 +240,9 @@ $centerlist = $this->db->get('center_user')->result();
                 status: "required",
                 date: "required",
                 start_date_time: "required",
-                end_date_time: "required"
+                end_date_time: "required",
+                resulttype:"required",
+                exammode:"required"
             },
             messages: {
                 exam_name: "Please enter Exam Name",
@@ -232,7 +257,9 @@ $centerlist = $this->db->get('center_user')->result();
                 status: "Please select status",
                 date: "Please enter date",
                 start_date_time: "Please enter start date time",
-                end_date_time: "Please enter end date"
+                end_date_time: "Please enter end date",
+                resulttype:"Select result type",
+                exammode:"Select result mode"
             }
         });
     });

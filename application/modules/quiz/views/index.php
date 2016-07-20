@@ -1,8 +1,30 @@
+<?php $this->load->model('department/Degree_model');
+ $this->load->model('branch/Course_model');
+  $this->load->model('batch/Batch_model');
+   $this->load->model('semester/Semester_model');
+   $this->load->model('subject/Subject_manager_model');
+   
+?>
 <?php
    $create = create_permission($permission, 'Quiz');
    $read = read_permission($permission, 'Quiz');
    $update = update_permisssion($permission, 'Quiz');
    $delete = delete_permission($permission, 'Quiz');
+   
+   function createDateRange($startDate, $endDate, $format = "Y-m-d")
+        {
+            $begin = new DateTime($startDate);
+            $end = new DateTime($endDate);
+            $end = $end->modify( '+1 day' ); 
+            $interval = new DateInterval('P1D'); // 1 Day
+            $dateRange = new DatePeriod($begin, $interval, $end);
+            $range = [];
+            foreach ($dateRange as $date) {
+                $range[] = $date->format($format);
+            }
+
+            return $range;
+        }
    ?>
 <!-- Start .row -->
 <div class=row>                      
@@ -10,6 +32,18 @@
     <div class=col-lg-12>
         <!-- col-lg-12 start here -->
         <div class="panel-default">
+            <?php 
+            if($this->session->userdata('quiznotification'))
+            {
+                ?>
+                <div class=panel-heading style="color:red " ><i class="fa fa-exclamation-triangle" style="color:red " aria-hidden="true"></i><?php echo $this->session->userdata('quiznotification'); ?>
+               </div>
+               <br>
+            <?php
+            }
+            $this->session->unset_userdata('quiznotification');
+            ?>
+           
             <div class=panel-body>
                 <?php if($create){ ?>
                 <a href="#" class="links" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/quiz_create');" data-toggle="modal"><i class="fa fa-plus"></i> Quiz</a>
@@ -35,19 +69,55 @@
 
                     <tbody>
                         <?php $counter = 0; ?>
-                        <?php foreach ($quiz as $row) { ?>
+                        <?php foreach (@$quiz as $row) { 
+                                 $date=array();
+                                 $date=createDateRange($row->start_date,$row->end_date);
+                            ?>
                             <tr>
                                 <td><?php echo ++$counter; ?></td>
                                 <td><?php echo $row->title; ?></td>
                                 <td><?php echo $row->description; ?></td>
-                                <td><?php echo $row->d_name; ?></td>
-                                <td><?php echo $row->c_name; ?></td>
-                                <td><?php echo $row->b_name; ?></td>
-                                <td><?php echo $row->s_name; ?></td>
+                                <td><?php if($row->department_id!="All"){
+                        $name = $this->Degree_model->get($row->department_id);
+                            echo $name->d_name;
+                            
+                        }else{ echo "All"; } ?></td>
+                                <td><?php if($row->branch_id!="All")
+                        { 
+                            $course = $this->Course_model->get($row->branch_id);
+                            echo $course->c_name;
+                        }else{
+                            echo "All";
+                        }    
+                        
+                            ?></td>
+                                <td><?php if($row->batch_id!="All"){
+                            $batch = $this->Batch_model->get($row->batch_id);
+                          echo  $batch->b_name;
+                        }else{
+                            echo "All"; 
+                        }
+                            ?></td>
+                                <td><?php if($row->semester_id!="All")
+                            {
+                            $semester = $this->Semester_model->get($row->semester_id);
+                            echo $semester->s_name;
+                            }
+                            else{
+                                echo "All";
+                            }
+                            ?></td>
                                 <td><?php echo $row->start_date; ?></td>
                                 <td><?php echo $row->end_date; ?></td>
                                 <?php if($update || $delete || $this->session->userdata('std_id')){ ?>
                                 <td>
+                                    <?php if(!$this->session->userdata('std_id')){ ?>
+                                    <a href="<?php echo base_url(); ?>quiz/quiz_history/<?php echo $row->quiz_id; ?>"><span class="label label-primary mr6 mb6">
+                                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                            View History
+                                        </span></a>
+                                    <?php } ?>
+                                    
                                     <?php if($update){ ?>
                                     <a href="<?php echo base_url(); ?>quiz/edit/<?php echo $row->quiz_id; ?>">
                                         <span class="label label-success mr6 mb6">
@@ -56,21 +126,40 @@
                                         </span>
                                     </a>
                                     <?php } ?>
-                                    <?php if($this->session->userdata('std_id')){ ?>
-                                    <a href="<?php echo base_url(); ?>quiz/instruction/<?php echo $row->quiz_id; ?>">
-                                        <span class="label label-info mr6 mb6">
-                                            <i class="fa fa-play" aria-hidden="true"></i>
-                                            Quiz
-                                        </span>
-                                    </a>
-                                    <?php } ?>
-                                    <?php if($delete){ ?>
-                                    <a href="<?php echo base_url(); ?>quiz/instruction/<?php echo $row->quiz_id; ?>">
-                                        <span class="label label-danger mr6 mb6">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                            Delete
-                                        </span>
-                                    </a>
+                                    <?php 
+                                    if($this->session->userdata('std_id')){ 
+                                         $count=0;
+                                         foreach($date as $d)
+                                            {
+                                              if($d==date('Y-m-d'))
+                                              {
+                                                  $count=1;
+                                              }
+                                            }
+                                        if($count==1)
+                                        {
+                                            ?>
+                                              <a href="<?php echo base_url(); ?>quiz/instruction/<?php echo $row->quiz_id; ?>">
+                                                <span class="label label-info mr6 mb6">
+                                                    <i class="fa fa-play " aria-hidden="true"></i>
+                                                    Quiz
+                                                </span>
+                                            </a>
+                                        <?php
+                                        }
+                                        else{
+                                            ?>
+                                          <a >
+                                            <span class="label label-info mr6 mb6">
+                                                <i class="fa fa-stop" aria-hidden="true"></i>
+                                                Quiz
+                                            </span>
+                                        </a>
+                                    <?php }
+                                    }
+                                    ?>
+                                    <?php if($delete){ ?>                                    
+                                    <a href="#" onclick="confirm_modal('<?php echo base_url(); ?>quiz/delete/<?php echo $row->quiz_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-danger mr6 mb6"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span></a>	
                                     <?php } ?>
                                 </td>
                                 <?php } ?>

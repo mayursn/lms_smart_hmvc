@@ -76,4 +76,21 @@ class Subject_manager_model extends MY_Model {
         $this->db->where('sm_id',$id);
         return $this->db->get('subject_manager')->row()->subject_name;
     }
+    function subejct_list_branch_sem($branch,$semester)    
+    {
+         $this->db->join("subject_manager s","s.sm_id = sa.sm_id");        
+        $this->db->where("sa.course_id",$branch);
+        $this->db->where("sa.sem_id",$semester);
+        return $this->db->get_where("subject_association sa")->result();
+       
+    }
+    
+    function subject_from_dept_branch_sem($dept,$branch,$sem)
+    {
+        $this->db->join("subject_manager s","s.sm_id = sa.sm_id");
+        $this->db->where("sa.degree_id",$dept);
+        $this->db->where("sa.course_id",$branch);
+        $this->db->where("sa.sem_id",$sem);
+        return $this->db->get_where("subject_association sa")->result();
+    }
 }

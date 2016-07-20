@@ -13,6 +13,10 @@ class Email extends MY_Controller {
         parent::__construct();
         $this->load->helper('email/system_email');
         $this->load->model('email/Email_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     function index() {

@@ -19,6 +19,10 @@ class Studyresource extends MY_Controller {
         $this->load->model('semester/Semester_model');
         $this->load->model('classes/Class_model');     
        // $this->load->model('notification');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     function index() {

@@ -141,10 +141,11 @@ class Assignment_submission_model extends MY_Model {
     
     function get_assessments($start_year,$end_year)
     {
-        $this->db->select("ass.*,am.*,s.*,sm.*");
+        $this->db->select("ass.*,am.*,s.*,sm.*,u.profile_pic");
         $this->db->from('assignment_submission ass');
         $this->db->join("assignment_manager am", "am.assign_id=ass.assign_id");
         $this->db->join("student s", "s.std_id=ass.student_id");
+        $this->db->join("user u", "u.user_id=s.user_id");
         $this->db->join("subject_manager sm", "sm.sm_id=am.sm_id");
         $this->db->where("ass.assessment_status", '1');
         $this->db->where('am.start_year',$start_year);
@@ -253,5 +254,29 @@ class Assignment_submission_model extends MY_Model {
         return $this->db->get();
     }
     
+    /**
+     * late submitted assignment
+     * @return mixed
+     */
+    function get_not_submitted_assignment()
+    {        
+        $this->db->select();            
+        $this->db->from('student st');
+        $this->db->join('assignment_submission ass','ass.assign_id=a.assign_id');        
+        $date=  date('Y-m-d');        
+        $this->db->where("a.assign_dos < ",$date);
+        $this->db->join('degree d','d.d_id=a.assign_degree');
+        $this->db->join('course c','c.course_id=a.course_id');
+        $this->db->join('batch b','b.b_id=a.assign_batch');
+        $this->db->join('semester s','s.s_id=a.assign_sem');
+        $this->db->join('class cl','cl.class_id=a.class_id');
+        $this->db->where_not_in('st.std_id','ass.student_id');
+        $this->db->where('st.std_degree','a.assign_degree');
+        $this->db->where('st.course_id','a.course_id');
+        $this->db->where('st.std_batch','a.assign_batch');
+        $this->db->where('st.semester_id','a.assign_sem');
+        $this->db->where('st.class_id','a.class_id');
+        return $this->db->get('assignment_manager a')->result();
+    }
     
 }

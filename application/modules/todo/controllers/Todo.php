@@ -12,6 +12,10 @@ class Todo extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('todo/Todo_list_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
         
     }
 
@@ -41,6 +45,7 @@ class Todo extends MY_Controller {
             $title = $this->input->post('title');
             $todo_date = $this->input->post('todo_date');
             $todo_time = $this->input->post('todo_time');
+            $todo_date = date('Y-m-d',strtotime($todo_date));
             $datetime = $todo_date . ' ' . $todo_time;
 
             $datetime = strtotime($datetime);
@@ -48,7 +53,7 @@ class Todo extends MY_Controller {
 
             $data['todo_datetime'] = $datetime;
             $data['todo_title'] = $title;
-            $data['todo_role'] = 'student' ;        
+            $data['todo_role'] = $this->session->userdata('role_name');        
              $data['user_role_id'] = $this->session->userdata('user_id');
             $this->Todo_list_model->insert($data);
             $this->data['todolist'] = $this->Todo_list_model->get_student_todo();

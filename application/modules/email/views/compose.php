@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/select2.min.css"/>
 <script src="//cdn.ckeditor.com/4.5.9/full/ckeditor.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/select2.full.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/plugins/select2.js"></script>
 <style>
 
     .select2-container-multi .select2-choices .select2-search-field input{

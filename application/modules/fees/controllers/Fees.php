@@ -17,7 +17,10 @@ class Fees extends MY_Controller {
         $this->load->model('branch/Course_model');
         $this->load->model('semester/Semester_model');
          $this->load->model('batch/Batch_model');
-         
+         if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
         
        
       

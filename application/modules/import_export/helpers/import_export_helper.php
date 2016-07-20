@@ -80,6 +80,7 @@ if (!function_exists('event_manager')) {
             'Event Location',
             'Event Description',
             'Event Date',
+            'Event End Date',
             'Event Time'
         ));
         fclose($handle);
@@ -102,7 +103,9 @@ if (!function_exists('exam_manager')) {
             'Department',
             'Branch',
             'Batch',
-            'Semester'
+            'Semester',
+            'Start Date',
+            'End Date'
         ));
         fclose($handle);
     }
@@ -141,9 +144,7 @@ if (!function_exists('subject')) {
         $handle = fopen('php://output', 'w');
         fputcsv($handle, array(
             'Subject Name',
-            'Subject Code',
-            'Branch',
-            'Semester'
+            'Subject Code'
         ));
         fclose($handle);
     }
@@ -359,6 +360,7 @@ if (!function_exists('student_import_sample')) {
             'Branch',
             'Batch',
             'Semester',
+            'Class',
             'Admission Type'
         ));
         fclose($handle);
@@ -539,12 +541,29 @@ if (!function_exists('import_fees_structure')) {
     function import_fees_structure($data, $where) {
         $CI = & get_instance();
         $CI->load->database();
+        
+        if ($where['degree']['d_name'] != "All") {
+            $degree = $CI->db->get_where('degree', $where['degree'])->row();
+        } else {
+            $degree = (object) array("d_id" => 'All');
+        }
+        if ($where['course']['c_name'] != "All") {
+            $course = $CI->db->get_where('course', $where['course'])->row();
+        } else {
+            $course = (object) array("course_id" => 'All');
+        }
+        if ($where['batch']['b_name'] != "All") {
+            $batch = $CI->db->get_where('batch', $where['batch'])->row();
+        } else {
+            $batch = (object) array("b_id" => 'All');
+        }
 
-        $semester = $CI->db->get_where('semester', $where['semester'])->row();
-        $course = $CI->db->get_where('course', $where['course'])->row();
-        $degree = $CI->db->get_where('degree', $where['degree'])->row();
-        $batch = $CI->db->get_where('batch', $where['batch'])->row();
-
+        if ($where['semester']['s_name'] != "All") {
+            $semester = $CI->db->get_where('semester', $where['semester'])->row();
+        } else {
+            
+            $semester = (object) array("s_id" => 'All');
+        }
         $insert_id = 0;
         if (count($course) && count($semester) && count($degree) && count($batch)) {
             //check for fee
@@ -580,21 +599,19 @@ if (!function_exists('import_subject')) {
     function import_subject($data, $where) {
         $CI = & get_instance();
         $CI->load->database();
-        $semester = $CI->db->get_where('semester', $where['semester'])->row();
-        $course = $CI->db->get_where('course', $where['course'])->row();
+      //  $semester = $CI->db->get_where('semester', $where['semester'])->row();
+      //  $course = $CI->db->get_where('course', $where['course'])->row();
         $insert_id = 0;
-        if (count($course) && count($semester)) {
+        
             //check for subject
-            $subject = $CI->db->get_where('subject_manager', $where['subject'])->num_rows();
+            $subject = $CI->db->get_where('subject_manager', $where['subject'])->num_rows();           
             //var_dump($subject);
             if (!$subject) {
-                $data['sm_course_id'] = $course->course_id;
-                $data['sm_sem_id'] = $semester->s_id;
                 $data['sm_status'] = 1;
                 $CI->db->insert('subject_manager', $data);
                 $insert_id = $CI->db->insert_id();
             }
-        }
+        
 
         return $insert_id;
     }
@@ -615,29 +632,48 @@ if (!function_exists('import_student')) {
         $insert_id = 0;
 
         //find for student 
+        
+        $user_data = $CI->db->get_where('user',$where['std_email'])->num_rows();
+        
         $student = $CI->db->get_where('student', $where['student_roll_no'])->num_rows();
 
-        if (!$student) {
+        if (!$student && !$user_data) {
             // student not exists with roll no
             // find for batch, semester, and course
+            $class = $CI->db->get_where('class', $where['class'])->row();
             $course = $CI->db->get_where('course', $where['course'])->row();
             $batch = $CI->db->get_where('batch', $where['batch'])->row();
             $semester = $CI->db->get_where('semester', $where['semester'])->row();
             $degree = $CI->db->get_where('degree', $where['degree'])->row();
             $admission_type = $CI->db->get_where('admission_type', $where['admission_type'])->row();
 
-            if ($course && $batch && $semester && $degree && $admission_type) {
+            if ($course && $batch && $semester && $degree && $admission_type && $class) {
+               $user_data =  array(
+                'first_name' => $data['std_first_name'],
+                'last_name' => $data['std_last_name'],
+                'email' => $data['email'],
+                'password' => $data['password'],
+                'gender' => ucfirst($data['std_gender']),
+                'zip_code'  => $data['zip'],
+                'mobile'  => $data['std_mobile'],
+                'city'  => $data['city'],    
+                'address'  => $data['address'],    
+                'role_id' => '3',
+                'is_active' => '1');
+                $CI->db->insert('user',$user_data);
+                $user_id = $CI->db->insert_id();
                 // course, batch, and semester are already present in db
                 // insert new student                
                 $data['name'] = $data['std_first_name'] . ' ' . $data['std_last_name'];
                 $data['admission_type_id'] = $admission_type->at_id;
-
+                $data['class_id'] = $class->class_id;
                 $data['std_batch'] = $batch->b_id;
                 $data['semester_id'] = $semester->s_id;
                 $data['course_id'] = $course->course_id;
                 $data['std_degree'] = $degree->d_id;
-                $data['password'] = hash('md5', '12345');
+                $data['password'] = $data['password'];
                 $data['created_date'] = date('Y-m-d H:i:s');
+                $data['user_id'] = $user_id;
                 $CI->db->insert('student', $data);
                 $insert_id = $CI->db->insert_id();
             }
@@ -799,7 +835,7 @@ if (!function_exists('import_exam_manager')) {
                 $data['batch_id'] = $batch->b_id;
                 $data['course_id'] = $course->course_id;
                 $data['em_semester'] = $semester->s_id;
-                $data['em_type'] = $exam_type->exam_type_id;
+                $data['em_type'] = $exam_type->exam_type_id;                
                 $CI->db->insert('exam_manager', $data);
 
                 return $CI->db->insert_id();
@@ -944,7 +980,7 @@ if (!function_exists('exam_time_table_import')) {
         $CI = & get_instance();
         $insert_id = 0;
         //check for subject
-        $subject = $CI->db->get_where('subject_manager', $where['subject'])->row();
+        $subject = $CI->db->get_where('subject_association', $where['subject_association'])->row();       
 
         //if found then check in exam time table for duplication
         if (count($subject)) {

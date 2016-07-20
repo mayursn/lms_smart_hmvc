@@ -18,12 +18,20 @@ class Payment extends MY_Controller {
         $this->load->model('semester/Semester_model');
         $this->load->model('feerecord/Student_fees_model');
         $this->load->model('payment_gateway_config/Authorize_net_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     /**
      * index page
      */
     function index() {
+        if($this->session->userdata('std_id'))
+        {
+            redirect(base_url().'payment/student_fees');
+        }
         $this->data['department'] = '';
         $this->data['branch'] = '';
         $this->data['batch'] = '';

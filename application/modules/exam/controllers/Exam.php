@@ -19,6 +19,12 @@ class Exam extends MY_Controller {
         $this->load->model('classes/Class_model');
         $this->load->model('student/Student_model');
         $this->load->model('exam/Exam_seat_no_model');
+        $this->load->model('exam/Internal_exam_model');
+        $this->load->model('quiz/Quiz_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     function index() {
@@ -73,7 +79,7 @@ class Exam extends MY_Controller {
     }
 
     function create($id = '') {
-        if ($_POST) {
+        if ($_POST) {            
             //check for duplication
             $is_record_present = $this->Exam_manager_model->exam_duplication_check(
                     $_POST['degree'], $_POST['course'], $_POST['batch'], $_POST['semester'], $_POST['exam_name']);
@@ -82,8 +88,7 @@ class Exam extends MY_Controller {
                 $this->flash_notification('Data is already present.');
                 redirect(base_url() . 'exam');
             } else {
-                if ($this->form_validation->run('exam_insert_update') != FALSE) {
-                    $data = array(
+                  $data = array(
                         'em_name' => $this->input->post('exam_name', TRUE),
                         'em_type' => $this->input->post('exam_type', TRUE),
                         'total_marks' => $this->input->post('total_marks', TRUE),
@@ -95,12 +100,36 @@ class Exam extends MY_Controller {
                         'em_semester' => $this->input->post('semester', TRUE),
                         'em_status' => $this->input->post('status', TRUE),
                         'em_date' => $this->input->post('date', TRUE),
-                        'em_start_time' => $this->input->post('start_date_time', TRUE),
-                        'em_end_time' => $this->input->post('end_date_time', TRUE),
+                        'em_start_time' => date('Y-m-d', strtotime($this->input->post('start_date_time', TRUE))),
+                        'em_end_time' => date('Y-m-d', strtotime($this->input->post('end_date_time', TRUE))),
+                        'result_type' => $this->input->post('resulttype', TRUE),
+                        'exam_mode' => $this->input->post('exammode', TRUE),
                     );
-                    $insert_id = $this->Exam_manager_model->insert($data);
-
-
+                  
+                   
+                $this->db->insert('exam_manager',$data);
+                $insert_id = $this->db->insert_id();
+                $exam_mode = $this->input->post('exammode');
+                if($exam_mode=="mcq")   
+                {
+                   /** Start Quiz Create         */
+                $quiz_insert_id = $this->Quiz_model->insert(array(
+                'title' => $_POST['exam_name'],               
+                'department_id' => $_POST['degree'],
+                'branch_id' => $_POST['course'],
+                'batch_id' => $_POST['batch'],
+                'semester_id' => $_POST['semester'],                                
+                'total_marks' => $_POST['total_marks'],
+                'start_date' => date('Y-m-d', strtotime($_POST['date'])),
+                'end_date' => date('Y-m-d', strtotime($_POST['end_date_time'])),
+                'status' => '0',
+                'exam_id'=>$insert_id));
+                $quiz = array("quiz_id"=>$quiz_insert_id);
+               
+                
+               $this->db->update("exam_manager",$quiz,array("em_id"=>$insert_id));
+                }
+                    /** end Quiz Create */
                     //$this->exam_email_notification($_POST);
                     $this->flash_notification("Exam successfully added.");
 
@@ -134,11 +163,7 @@ class Exam extends MY_Controller {
                     //exit;
                     create_notification('exam_manager', $_POST['degree'], $_POST['course'], $_POST['batch'], $_POST['semester'], $insert_id);
                     $this->flash_notification("Exam Successfully added.");
-                    redirect(base_url('exam'));
-                } else {
-                    $page_data['edit_error'] = validation_errors();
-                    $this->flash_notification(validation_errors());
-                }
+                    redirect(base_url('exam'));               
             }
             redirect(base_url() . 'exam');
         }
@@ -158,10 +183,40 @@ class Exam extends MY_Controller {
                     'em_semester' => $this->input->post('semester', TRUE),
                     'em_status' => $this->input->post('status', TRUE),
                     'em_date' => $this->input->post('date', TRUE),
-                    'em_start_time' => $this->input->post('start_date_time', TRUE),
-                    'em_end_time' => $this->input->post('end_date_time', TRUE),
+                    'em_start_time' => date('Y-m-d', strtotime($this->input->post('start_date_time', TRUE))),
+                    'em_end_time' => date('Y-m-d', strtotime($this->input->post('end_date_time', TRUE))),
+                    'result_type' => $this->input->post('resulttype', TRUE),
+                    'exam_mode' => $this->input->post('exammode', TRUE),
                 );
                 $this->Exam_manager_model->update($param2, $data);
+                $exam = $this->Exam_manager_model->get($param2);
+                $exam_mode = $this->input->post('exammode');
+                if($exam_mode=="mcq")   
+                {
+                    
+                    if($exam->quiz_id=="0")
+                    {
+                        
+                        
+                        $quiz_insert_id = $this->Quiz_model->insert(array(
+                        'title' => $_POST['exam_name'],               
+                        'department_id' => $_POST['degree'],
+                        'branch_id' => $_POST['course'],
+                        'batch_id' => $_POST['batch'],
+                        'semester_id' => $_POST['semester'],                                
+                        'total_marks' => $_POST['total_marks'],
+                        'start_date' => date('Y-m-d', strtotime($_POST['date'])),
+                        'end_date' => date('Y-m-d', strtotime($_POST['end_date_time'])),
+                        'status' => '0',
+                        'exam_id'=>$param2));
+                        $quiz = array("quiz_id"=>$quiz_insert_id);
+               
+                
+                        $this->db->update("exam_manager",$quiz,array("em_id"=>$param2));
+               
+                    }
+                    
+                }
                 $this->flash_notification("Exam successfully updated");
                 redirect(base_url('exam'));
             } else {
@@ -242,6 +297,54 @@ class Exam extends MY_Controller {
     }
     
     
-    
+    function internal()
+    {
+        
+        $this->data['page'] = 'internal';
+        $this->data['title'] = 'Internal Exam Marks';
+        $this->data['internal'] = $this->Internal_exam_model->get_all();
+        $this->__template('exam/internal', $this->data);
+    }
 
+    function internal_create()
+    {
+        if($_POST)
+        {
+           $this->Internal_exam_model->insert(array("course_id"=>$_POST['course'],
+                                                    "sem_id"=>$_POST['semester'],
+                                                    "sm_id"=>$_POST['subject'],
+                                                    "internal_title"=>$_POST['exam_name'],
+                                                    "internal_marks"=>$_POST['total_marks']
+                                                    )); 
+           $message = "Internal marks successfully added";
+           $this->flash_notification($message);
+           redirect(base_url().'exam/internal');
+        }
+    }
+    
+    function internal_update($param='')
+    {
+        if($_POST)
+        {
+           $this->Internal_exam_model->update($param,array("course_id"=>$_POST['course'],
+                                                    "sem_id"=>$_POST['semester'],
+                                                    "sm_id"=>$_POST['subject'],
+                                                    "internal_title"=>$_POST['exam_name'],
+                                                    "internal_marks"=>$_POST['total_marks']
+                                                    )); 
+           $message = "Internal marks successfully updated";
+           $this->flash_notification($message);
+           redirect(base_url().'exam/internal');
+        }
+    }
+    
+    function internal_delete($id= '')
+    {
+        $this->Internal_exam_model->delete($id);
+        $message = "Internal marks successfully deleted";
+        $this->flash_notification($message);
+        redirect(base_url().'exam/internal');
+    }
+    
+    
 }

@@ -168,7 +168,7 @@
     });
 </script>
 <script type="text/javascript">
-    $('#exam_date').datepicker({format: js_date_format, autoclose: true});
+ //   $('#exam_date').datepicker({format: js_date_format, autoclose: true});
 
 </script>
 
@@ -331,7 +331,7 @@
         function subject_list(course, semester) {
             $('#subject').find('option').remove().end();
             $.ajax({
-                url: '<?php echo base_url(); ?>subject/subject_list_from_course_and_semester/' + course + '/' + semester,
+                url: '<?php echo base_url(); ?>subject/subejct_list_branch_sem/' + course + '/' + semester,
                 type: 'get',
                 success: function (content) {
                     $('#subject').append('<option value="">Select</option>');

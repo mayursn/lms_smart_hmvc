@@ -224,10 +224,22 @@ class Export_model extends CI_Model {
         $this->db->select('s.subject_name AS Subject Name, s.subject_code AS Subject Code');
         $this->db->select('c.c_name AS Branch');
         $this->db->select('sm.s_name AS Semester');
-        $this->db->from('subject_manager s');
-        $this->db->join('course AS c', 'c.course_id = s.sm_course_id');
-        $this->db->join('semester AS sm', 'sm.s_id = s.sm_sem_id');
+        $this->db->select('p.name AS Professor');
+        $this->db->from('subject_manager s');        
+        $this->db->join('subject_association sa','sa.sm_id=s.sm_id');
+        $this->db->join('course AS c', 'c.course_id = sa.course_id');
+        $this->db->join('semester AS sm', 'sm.s_id = sa.sem_id');
+        $this->db->join('professor AS p', 'FIND_IN_SET(sa.professor_id, p.professor_id)');
+        //$this->db->group_by('sa.sm_id');        
+        return $this->db->get();
         
+        
+    }
+    
+    function subject_list_export()
+    {
+        $this->db->select('s.subject_name AS Subject Name, s.subject_code AS Subject Code');
+        $this->db->from('subject_manager s');  
         return $this->db->get();
     }
 }

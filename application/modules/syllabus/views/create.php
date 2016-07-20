@@ -1,6 +1,6 @@
 <?php
 $this->load->model('department/Degree_model');
-$degree = $this->Degree_model->get_all();
+$degree = $this->Degree_model->order_by_column('d_name');
 $this->load->Model('branch/Course_model');
 $this->load->Model('semester/Semester_model');
 $data['course'] = $this->Course_model->order_by_column('c_name');

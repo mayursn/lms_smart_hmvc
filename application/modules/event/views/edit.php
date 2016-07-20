@@ -117,23 +117,22 @@ $edit_data = $this->db->get_where('event_manager', array('event_id' => $param2))
                     minuteStep: 30
                 });
                 $("#edit-datepicker-date").datepicker({
-                    format: js_date_format, autoclose: true,
+                    format: js_date_format, 
+                    autoclose: true,
                     changeMonth: true,
                     changeYear: true,
-                    minDate: new Date(),
-                    onClose: function (selectedDate) {
-                        $("#edit-datepicker-end-date").datepicker("option", "minDate", selectedDate);
-                    }
+                    startDate: new Date()
+                }).on('changeDate', function (selected) {
+                    var minDate = new Date(selected.date.valueOf());
+                    $('#edit-datepicker-end-date').datepicker('setStartDate', minDate);
                 });
                 $("#edit-datepicker-end-date").datepicker({
-                    format: js_date_format, autoclose: true,
+                    format: js_date_format,
+                    autoclose: true,
                     changeMonth: true,
                     changeYear: true,
-                    minDate: new Date(),
-                    onClose: function (selectedDate) {
-                        //$(".datepicker-normal").datepicker("option", "maxDate", new Date());
-                    }
-                })
+                    startDate: new Date()
+                });
                 $("#editevent").validate({
                     rules: {
                         event_name: "required",

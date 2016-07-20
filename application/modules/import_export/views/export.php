@@ -26,11 +26,15 @@
                                     <option value="<?php echo base_url('import-export/export-csv/project_manager'); ?>">Project Manager</option>
                                     <option value="<?php echo base_url('import-export/export-csv/semester'); ?>">Semester</option>
                                     <option value="<?php echo base_url('import-export/export-csv/student'); ?>">Student</option>    
-                                    <option value="<?php echo base_url('import-export/export-csv/subject'); ?>">Subject</option>
+                                    <option value="<?php echo base_url('import-export/export-csv/subject'); ?>">Subject Association</option>
+                                    <option value="<?php echo base_url('import-export/export-csv/subject_list'); ?>">Subject</option>
                                     <option value="<?php echo base_url('import-export/export-csv/system_setting'); ?>">System Settings</option>
+                                    
                                 </select>
                             </div>
                         </div> 
+                        <!-- <option value="<?php //echo base_url('import-export/export-csv/project_manager'); ?>">Project Manager</option>-->
+                        <!-- <option value="<?php //echo base_url('import-export/export-csv/system_setting'); ?>">System Settings</option> -->
                         <div id="main_degree" style="display: none;" class="form-group">
                             <label class="col-sm-4 control-label">Department</label>
                             <div class="col-sm-5">
@@ -223,7 +227,7 @@ $().ready(function () {
             $('#course').append('<option value="">Select</option>');
             var degree_id = $(this).val();
             $.ajax({
-                url: '<?php echo base_url(); ?>import-export/course_list_from_degree/' + degree_id,
+                url: '<?php echo base_url(); ?>branch/department_branch/' + degree_id,
                 type: 'get',
                 success: function (content) {
                     var course = jQuery.parseJSON(content);
@@ -247,7 +251,7 @@ $().ready(function () {
             //remove all element from batch
             $('#batch').find('option').remove().end();
             $.ajax({
-                url: '<?php echo base_url(); ?>import-export/batch_list_from_degree_and_course/' + degree_id + '/' + course_id,
+                url: '<?php echo base_url(); ?>batch/department_branch_batch/' + degree_id + '/' + course_id,
                 type: 'get',
                 success: function (content) {
                     $('#batch').append('<option value="">Select</option>');

@@ -61,7 +61,7 @@
         <div id="header">
             <nav class="navbar navbar-default" role=navigation>
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="<?php echo base_url(); ?>admin">
+                    <a class="navbar-brand" href="<?php echo base_url(); ?>">
                         <img src="<?php echo base_url(); ?>assets/img/logo.png" alt="logo">
                     </a>
                 </div>
@@ -72,7 +72,7 @@
                             <a href=# class="collapseBtn leftbar"><i class="fa fa-bars" aria-hidden="true"></i></a>
                         </li>
                         <li class="dropdown">
-                            <a href="<?php echo base_url(); ?>email_inbox">
+                            <a href="<?php echo base_url(); ?>email/inbox">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
                                 <span class=txt>Messages</span>
                             </a>
@@ -134,11 +134,7 @@
                             $user_id = $this->session->userdata('user_id');
                             $user = $this->User_model->get($user_id);
                             ?>
-<<<<<<< HEAD
-                            <a href=# class="dropdown-toggle avatar" data-toggle=dropdown><img src=<?php echo base_url() . 'system_image/' . $user->profile_pic; ?> alt="" class="image"> 
-=======
                             <a href=# class="dropdown-toggle avatar" data-toggle=dropdown><img src=<?php echo base_url() . 'uploads/system_image/' . $user->profile_pic; ?> alt="" class="image"> 
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
                                 <span class=txt><?php echo $user->first_name . ' ' . $user->last_name; ?></span> <b class=caret></b>
                             </a>
                             <ul class="dropdown-menu right">
@@ -147,11 +143,7 @@
                                         <li>
                                             <a href="<?php echo base_url(); ?>"><i class="fa fa-dashboard" aria-hidden="true"></i>Home</a>
                                         </li>
-<<<<<<< HEAD
-                                        <li><a href="<?php echo base_url(); ?>manage_profile">
-=======
                                         <li><a href="<?php echo base_url(); ?>profile">
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
                                                 <i class="fa fa-user" aria-hidden="true"></i>Edit profile</a>
                                         </li>
                                         <li><a href="<?php echo base_url(); ?>user/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
@@ -186,11 +178,11 @@
                                 <i class="fa fa-database" aria-hidden="true"></i>
                             </a>
                         </li>
-                        <li><a href="<?php echo base_url(); ?>report_chart" title="Reports" class=tip>
+                        <li><a href="<?php echo base_url(); ?>reports" title="Reports" class=tip>
                                 <i class="fa fa-pie-chart" aria-hidden="true"></i>
                             </a>
                         </li>
-                        <li><a href="<?php echo base_url(); ?>manage_profile" title="Profile" class=tip>
+                        <li><a href="<?php echo base_url(); ?>profile" title="Profile" class=tip>
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </a>
                         </li>
@@ -262,14 +254,14 @@
                                                     </a>
                                                 </li>
                                             <?php } ?>                                            
-<?php if (check_permission($permission, 'Batch')) { ?>
-                                            <li class="hide">
+                                            <?php if (check_permission($permission, 'Batch')) { ?>
+                                            <li>
                                                 <a id="link-batch" href="<?php echo base_url(); ?>batch">
                                                     <i class="s16 fa fa-share-alt"></i>
                                                     <span class="txt">Batch</span>
                                                 </a>
                                             </li>
-<?php } ?>
+                                            <?php } ?>
 
                                             <?php if (check_permission($permission, 'Semester')) { ?>
                                                 <li>
@@ -337,7 +329,7 @@
                                             <?php } ?>
                                             <?php if (check_permission($permission, 'Course_Category')) { ?>
                                                 <li>
-                                                    <a id="link-course_category" href="<?php echo base_url(); ?>category">
+                                                    <a id="link-course_category" href="<?php echo base_url(); ?>course_category">
                                                         <i class="s16 fa fa-globe"></i>
                                                         <span class="txt"> Course Category</span>
                                                     </a>
@@ -545,33 +537,23 @@
                                                 <span class="txt">Email </span></a>
                                             <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
                                                 <li>
-<<<<<<< HEAD
-                                                    <a id="link-compose" href="<?php echo base_url(); ?>email_compose">
-=======
                                                     <a id="link-compose" href="<?php echo base_url(); ?>email/compose">
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
+
                                                         <i class="s16 fa fa-envelope"></i>
-                                                        <span class="txt">Compose EMail</span>
+                                                        <span class="txt">Compose E-Mail</span>
                                                     </a>
                                                 </li>
                                                 <li>
-<<<<<<< HEAD
-                                                    <a id="link-inbox" href="<?php echo base_url(); ?>email_inbox">
-=======
                                                     <a id="link-inbox" href="<?php echo base_url(); ?>email/inbox">
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
                                                         <i class="s16 fa fa-inbox"></i>
                                                         <span class="txt">Inbox</span>
                                                     </a>
                                                 </li>
                                                 <li>
-<<<<<<< HEAD
-                                                    <a id="link-sent" href="<?php echo base_url(); ?>email_sent">
-=======
                                                     <a id="link-sent" href="<?php echo base_url(); ?>email/sent">
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
+
                                                         <i class="s16 fa fa-send"></i>
-                                                        <span class="txt">Sent Email</span>
+                                                        <span class="txt">Sent E-Mail</span>
                                                     </a>
                                                 </li>
 
@@ -590,23 +572,15 @@
                                             <ul <?php echo navigation_show_hide_ul($page, $pages); ?>>
                                                 <?php if (check_permission($permission, 'Import')) { ?>
                                                     <li>
-<<<<<<< HEAD
-                                                        <a id="link-import" href="<?php echo base_url(); ?>import">
-=======
                                                         <a id="link-import" href="<?php echo base_url(); ?>import_export/import">
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
                                                             <i class="s16 fa fa-upload"></i>
                                                             <span class="txt">Import</span>
                                                         </a>
                                                     </li>
                                                 <?php } ?>
                                                 <?php if (check_permission($permission, 'Export')) { ?>
-                                                    <li>
-<<<<<<< HEAD
-                                                        <a id="link-export" href="<?php echo base_url(); ?>export">
-=======
-                                                        <a id="link-export" href="<?php echo base_url(); ?>import_export/export">
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
+                                                   <li>
+                                                        <a id="link-export" href="<?php echo base_url(); ?>import_export/export">                                              
                                                             <i class="s16 fa fa-download"></i>
                                                             <span class="txt">Export</span>
                                                         </a>
@@ -703,13 +677,19 @@
                                                         </a>
                                                     </li> 
                                                 <?php } ?>
+                                                <?php if (check_permission($permission, 'Internal_Exam')) { ?>
+                                                    <li>
+                                                        <a id="link-exam" href="<?php echo base_url(); ?>exam/internal">
+                                                            <i class="s16 fa fa-paper-plane-o"></i>
+                                                            <span class="txt">Internal Exam Marks</span>
+                                                        </a>
+                                                    </li> 
+                                                <?php } ?>
                                                 <?php if (check_permission($permission, 'Exam_Schedual')) { ?>
                                                     <li>
-<<<<<<< HEAD
-                                                        <a id="link-exam_schedule" href="<?php echo base_url(); ?>examschedule">
-=======
-                                                        <a id="link-exam_schedule" href="<?php echo base_url(); ?>examschedual">
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
+
+                                                        <a id="link-exam_schedule" href="<?php echo base_url(); ?>exam-schedule">
+
                                                             <i class="s16 fa fa-history"></i>
                                                             <span class="txt">Exam Schedule</span>
                                                         </a>
@@ -736,7 +716,7 @@
                                     <?php } ?>
                                     <?php if (check_permission($permission, 'CMS_Page')) { ?>
                                         <li>
-                                            <a <?php echo active_single_menu('cms', $page); ?> href="<?php echo base_url(); ?>cms_pages">
+                                            <a <?php echo active_single_menu('cms', $page); ?> href="<?php echo base_url(); ?>cms">
                                                 <i class="s16 fa fa-pagelines"></i>
                                                 <span class=txt>CMS Pages</span></a>
                                         </li>
@@ -781,7 +761,7 @@
                                     <?php } ?>
                                     <?php if (check_permission($permission, 'Report')) { ?>
                                         <li>
-                                            <a <?php echo active_single_menu('report_chart', $page); ?> href="<?php echo base_url(); ?>report_chart">
+                                            <a <?php echo active_single_menu('report_chart', $page); ?> href="<?php echo base_url(); ?>reports">
                                                 <i class="s16 fa fa-bar-chart"></i>
                                                 <span class=txt>Reports</span>
                                             </a>
@@ -817,15 +797,14 @@
                                             </ul>
                                         </li> 
                                     <?php } ?>
-<<<<<<< HEAD
-=======
+
                                         
                                     <?php
                                     $pages = [
                                         'quiz', 'questions', 'result', 'quiz_history'
                                     ];
                                     ?>
-
+ <?php if (check_permission($permission, 'Quiz')) { ?>
                                     <li class="hasSub<?php echo highlight_menu($page, $pages); ?>">
                                         <a href="#" class="<?php echo exapnd_not_expand_menu($page, $pages); ?>"><i class="icomoon-icon-arrow-down-2 s16 hasDrop"></i><i class="s16 fa fa-book"></i>
                                             <span class="txt">Quiz</span></a>
@@ -835,18 +814,11 @@
                                                     <i class="s16 fa fa-list"></i>
                                                     <span class="menu-text">Quiz</span>  
                                                 </a>
-                                            </li>
-                                            <li >
-                                                <a id="link-user" href="<?php echo base_url(); ?>quiz/user-quiz-history">
-                                                    <i class="s16 fa fa-desktop"></i>
-                                                    <span class="menu-text">Quiz History</span>  
-                                                </a>
-                                            </li>  
+                                            </li>                                           
                                         </ul>
                                     </li>
      
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
-
+ <?php } ?>
                                     <?php
                                     $pages = [
                                         'role', 'user'
@@ -876,10 +848,7 @@
                                             </ul>
                                         </li>
                                     <?php } ?>
-<<<<<<< HEAD
-=======
-                                        
->>>>>>> a54931c7c290e228035a431bb36cb115c8e192c3
+
                             </div>
                         </div>
                         <!-- End sidenav -->

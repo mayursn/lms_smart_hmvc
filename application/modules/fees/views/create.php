@@ -255,26 +255,20 @@ $("#batch").change(function () {
             format: js_date_format,
             todayHighlight: true,
             autoclose: true,
-            startDate: new Date()
+            startDate: new Date(),
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+        $('#end_date').datepicker('setStartDate', minDate);
         });
-        $('#start_date').on('change', function () {
-            
-            date = new Date($(this).val());
-            start_date = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-            console.log(start_date);
-            
-            setTimeout(function () {
-                $("#end_date").datepicker({
+        $("#end_date").datepicker({
                     format: js_date_format,
                     autoclose: true,
-                    todayHighlight: true,
-                    startDate: start_date
+                    todayHighlight: true                  
                 }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#expiry_date').datepicker('setStartDate', minDate);
+                        var minDate = new Date(selected.date.valueOf());
+                    $('#expiry_date').datepicker('setStartDate', minDate);
         });
-            }, 200);
-        });
+        
           
            $("#expiry_date").datepicker({
                     format: js_date_format,

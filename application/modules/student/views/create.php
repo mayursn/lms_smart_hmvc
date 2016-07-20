@@ -52,25 +52,7 @@ $class = $this->Class_model->order_by_column('class_name');
                         <div class="col-sm-5">
                             <label for="gen" class="error"></label></div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label"><?php echo ucwords("Parent Name"); ?><span style="color:red">*</span></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="parentname" id="parentname"  />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label"><?php echo ucwords("Parent Contact No"); ?><span style="color:red">*</span></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="parentcontact" id="parentcontact"  />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label"><?php echo ucwords("Parent Email Id"); ?><span style="color:red"></span></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="parent_email_id" id="parent_email_id"  />
-                            <span id="emailerror" style="color: red"></span>
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?php echo ucwords("Address"); ?><span style="color:red">*</span></label>
                         <div class="col-sm-8">
@@ -95,18 +77,7 @@ $class = $this->Class_model->order_by_column('class_name');
                             <input type="text" class="form-control datepicker-normal" name="birthdate"/>
                         </div>
                     </div>	
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label"><?php echo ucwords("Marital Status"); ?></label>
-                        <div class="col-sm-8">
-                            <select name="maritalstatus" class="form-control" id="maritalstatus">
-                                <option value="">Select</option>
-                                <option value="single">Single</option>
-                                <option value="married">Married</option>
-                                <option value="separated">Separated</option>
-                                <option value="widowed">Widowed</option>
-                            </select>
-                        </div>
-                    </div>	
+                    	
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?php echo ucwords("department"); ?><span style="color:red">*</span></label>
                         <div class="col-sm-8">
@@ -160,19 +131,7 @@ $class = $this->Class_model->order_by_column('class_name');
                             <input type="text" class="form-control" name="mobileno" id="mobileno" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label"><?php echo ucwords("Facebook URL"); ?></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="facebook" id="facebook" />
-                        </div>
-                    </div>	
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label"><?php echo ucwords("Twitter URL"); ?></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="twitter" id="twitter" />
-                        </div>
-                    </div>	
-                   	
+                    
                     <div class="form-group">
                         <label class="col-sm-4 control-label"><?php echo ucwords("Admission Type"); ?><span style="color:red">*</span></label>
                         <div class="col-sm-8">

@@ -148,6 +148,26 @@ $degree = $this->Degree_model->order_by_column('d_name');
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-4 control-label"><?php echo ucwords("result type"); ?><span style="color:red">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="resulttype" id="resulttype">
+                            <option value="">Select</option>
+                            <option value="grade" >Grade</option>
+                            <option value="marks" >Marks</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"><?php echo ucwords("exam mode"); ?><span style="color:red">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="exammode" id="exammode">
+                            <option value="">Select</option>
+                            <option value="written" >Written</option>
+                            <option value="mcq" >MCQ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
                         <button type="submit" class="btn btn-info vd_bg-green"><?php echo ucwords("Add"); ?></button>
                     </div>
@@ -166,24 +186,34 @@ $degree = $this->Degree_model->order_by_column('d_name');
         var start_date = '';
         $('#edit_start_date').datepicker({
             format: js_date_format,
-            startDate: new Date(),
+            //startDate: new Date(),
             autoclose: true,
             todayHighlight: true,
-        });
-
-        $('#edit_start_date').on('change', function () {
-            date = new Date($(this).val());
-            start_date = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-            console.log(start_date);
-
-            setTimeout(function () {
-                $("#edit_end_date_time").datepicker({
+        }).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        $('#edit_end_date_time').datepicker('setStartDate', minDate);
+        
+    });
+    $("#edit_end_date_time").datepicker({
                     format: js_date_format,
+                    todayHighlight: true,              
                     autoclose: true,
-                    startDate: start_date
-                });
-            }, 700);
-        });
+     });
+
+
+//        $('#edit_start_date').on('change', function () {
+//            date = new Date($(this).val());
+//            start_date = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+//            console.log(start_date);  
+//            
+//            setTimeout(function () {
+//                $("#edit_end_date_time").datepicker({
+//                    format: js_date_format,
+//                    autoclose: true,
+//                    startDate: start_date
+//                });
+//            }, 700);
+//        });
     })
 </script>
 
@@ -210,7 +240,9 @@ $degree = $this->Degree_model->order_by_column('d_name');
                 status: "required",
                 date: "required",
                 start_date_time: "required",
-                end_date_time: "required"
+                end_date_time: "required",
+                resulttype:"required",
+                exammode:"required"
             },
             messages: {
                 exam_name: "Please enter exam name",
@@ -227,7 +259,9 @@ $degree = $this->Degree_model->order_by_column('d_name');
                 status: "Please select status",
                 date: "Please enter date",
                 start_date_time: "Please enter start date time",
-                end_date_time: "Please enter end date"
+                end_date_time: "Please enter end date",
+                resulttype:"Select result type",
+                exammode:"Select result mode"
             }
         });
     });
@@ -320,10 +354,10 @@ $degree = $this->Degree_model->order_by_column('d_name');
     $(document).ready(function () {
         var date = '';
         var start_date = '';
-
+       
         $("#date").datepicker({
-            format: ' MM dd, yyyy',
-            startDate: new Date(),
+            format: js_date_format,
+          //  startDate: new Date(),
             todayHighlight: true,
             autoclose: true
         });
@@ -334,9 +368,9 @@ $degree = $this->Degree_model->order_by_column('d_name');
             console.log(start_date);
             setTimeout(function () {
                 $("#end_date_time").datepicker({
-                    format: ' MM dd, yyyy',
+                    format: js_date_format,
                     todayHighlight: true,
-                    startDate: start_date,
+               //     startDate: start_date,
                     autoclose: true,
                 });
             }, 700);

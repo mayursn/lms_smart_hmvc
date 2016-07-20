@@ -131,6 +131,7 @@
                                         <span class="label label-danger mr6 mb6" >InActive</span>
                                     <?php } ?>
                                 </td>
+                                 <?php if ($update || $delete) { ?>
                                  <td width="12.5%" class="menu-action">
                                     <?php if ($update) { ?>
                                     <a href="#" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/participate_edit/<?php echo $row->pp_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-primary mr6 mb6"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span></a>
@@ -139,6 +140,7 @@
                                     <a href="#" onclick="confirm_modal('<?php echo base_url(); ?>admin/participate/delete/<?php echo $row->pp_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-danger mr6 mb6"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span></a>	
                                     <?php } ?>
                                  </td>
+                                 <?php } ?>
                               </tr>
                               <?php endforeach; ?>						
                            </tbody>

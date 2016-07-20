@@ -20,10 +20,14 @@ class Examschedual extends MY_Controller {
         $this->load->model('student/Student_model');
         $this->load->model('exam/Exam_seat_no_model');
         $this->load->model('examschedual/Exam_time_table_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     function index() {
-        $this->data['title'] = 'Exam Schedual';          
+        $this->data['title'] = 'Exam Schedule';          
         $this->data['time_table'] = $this->Exam_time_table_model->time_table();
         $this->data['course'] = $this->Course_model->order_by_column('c_name');
         $this->data['semester'] = $this->Semester_model->order_by_column('s_name');
@@ -100,8 +104,8 @@ class Examschedual extends MY_Controller {
     
     function delete($id='')
     {
-        $this->Exam_manager_model->delete($id);
-        $this->flash_notification("Exam Deleted successfully");
+        $this->Exam_time_table_model->delete($id);
+        $this->flash_notification("Exam schedule Deleted successfully");
         redirect(base_url().'examschedual');
         
     }
@@ -139,19 +143,20 @@ class Examschedual extends MY_Controller {
      */
     function get_exam_list($degree_id = '', $course_id = '', $batch_id = '', $semester_id = '', $time_table = '') {
         $this->load->model('department/Degree_model');
-        $exam_detail = $this->Degree_model->get_many_by(array(
+        $exam_detail = $this->db->get_where('exam_manager', array(
                             'course_id' => $course_id,
                             'em_semester' => $semester_id,
                             'degree_id' => $degree_id,
                             'batch_id' => $batch_id,
                             'exam_ref_name' => 'reguler'
-                        ));
+                        ))->result();
+                        
         echo "<option value=''>Select</option>";
         foreach ($exam_detail as $row) {
             ?>
             <option value="<?php echo $row->em_id ?>"
             <?php if ($row->em_id == $time_table) echo 'selected'; ?>><?php echo $row->em_name . '  (Marks' . $row->total_marks . ')'; ?></option>
-            <!--echo "<option value={$row->em_id}>{$row->em_name}  (Marks{$row->total_marks})</option>";-->
+          
             <?php
         }
     }

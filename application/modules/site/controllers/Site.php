@@ -81,7 +81,7 @@ class Site extends MY_Controller {
      * 
      */
 
-    function syllabus() {
+    function get_syllabus() {
         $this->data['title'] = 'Syllabus';
         $this->data['syllabus'] = $this->Site_model->get_all_syllabus();
         $this->__template('syllabus', $this->data);
@@ -642,8 +642,10 @@ class Site extends MY_Controller {
 
     function gallery() {
         $this->db->order_by('gallery_id', 'DESC');
-        $this->db->where('gal_status', '1');
+        $this->db->where('gal_status', '1');        
         $this->data['gallery'] = $this->db->get('photo_gallery')->result();
+        $this->data['title'] = "Gallery";
+        $this->data['page'] = "gallery";
         $this->__template('gallery', $this->data);
     }
 
@@ -674,6 +676,126 @@ SELECT STR_TO_DATE(todo_datetime,'%Y-%m-%d') as todo_date FROM todo_list)")->res
         endforeach;
 
         die;
+    }
+    
+     function demo_faker() {
+        require 'vendor/autoload.php';
+        // use the factory to create a Faker\Generator instance
+        $faker = Faker\Factory::create();
+        //$branch = '58';
+        $batch = '38';
+        $semester = '1';
+        $department = '4';        
+        $class = '1';
+        $this->load->model('branch/Course_model');
+        $course = $this->Course_model->department_branch('9');
+        
+        foreach($course as $branchs):
+           $branch =  $branchs->course_id;
+        $semester = $branchs->semester_id;        
+        $semester = explode(",",$semester);
+            foreach($semester as $sem):
+                for ($i = 1; $i <= 50; $i++) {
+                    $email = explode("@",$faker->safeEmail);
+                    $fake_email = $email[0].$i.'@'.$email[1];
+                    
+            $male_female = (rand(1, 100) > 50) ? 'male' : 'female';
+           $this->db->insert('user', array(
+                'first_name' => $faker->firstName($male_female),
+                'last_name' => $faker->lastName,
+                'email' => $fake_email,
+                'password' => Modules::run('user/__hash', '12345'),
+                'gender' => ucfirst($male_female),
+                'zip_code'  => $faker->postcode,
+                'mobile'  => $faker->e164PhoneNumber,
+                'city'  => $faker->city,    
+                'address'  => $faker->address,    
+                'role_id' => '3',
+                'is_active' => '1'                
+            ));
+           $user_id = $this->db->insert_id();
+          $get_user =  $this->db->get_where('user',array('user_id'=>$user_id))->row();
+           $this->db->insert('student', array(
+                'user_id' => $user_id,
+                'email' => $get_user->email,
+                'std_first_name'    => $get_user->first_name,
+                'std_last_name' => $get_user->last_name,
+                'std_gender'    => $get_user->gender,
+                'address'   => $get_user->address,
+                'city'  => $get_user->city,
+                'zip'   => $get_user->zip_code,
+                'std_birthdate' => date('Y-m-d', strtotime($faker->date)),
+                'std_batch' => $batch,
+                'semester_id'   => $sem,
+                'std_degree'    => $department,
+                'course_id' => $branch,
+                'class_id'  => $class,
+                'std_about' => $faker->text,
+                'std_mobile'    => $get_user->mobile,
+                'std_status'=>'1'
+            ));
+        echo $std_id = $this->db->insert_id();
+        echo "<br>";
+      
+          $roll_no = date('Y') . $branch . $sem . $std_id;
+          
+         $array = array("std_roll"=>$roll_no);
+          $this->load->model('student/Student_model');
+          $this->Student_model->update($std_id,$array);
+          
+        }
+            endforeach;
+            
+       
+        endforeach;
+        
+        //$roll_no = date('Y') . $branch . $semester . $student_id;
+       /* for ($i = 1; $i <= 50; $i++) {
+            $male_female = (rand(1, 100) > 50) ? 'male' : 'female';
+           $this->db->insert('user', array(
+                'first_name' => $faker->firstName($male_female),
+                'last_name' => $faker->lastName,
+                'email' => $faker->safeEmail,
+                'password' => Modules::run('user/__hash', '12345'),
+                'gender' => ucfirst($male_female),
+                'zip_code'  => $faker->postcode,
+                'mobile'  => $faker->e164PhoneNumber,
+                'city'  => $faker->city,    
+                'address'  => $faker->address,    
+                'role_id' => '3',
+                'is_active' => '1'                
+            ));
+           $user_id = $this->db->insert_id();
+          $get_user =  $this->db->get_where('user',array('user_id'=>$user_id))->row();
+           $this->db->insert('student', array(
+                'user_id' => $user_id,
+                'email' => $get_user->email,
+                'std_first_name'    => $get_user->first_name,
+                'std_last_name' => $get_user->last_name,
+                'std_gender'    => $get_user->gender,
+                'address'   => $get_user->address,
+                'city'  => $get_user->city,
+                'zip'   => $get_user->zip_code,
+                'std_birthdate' => date('Y-m-d', strtotime($faker->date)),
+                'std_batch' => $batch,
+                'semester_id'   => $semester,
+                'std_degree'    => $department,
+                'course_id' => $branch,
+                'class_id'  => $class,
+                'std_about' => $faker->text,
+                'std_mobile'    => $get_user->mobile,
+                'std_status'=>'1'
+            ));
+         $std_id = $this->db->insert_id();
+      
+          $roll_no = date('Y') . $branch . $semester . $std_id;
+          
+         $array = array("std_roll"=>$roll_no);
+          $this->load->model('student/Student_model');
+          $this->Student_model->update($std_id,$array);
+        }
+        * */
+        echo 'done';
     }
 
 }

@@ -17,9 +17,15 @@ class Marks extends MY_Controller {
         $this->load->model('batch/Batch_model');
         $this->load->model('semester/Semester_model');
         $this->load->model('classes/Class_model');
-          $this->load->model('examschedual/Exam_time_table_model');
-            $this->load->model('exam/Exam_manager_model');
-            $this->load->model('student/Student_model');
+        $this->load->model('examschedual/Exam_time_table_model');
+        $this->load->model('exam/Exam_manager_model');
+        $this->load->model('student/Student_model');
+        $this->load->model('marks/Internal_marks_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
+            
     }
 
     /**
@@ -35,6 +41,8 @@ class Marks extends MY_Controller {
         $this->data['time_table'] = $this->Exam_time_table_model->time_table();
         if($_POST)
         {
+            echo "<pre>";
+           // print_r($_POST);
             
             //exam details
 
@@ -69,9 +77,89 @@ class Marks extends MY_Controller {
                         'mm_subject_id' => $subject_details[$j]->sm_id,
                         'mm_exam_id' => $exam_detail[0]->em_id,
                     );
-
                     $marks = $this->Marks_manager_model->get_many_by($where);
-
+                    $int_sm_id = $subject_details[$j]->sm_id;                    
+                     $this->db->select();
+                     $this->db->where("sm_id",$int_sm_id );
+                     $this->db->where("course_id", $course_id);
+                     $this->db->where("sem_id", $semester_id);
+                     $internal = $this->db->get("internal_exam")->result();
+                    
+                     foreach($internal as $intexam):
+                      
+                      //  echo $_POST["internal_1_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}_{$subject_details[$j]->sm_id}_{$intexam->internal_id}"].'std=>'.$student_list[$i - 1]->std_id."exam=>".$exam_detail[0]->em_id."<br/>";
+                         
+                       $internal_exam_marks = array("course_id"=>$course_id, 
+                                "sem_id"=>$semester_id,
+                                "sm_id"=>$subject_details[$j]->sm_id,
+                                "std_id"=>$student_list[$i - 1]->std_id,
+                                "internal_id"=>$intexam->internal_id,
+                                "em_id"=>$exam_detail[0]->em_id);
+                     $internal_marks_count = $this->db->get_where("internal_marks",$internal_exam_marks)->result();                    
+                     
+                       
+                        if (count($internal_marks_count)) {
+                            if ($student_id != '') {
+                                $int_update = array("course_id"=>$course_id, 
+                                "sem_id"=>$semester_id,
+                                "sm_id"=>$subject_details[$j]->sm_id,
+                                "std_id"=>$student_list[$i - 1]->std_id,
+                                "internal_id"=>$intexam->internal_id,
+                                "em_id"=>$exam_detail[0]->em_id);
+                               
+                                $int_update_data = array("course_id"=>$course_id,
+                                    "sem_id"=>$semester_id,
+                                    "sm_id"=>$subject_details[$j]->sm_id,
+                                     "std_id"=>$student_list[$i - 1]->std_id,
+                                  "internal_id"=>$intexam->internal_id,
+                                  "internal_marks"=>$intexam->internal_marks,
+                                  "internal_obtained_marks"=>$_POST["internal_1_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}_{$subject_details[$j]->sm_id}_{$intexam->internal_id}"],
+                                  "em_id"=>$exam_detail[0]->em_id);                               
+                                 $this->Internal_marks_model->internal_update($int_update_data,$int_update);  
+                                
+                            }
+                            else{
+                                $where_int = array("course_id"=>$course_id, 
+                                "sem_id"=>$semester_id,
+                                "sm_id"=>$subject_details[$j]->sm_id,
+                                "std_id"=>$student_list[$i - 1]->std_id,
+                                "internal_id"=>$intexam->internal_id,
+                                "em_id"=>$exam_detail[0]->em_id);
+                                $int_update_data = array("course_id"=>$course_id,
+                                    "sem_id"=>$semester_id,
+                                    "sm_id"=>$subject_details[$j]->sm_id,
+                                    "std_id"=>$student_list[$i - 1]->std_id,
+                                    "internal_id"=>$intexam->internal_id,
+                                    "internal_marks"=>$intexam->internal_marks,
+                                    "internal_obtained_marks"=>$_POST["internal_{$i}_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}_{$subject_details[$j]->sm_id}_{$intexam->internal_id}"],
+                                    "em_id"=>$exam_detail[0]->em_id);
+                                $int_insert_id=$this->Internal_marks_model->internal_update($int_update_data,$where_int
+                                        );   
+                            }                            
+                        }else{
+                            if ($student_id != '') {
+                         $int_marks = $_POST["internal_1_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}_{$subject_details[$j]->sm_id}_{$intexam->internal_id}"];
+                        $int_insert_id =   $this->Internal_marks_model->insert(array("course_id"=>$course_id,
+                              "sem_id"=>$semester_id,
+                              "sm_id"=>$subject_details[$j]->sm_id,
+                               "std_id"=>$student_list[$i - 1]->std_id,
+                            "internal_id"=>$intexam->internal_id,
+                            "internal_marks"=>$intexam->internal_marks,
+                            "internal_obtained_marks"=>$int_marks,
+                             "em_id"=>$exam_detail[0]->em_id));   
+                            }
+                            else{
+                        $int_insert_id =   $this->Internal_marks_model->insert(array("course_id"=>$course_id,
+                              "sem_id"=>$semester_id,
+                              "sm_id"=>$subject_details[$j]->sm_id,
+                               "std_id"=>$student_list[$i - 1]->std_id,
+                            "internal_id"=>$intexam->internal_id,
+                            "internal_marks"=>$intexam->internal_marks,
+                            "internal_obtained_marks"=>$_POST["internal_{$i}_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}_{$subject_details[$j]->sm_id}_{$intexam->internal_id}"],
+                            "em_id"=>$exam_detail[0]->em_id));   
+                            }
+                        }
+                    endforeach;
                     if (count($marks)) {
                         if ($student_id != '') {
                             $this->Marks_manager_model->mark_update(array(
@@ -89,6 +177,7 @@ class Marks extends MY_Controller {
                                 'mark_obtained' => $_POST["mark_{$i}_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}_{$subject_details[$j]->sm_id}"],
                                 'mm_remarks' => $_POST["remark_{$i}_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}"],
                                     ), $where);
+                                
                         }
                         //udpate                        
                     } else {
@@ -101,6 +190,7 @@ class Marks extends MY_Controller {
                                 'mark_obtained' => $_POST["mark_1_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}_{$subject_details[$j]->sm_id}"],
                                 'mm_remarks' => $_POST["remark_1_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}"],
                             ));
+                           
                         } else {
                         $insert_id =     $this->Marks_manager_model->insert(array(
                                 'mm_std_id' => $student_list[$i - 1]->std_id,
@@ -109,6 +199,7 @@ class Marks extends MY_Controller {
                                 'mark_obtained' => $_POST["mark_{$i}_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}_{$subject_details[$j]->sm_id}"],
                                 'mm_remarks' => $_POST["remark_{$i}_{$student_list[$i - 1]->std_id}_{$exam_detail[0]->em_id}"],
                             ));
+                        
                         }
 
                         

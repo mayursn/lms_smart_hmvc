@@ -19,6 +19,10 @@ class Assessments extends MY_Controller {
         $this->load->model('classes/Class_model');
         $this->load->model('assignment/Assignment_submission_model');
         $this->load->model('academic_year/Academic_year_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     function index() {

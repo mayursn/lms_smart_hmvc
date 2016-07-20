@@ -475,6 +475,7 @@
     <!-- .row -->
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
+              <?php if(check_permission($permission, 'Class_Routine')) { ?>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                 <a href="<?php echo base_url(); ?>class_routine" class="stats-btn mb20 lead-stats color_green">
                     <span data-to="568" data-from="0" class="stats-number dolar">Class Routine</span>
@@ -482,6 +483,9 @@
                     <h5>Daily class routine</h5>
                 </a>
             </div>
+              <?php  } ?>
+            
+              <?php if(check_permission($permission, 'Exam')) { ?>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                 <a href="<?php echo base_url(); ?>exam" class="stats-btn mb20 lead-stats news_icon">
                     <span data-to="568" data-from="0" class="stats-number dolar">Exam</span>
@@ -489,6 +493,8 @@
                     <h5>Exam and it's schedule</h5>
                 </a>
             </div>
+              <?php } ?>
+             <?php if(check_permission($permission, 'Assignment')) { ?>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                 <a href="<?php echo base_url(); ?>assignment/submission" class="stats-btn mb20 lead-stats attendant_green">
                     <span data-to="568" data-from="0" class="stats-number dolar">Assignment</span>
@@ -496,6 +502,8 @@
                     <h5>Daily assignments</h5>
                 </a>
             </div>
+             <?php } ?>
+             <?php if(check_permission($permission, 'Fee')) { ?>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                 <a href="<?php echo base_url(); ?>feerecord" class="stats-btn mb20 lead-stats admissions_color">
                     <span data-to="568" data-from="0" class="stats-number dolar">Fee Records</span>
@@ -503,6 +511,7 @@
                     <h5>Recent fee records</h5>
                 </a>
             </div>
+             <?php } ?>
         </div>
     </div>
 </div>
@@ -511,6 +520,7 @@
     <!-- .row -->
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
+             <?php if(check_permission($permission, 'Study_Resource')) { ?>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                 <div class="xe-widget xe-counter-block">
                     <div class="xe-upper">
@@ -535,7 +545,8 @@
                     </div>
                 </div>
             </div>
-
+             <?php } ?>
+            <?php if(check_permission($permission, 'Library')) { ?>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                 <div class="xe-widget xe-counter-block xe-counter-block-purple">
                     <div class="xe-upper">
@@ -556,7 +567,8 @@
                     </div>
                 </div>
             </div>
-
+            <?php } ?>
+            <?php if(check_permission($permission, 'Exam')) { ?>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                 <div class="xe-widget xe-counter-block  xe-counter-block-blue">
                     <div class="xe-upper">
@@ -580,7 +592,8 @@
                     </div>
                 </div>
             </div>
-
+            <?php } ?>
+<?php if(check_permission($permission, 'Participate')) { ?>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                 <div class="xe-widget xe-counter-block xe-counter-block-orange">
                     <div class="xe-upper">
@@ -603,7 +616,8 @@
                     </div>
                 </div>
             </div>
-
+<?php } ?>
+<?php if(check_permission($permission, 'Exam_Marks')) { ?>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                 <div class="xe-widget xe-counter-block xe-progress-counter xe-progress-counter-turquoise">
                     <div class="xe-upper">
@@ -624,7 +638,8 @@
                     </div>
                 </div>
             </div>
-
+<?php } ?>
+            <?php if(check_permission($permission, 'Video_Streaming')) { ?>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                 <div class="xe-widget xe-counter-block xe-counter-block-red">
                     <div class="xe-upper">
@@ -665,7 +680,9 @@
                     </div>
                 </div>
             </div>
+            <?php } ?>
             <!-- Admission Volunteer start div-->
+            <?php if(check_permission($permission, 'Payment')) { ?>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                 <div class="xe-widget xe-counter-block xe-counter-block-red attendance-box" data-count=".num" data-from="0" data-to="99.9" data-suffix="%" data-duration="2">
                     <div class="xe-upper">
@@ -676,7 +693,7 @@
                     <div class="xe-lower scroll-bar-box">
                         <ul class="clearfix links-gaz"> 
                             <li>
-                                <a href="<?php echo base_url('student/profile'); ?>" target="_blank"> 
+                                <a href="<?php echo base_url('profile'); ?>" target="_blank"> 
                                     <div class="menu-text">Profile</div> 
                                 </a>
                             </li>
@@ -703,9 +720,11 @@
                     </div>
                 </div>
             </div>
+            <?php } ?>
             <!-- Admission Volunteer end div-->
 
             <!-- Project List start div-->
+            <?php if(check_permission($permission, 'Project')) { ?>
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                 <div class="xe-widget xe-counter-block xe-counter-block-black">
                     <div class="xe-upper">
@@ -723,6 +742,7 @@
                     </div>
                 </div>
             </div>
+            <?php } ?>
             <!-- Project List end div-->
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -730,7 +750,7 @@
                 <div class="panel panel-default toggle">
                     <!-- Start .panel -->
                     <div class=panel-heading>
-                        <h4 class=panel-title>Event Calendar</h4>
+                    <h4 class=panel-title>Academic Calendar</h4>
                         <div class="panel-controls panel-controls-right"> 
                             <a href="#" class="toggle panel-minimize"><i class="minia-icon-arrow-up-3"></i></a>
                         </div>

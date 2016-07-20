@@ -12,6 +12,10 @@ class Cms extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('cms/Cms_manager_model');
+         if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     function index() {

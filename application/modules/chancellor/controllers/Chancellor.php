@@ -12,6 +12,10 @@ class Chancellor extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('chancellor/University_peoples_model');
+        if(!$this->session->userdata('user_id'))
+        {
+            redirect(base_url().'user/login');
+        }
     }
 
     function index() {

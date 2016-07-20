@@ -318,41 +318,34 @@ $edit_data = $this->db->get_where('fees_structure', array('fees_structure_id' =>
 
 </script>
 
-<script>
-    $(document).ready(function () {  
-         var js_date_format = '<?php echo js_dateformat(); ?>';
-         $("#edit_start_date").datepicker({
+<script>    
+     $(document).ready(function () {
+        var js_date_format = '<?php echo js_dateformat(); ?>';
+        $("#edit_start_date").datepicker({
             format: js_date_format,
             todayHighlight: true,
             autoclose: true,
-            startDate: new Date()
+            startDate: new Date(),
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+        $('#edit_end_date').datepicker('setStartDate', minDate);
         });
-        $('#edit_start_date').on('change', function () {
-            
-            date = new Date($(this).val());
-            start_date = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-            console.log(start_date);
-            
-            setTimeout(function () {
-                $("#edit_end_date").datepicker({
+        $("#edit_end_date").datepicker({
                     format: js_date_format,
                     autoclose: true,
-                    todayHighlight: true,
-                    startDate: start_date
+                    todayHighlight: true                  
                 }).on('changeDate', function (selected) {
-            var minDate = new Date(selected.date.valueOf());
-            $('#edit_expiry_date').datepicker('setStartDate', minDate);
+                        var minDate = new Date(selected.date.valueOf());
+                    $('#edit_expiry_date').datepicker('setStartDate', minDate);
         });
-            }, 200);
-        });
-          
+                  
            $("#edit_expiry_date").datepicker({
                     format: js_date_format,
                     autoclose: true,
                     todayHighlight: true
                 });
-
-    })
+        
+    });
     //minDate: new Date(),
 
 </script>

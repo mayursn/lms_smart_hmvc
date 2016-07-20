@@ -1,4 +1,5 @@
 <?php
+$this->load->model('subject/Subject_manager_model');
 $edit_data = $this->db->select()
         ->from('exam_time_table')
         ->join('exam_manager', 'exam_manager.em_id = exam_time_table.exam_id')
@@ -30,10 +31,11 @@ $batch = $this->db->query($query)->result();
 $semester = explode(',', $edit_data->semester_id);
 $this->db->where_in('s_id', $semester);
 $semester = $this->db->get('semester')->result();
-$subjects = $this->db->get_where('subject_manager',[
-    'sm_course_id'  => $course_id,
-    'sm_sem_id' => $semester_id
-])->result();
+$subjects = $this->Subject_manager_model->subejct_list_branch_sem($course_id,$semester_id);
+       // $this->db->get_where('subject_manager',[
+  //  'sm_course_id'  => $course_id,
+   //'sm_sem_id' => $semester_id
+//])->result();
 ?>
 <div class="row">
 
@@ -245,6 +247,8 @@ var js_date_format = '<?php echo js_dateformat(); ?>';
 <script>
     var time_table_exam_id = '<?php echo $edit_data->exam_id; ?>';
     var subject_id = '<?php echo $edit_data->subject_id; ?>';
+    var edit_degree = '<?php echo $edit_data->degree_id; ?>';
+    var course_id = '<?php echo $edit_data->course_id; ?>';
 
     function get_exam_list(course_id, semester_id) {
         var edit_degree = $("#edit_degree").val();
@@ -264,10 +268,14 @@ var js_date_format = '<?php echo js_dateformat(); ?>';
 
     function subject_list(course_id, semester_id) {
         $.ajax({
-            url: '<?php echo base_url(); ?>examschedual/subject_list/' + course_id + '/' + semester_id + '/' + subject_id,
+            url: '<?php echo base_url(); ?>subject/subejct_list_branch_sem/' + course_id + '/' + semester_id + '/' + subject_id,
             type: 'get',
             success: function (content) {
-                $('#edit_subject').html(content);
+                $('#edit_subject').append('<option value="">Select</option>');
+                    var subject = jQuery.parseJSON(content);
+                    $.each(subject, function (key, value) {
+                        $('#edit_subject').append('<option value=' + value.sm_id + '>' + value.subject_name + '</option>');
+                    })
             }
         })
     }

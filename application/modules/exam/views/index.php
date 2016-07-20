@@ -63,6 +63,7 @@ $delete = delete_permission($permission, 'Exam');
                         <th>Batch</th>
                         <th width="10%">Semester</th>
                         <th width="10%">Date</th>
+                        <th>Exam Mode</th>
                         <?php if($update || $delete){ ?>
                         <th>Action</th>
                         <?php } ?>
@@ -81,6 +82,24 @@ $delete = delete_permission($permission, 'Exam');
                                     <td><?php echo $row->b_name; ?></td>
                                     <td><?php echo $row->s_name; ?></td>
                                     <td><?php echo date_formats($row->em_date); ?></td>
+                                    <td>
+                                    <?php
+                                    if($row->exam_mode=="mcq")
+                                    {
+                                        ?>
+                                    <a href="<?php echo base_url(); ?>quiz/edit/<?php echo $row->quiz_id; ?>"><span class="label label-primary mr6 mb6">
+                                            <i class="fa fa-pencil"></i>MCQ</span></a>
+                                    <?php
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                    <a href="#"><span class="label label-primary mr6 mb6">
+                                            <i class="fa fa-pencil"></i>Written</span></a>
+                                    <?php
+                                    }
+                                    ?>
+                                </td>
                                     <?php if($update || $delete){ ?>
                                     <td class="menu-action">
                                         <?php if($update){ ?>

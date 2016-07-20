@@ -1,3 +1,10 @@
+<?php
+$create = create_permission($permission, 'Exam');
+$read = read_permission($permission, 'Exam');
+$update = update_permisssion($permission, 'Exam');
+$delete = delete_permission($permission, 'Exam');
+?>
+<?php if($create || $read || $update || $delete){ ?>
 <table class="table table-striped table-bordered table-responsive" id="exam-data-tables">
     <thead>
         <tr>
@@ -7,8 +14,10 @@
             <th>Branch</th>
             <th>Batch</th>
             <th>Semester</th>
+            <th>Date</th>
+            <?php if($update || $delete){ ?>
             <th>Action</th>
-            <th>Action</th>
+            <?php } ?>
         </tr>
     </thead>
     <tbody>
@@ -26,15 +35,21 @@
                 <td><?php echo $row->b_name; ?></td>
                 <td><?php echo $row->s_name; ?></td>
                 <td><?php echo date_formats($row->em_date); ?></td>
+                <?php if($update || $delete){ ?>
                 <td class="menu-action">
+                    <?php if($update){ ?>
                     <a href="#" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/exam_edit/<?php echo $row->em_id; ?>');"  data-toggle="tooltip" data-placement="top"><span class="label label-primary mr6 mb6"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span></a>
+                    <?php } ?>
+                    <?php if($delete){ ?>
                     <a href="#" onclick="confirm_modal('<?php echo base_url(); ?>exam/delete/<?php echo $row->em_id; ?>');"  data-toggle="tooltip" data-placement="top"><span class="label label-danger mr6 mb6"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span></a>
+                    <?php } ?>
                 </td>
+                <?php } ?>
             </tr>
         <?php } ?>
     </tbody>
 </table>
-
+<?php } ?>
 <script type="text/javascript">
     $(document).ready(function () {
         "use strict";
