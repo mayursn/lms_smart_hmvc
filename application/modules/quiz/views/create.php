@@ -100,7 +100,7 @@ $department = $this->Degree_model->order_by_column('d_name');
                         <div class="form-group">
                             <label class="col-sm-4 control-label"><?php echo ucwords("total marks"); ?><span style="color:red">*</span></label>
                             <div class="col-sm-8">
-                                <input type="number" name="total_marks" id="total-marks" class="form-control"/>
+                                <input type="number" name="total_marks" id="total-marks" min="0" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">

@@ -151,10 +151,11 @@
                   <!-- Participate list end -->
                   <div class="tab-pane fade active in" id="add">
                      <div class="box-content">
+                         <?php if ($create) { ?>
                         <div class="">
                            <span style="color:red">* <?php echo "is " . ucwords("mandatory field"); ?></span> 
                         </div>
-                        <?php if ($create) { ?>
+
                         <?php echo form_open(base_url() . 'participate/create', array('class' => 'form-horizontal form-groups-bordered validate', 'role' => 'form', 'id' => 'frmparticipate', 'target' => '_top', 'enctype' => 'multipart/form-data')); ?>
                         <div class="padded">
                            <div class="form-group">
@@ -250,8 +251,9 @@
                               </div>
                            </div>
                            </form>        
-                           <?php } ?>
+                         
                         </div>
+                           <?php } ?>
                      </div>
                      <!----CREATION FORM ENDS-->
                   </div>
@@ -331,6 +333,7 @@
                   <!-- end  -->
                   <div class="tab-pane fade out" id="addsurvey">
                      <div class="box-content">
+                          <?php if ($create) { ?>
                         <div class="">
                            <span style="color:red">* <?php echo "is " . ucwords("mandatory field"); ?></span> 
                         </div>
@@ -366,10 +369,12 @@
                               </div>
                            </div>
                         </div>
-                        </form>           
+                        </form>   
+                          <?php } ?>
                      </div>
                   </div>
                   <div class="tab-pane fade out" id="newlist">
+                       <?php if ($create || $read || $update || $delete) { ?>
                      <div class="panel-body table-responsive">
                         <table class="table table-striped table-bordered table-responsive" cellspacing=0 width=100% id="data-tabless">
                            <thead>
@@ -379,7 +384,9 @@
                                  <th><?php echo ucwords("Description"); ?></th>
                                  <th><?php echo ucwords("Rating"); ?></th>
                                  <th><?php echo ucwords("Status"); ?></th>
+                                 <?php if( $update || $delete){ ?>
                                  <th><?php echo ucwords("Action"); ?></th>
+                                 <?php } ?>
                               </tr>
                            </thead>
                            <tbody>
@@ -421,14 +428,22 @@
                                     <?php } ?>
                                     <?php //echo ($rowq->question_status == "1") ? 'Active' : 'Deactive';  ?>
                                  </td>
-                                 <td>  <a href="#" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/participate_editquestion/<?php echo $rowq->sq_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-primary mr6 mb6"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span></a>
+                                 <?php if( $update || $delete) {?>
+                                 <td>
+                                     <?php if( $update){ ?>
+                                     <a href="#" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/participate_editquestion/<?php echo $rowq->sq_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-primary mr6 mb6"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span></a>
+                                     <?php } ?>
+                                     <?php if( $delete){ ?>
                                     <a href="#" onclick="confirm_modal('<?php echo base_url(); ?>participate/delete_question/<?php echo $rowq->sq_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-danger mr6 mb6"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span></a>	
+                                     <?php } ?>
                                  </td>
+                                 <?php } ?>
                               </tr>
                               <?php endforeach; ?>                        
                            </tbody>
                         </table>
                      </div>
+                      <?php } ?>
                   </div>
                   <div class="tab-pane fade out" id="listing">
                      <div  id="getsubmit">

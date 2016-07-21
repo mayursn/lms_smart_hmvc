@@ -1007,3 +1007,106 @@ if (!function_exists('exam_time_table_import')) {
     }
 
 }
+
+
+if (!function_exists('batch_export')) {
+
+    /**
+     * Sample csv for exam marks
+     * @param string $exam_id
+     */
+    function batch_export($batch_id = '') {
+        $handle = fopen('php://output', 'w');
+        $CI = & get_instance();
+        $CI->load->database();
+        
+        $batch = $CI->db->select()
+                ->from('batch')
+                ->where('b_id',$batch_id)
+                ->get()
+                ->row();
+        
+        $column_array = array('Batch','Department','Branch');
+        fputcsv($handle, $column_array);
+       
+            $course = $batch->course_id;
+            $course_id = explode(",", $course);
+            foreach($course_id as $crs):                
+                $CI->db->select('d.d_name AS Department');
+                $CI->db->select('c.c_name AS Branch');
+                $CI->db->join('degree d','d.d_id=c.degree_id');
+                $CI->db->where('c.course_id',$crs);
+                $CI->db->from('course c');
+                $result = $CI->db->get()->row();                             
+                
+               $result_array = array("Batch"=>$batch->b_name,"Department"=>$result->Department,"Branch"=>$result->Branch);            
+            fputcsv($handle, $result_array);
+            endforeach;                    
+
+        fclose($handle);
+    }
+
+}
+
+
+
+
+if (!function_exists('exam_export_data')) {
+
+    /**
+     * Sample csv for exam marks
+     * @param string $exam_id
+     */
+    function exam_export_data() {
+        
+        $handle = fopen('php://output', 'w');
+        $CI = & get_instance();
+        $CI->load->database();
+        
+       
+        
+        $column_array = array('Exam Name','Total Marks','Passing Marks','Start Date','End Date','ExamType','Department','Branch','Branch Id','Batch','Semester');
+        fputcsv($handle, $column_array);
+       
+            $CI->db->select('em.em_name AS Exam_Name, '
+                . 'em.total_marks AS Total_Marks, em.passing_mark AS Passing_Marks,em.em_date as Start_Date,em.em_end_time as End_Date');
+        $CI->db->select('et.exam_type_name AS ExamType');
+        $CI->db->select('d.d_name AS Department');
+        $CI->db->select('c.c_name AS Branch, c.course_alias_id AS Branch_Id');
+        $CI->db->select('b.b_name AS Batch');
+        $CI->db->select('s.s_name AS Semester');
+        $CI->db->from('exam_manager AS em');
+        $CI->db->join('exam_type AS et', 'et.exam_type_id = em.em_type');
+        $CI->db->join('degree AS d', 'd.d_id = em.degree_id');
+        $CI->db->join('course AS c', 'c.course_id = em.course_id');
+        $CI->db->join('batch AS b', 'b.b_id = em.batch_id');
+        $CI->db->join('semester AS s', 's.s_id = em.em_semester');
+        
+        $result = $CI->db->get()->result();
+        foreach($result as $res):
+            $result_array= array('Exam Name'=>$res->Exam_Name,
+                                'Total Marks'=>$res->Total_Marks,
+                'Passing Marks'=>$res->Passing_Marks,
+                'Start Date'=> date('Y-m-d',strtotime($res->Start_Date)),
+                'End Date'=> date('Y-m-d', strtotime($res->End_Date)),
+                'ExamType'=>$res->ExamType,
+                'Department'=>$res->Department,
+                'Branch'=>$res->Branch,
+                'Branch Id'=>$res->Branch_Id,
+                'Batch'=>$res->Batch,
+                'Semester'=>$res->Semester);
+         fputcsv($handle, $result_array);
+        endforeach;
+        
+                
+            
+           
+          
+
+        fclose($handle);
+    }
+
+}
+
+
+

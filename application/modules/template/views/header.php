@@ -884,6 +884,7 @@
                                     <ul class="dropdown-menu">
                                         <li class="menu">
                                             <ul>
+                                                 <?php if (check_permission($permission, 'Student')) { ?>
                                                 <li>
                                                     <label>
                                                         <input type="checkbox" value="student" name="student"
@@ -891,6 +892,8 @@
                                                         <span>Student</span>
                                                     </label>
                                                 </li>
+                                                 <?php } ?>
+                                                <?php if (check_permission($permission, 'Branch')) { ?>
                                                 <li>
                                                     <label>
                                                         <input type="checkbox" value="course" name="course"
@@ -898,6 +901,8 @@
                                                         <span>Branch</span>
                                                     </label>
                                                 </li>
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Exam')) { ?>
                                                 <li>
                                                     <label>
                                                         <input type="checkbox" value="exam" name="exam"
@@ -905,6 +910,8 @@
                                                         <span>Exam</span>
                                                     </label>
                                                 </li>
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Event')) { ?>
                                                 <li>
                                                     <label>
                                                         <input type="checkbox" value="event" name="event"
@@ -912,6 +919,8 @@
                                                         <span>Event</span>
                                                     </label>
                                                 </li>
+                                                <?php } ?>
+                                                <?php if (check_permission($permission, 'Assignment')) { ?>
                                                 <li>
                                                     <label>
                                                         <input type="checkbox" value="assignment" name="assignment"
@@ -919,6 +928,7 @@
                                                         <span>Assignment</span>
                                                     </label>
                                                 </li>
+                                                <?php } ?>
                                             </ul>                                           
                                         </li>
                                     </ul> 

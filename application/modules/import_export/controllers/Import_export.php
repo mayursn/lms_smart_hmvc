@@ -421,8 +421,15 @@ class Import_export extends MY_Controller {
         switch ($name) {
             case 'exam_manager':
                 //download exam manager csv
-                $result = $this->Export_model->exam_manager();
-                csv_from_result($result, 'Exam Manager'); //@param $result object, string filename
+//                $result = $this->Export_model->exam_manager();
+//                echo "<pre>";
+//                print_r($result->result());
+//                die;
+               
+                //csv_from_result($result, 'Exam Manager'); //@param $result object, string filename
+                $this->load->helper('import_export');
+                $this->import_demo_sheet_download_config('Exam Manager');
+                exam_export_data();
                 break;
             case 'event_manager':
                 //download event manager csv
@@ -466,8 +473,11 @@ class Import_export extends MY_Controller {
                 break;
             case 'batch':
                 //download batch csv
-                $result = $this->Export_model->batch();
-                csv_from_result($result, 'Batch');
+                //$result = $this->Export_model->batch();
+                $this->load->helper('import_export');
+                $this->import_demo_sheet_download_config('Batch');
+                batch_export($type);
+                //csv_from_result($result, 'Batch');
                 break;
             case 'fees_structure':
                 //download batch csv

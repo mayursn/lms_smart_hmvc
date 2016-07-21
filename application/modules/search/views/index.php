@@ -20,8 +20,7 @@
                                 <td colspan="11"><strong>Student Details</strong></td>
                             </tr>
                             <tr>
-                                <th>No</th>
-                                <th>Username</th>
+                                <th>No</th>                                
                                 <th>Name</th>
                                 <th>Roll No</th>
                                 <th>Email</th>
@@ -37,8 +36,7 @@
                             foreach ($search_result['student'] as $student) {
                                 ?>
                                 <tr>
-                                    <td><?php echo $isseter; ?></td>
-                                    <td><?php echo $student->name; ?></td>
+                                    <td><?php echo $isseter; ?></td>                                    
                                     <td><?php echo $student->std_first_name . ' ' . $student->std_last_name; ?></td>
                                     <td><?php echo $student->std_roll; ?></td>
                                     <td><?php echo $student->email; ?></td>
@@ -169,7 +167,7 @@
                                 <th>Description</th>
                                 <th>Department</th>
                                 <th>Branch</th>
-                                <th>Batch</th>
+                               <th>Subject</th>
                                 <th>Semester</th>
                                 <th>Date</th>
                                 <th>File</th>
@@ -184,7 +182,7 @@
                                     <td><?php echo $assignment->assign_desc; ?></td>
                                     <td><?php echo $assignment->d_name; ?></td>
                                     <td><?php echo $assignment->c_name; ?></td>
-                                    <td><?php echo $assignment->b_name; ?></td>
+                                    <td><?php echo $assignment->subject_name; ?></td>
                                     <td><?php echo $assignment->s_name; ?></td>
                                     <td><?php echo $assignment->assign_dos; ?></td>
                                     <td><a download="" href="<?php echo base_url('uploads/project_file/' . $assignment->assign_filename); ?>"><i class="fa fa-download"></i></a></td>

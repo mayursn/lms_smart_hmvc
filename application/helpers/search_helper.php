@@ -368,8 +368,8 @@ if (!function_exists('assignment_search')) {
         $CI->db->from('assignment_manager');
         $CI->db->join('course', 'course.course_id = assignment_manager.course_id');
         $CI->db->join('semester', 'semester.s_id = assignment_manager.assign_sem');
-        $CI->db->join('degree', 'degree.d_id = assignment_manager.assign_degree');
-        $CI->db->join('batch', 'batch.b_id = assignment_manager.assign_batch');
+        $CI->db->join('degree', 'degree.d_id = assignment_manager.assign_degree');        
+        $CI->db->join('subject_manager', 'subject_manager.sm_id = assignment_manager.sm_id');        
         foreach ($batch as $field) {
             $CI->db->or_like("assignment_manager.{$field}", $search_query, 'after');
         }

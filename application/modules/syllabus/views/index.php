@@ -14,7 +14,7 @@ $delete = delete_permission($permission, 'Syllabus');
                 <?php if($create){ ?>
                 <a class="links"  onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/syllabus_create/');" href="#" id="navfixed" data-toggle="tab"><i class="fa fa-plus"></i> Syllabus</a>
                 <?php } ?>
-                 <?php if($read && $create || $update || $delete){ ?>
+                <?php if($read || $create || $update || $delete){ ?>
                <div class="row filter-row">
                 <form action="#" method="post" id="searchform">
                     <div class="form-group col-sm-3 validating">
@@ -49,9 +49,8 @@ $delete = delete_permission($permission, 'Syllabus');
                     </div>
                 </form>
                </div>
-                 <?php } ?> 
                 <div id="getresponse">
-                    <?php if($read || $create || $update || $delete){ ?>
+                    
                     <table class="table table-striped table-bordered table-responsive" cellspacing=0 width=100% id="datatable-list">
                         <thead>
                             <tr>
