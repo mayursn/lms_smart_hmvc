@@ -137,7 +137,7 @@
                                     <a href="#" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/participate_edit/<?php echo $row->pp_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-primary mr6 mb6"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span></a>
                                     <?php } ?>
                                     <?php if ($delete) { ?>
-                                    <a href="#" onclick="confirm_modal('<?php echo base_url(); ?>admin/participate/delete/<?php echo $row->pp_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-danger mr6 mb6"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span></a>	
+                                    <a href="#" onclick="confirm_modal('<?php echo base_url(); ?>participate/delete/<?php echo $row->pp_id; ?>');"  data-toggle="tooltip" data-placement="top" ><span class="label label-danger mr6 mb6"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span></a>	
                                     <?php } ?>
                                  </td>
                                  <?php } ?>
@@ -281,7 +281,7 @@
                                  <td><?php
                                     foreach ($student as $stu) {
                                         if ($stu->std_id == $row->student_id) {
-                                            echo $stu->name;
+                                            echo $stu->std_first_name.' '.$stu->std_last_name;
                                         }
                                     }
                                     ?></td>

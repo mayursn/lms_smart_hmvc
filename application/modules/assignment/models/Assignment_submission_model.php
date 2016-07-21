@@ -53,7 +53,7 @@ class Assignment_submission_model extends MY_Model {
     }
     function get_late_submitted_assignment()
     {
-        $this->db->select("a.*,ass.*,d.d_name,c.c_name,s.s_name,cl.class_name,st.name,date_format(ass.submited_date, ('%Y-%m-%d')) as submitted_date, date_format(a.assign_dos, ('%Y-%m-%d')) as assign_submission_date,sm.sm_id,sm.subject_name");
+        $this->db->select("a.*,ass.*,d.d_name,c.c_name,s.s_name,cl.class_name,st.name,st.std_first_name,st.std_last_name,date_format(ass.submited_date, ('%Y-%m-%d')) as submitted_date, date_format(a.assign_dos, ('%Y-%m-%d')) as assign_submission_date,sm.sm_id,sm.subject_name");
         $this->db->join('assignment_manager a','a.assign_id=ass.assign_id');
         $this->db->join('degree d','d.d_id=a.assign_degree');
         $this->db->join('course c','c.course_id=a.course_id');      
@@ -158,7 +158,7 @@ class Assignment_submission_model extends MY_Model {
      * @return mixed array
      */
     function get_submitted_assignments() {
-        $this->db->select("ass.submited_date,ass.comment,ass.document_file,ass.assignment_submit_id,am.assign_id,am.assign_title,am.assign_degree,am.course_id,am.assign_batch,am.assign_sem,s.name,am.sm_id");
+        $this->db->select("ass.submited_date,ass.comment,ass.document_file,ass.assignment_submit_id,am.assign_id,am.assign_title,am.assign_degree,am.course_id,am.assign_batch,am.assign_sem,s.name,s.std_first_name,s.std_last_name,am.sm_id");
         $this->db->from('assignment_submission ass');
         $this->db->join("assignment_manager am", "am.assign_id=ass.assign_id");
         $this->db->join("student s", "s.std_id=ass.student_id");

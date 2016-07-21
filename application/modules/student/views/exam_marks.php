@@ -70,21 +70,13 @@
                                                             <th>Subject Name</th>
                                                             <th>Total Marks</th>
                                                             <th>Passing Marks</th>
-                                                                                                                        <?php 
+                                                             <th>Obtained Marks</th>                                      
+                                                                <?php 
                                                             if($exam_details->result_type=='grade')
-                                                            {
-                                                              ?>                                                            
-                                                            <th>Obtained Marks</th>                                                            
+                                                            {   ?>                                                            
+                                                          
                                                             <th>Grade</th>
-                                                            <?php
-                                                            }
-                                                            else
-                                                            {
-                                                                ?>
-                                                             <th>Obtained Marks</th>
-                                                            <?php
-                                                            }
-                                                            ?>
+                                                            <?php } ?>
                                                             <th>Results</th>
                                                             
                                                         </tr>
@@ -109,7 +101,8 @@
                                                                 {
                                                                 ?>
                                                                 <td><?php echo $current_marks += $row->mark_obtained; ?></td>
-                                                                <?php if ($row->mark_obtained < $exam_details->passing_mark) $is_failed = TRUE; ?>
+                                                                <?php if ($row->mark_obtained < $exam_details->passing_mark) 
+                                                                    $is_failed = TRUE; ?>
                                                                 <?php $obtained_marks += $row->mark_obtained; ?>
                                                                 <?php
                                                                 $percentage = ($row->mark_obtained * 100) / $exam_details->total_marks;

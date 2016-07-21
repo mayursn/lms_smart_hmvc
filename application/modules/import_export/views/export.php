@@ -284,6 +284,7 @@ function batch_hide()
             var degree_id = $('#degree').val();
             var course_id = $(this).val();
             batch_from_degree_and_course(degree_id, course_id);
+            get_semester_from_branch(course_id);
         })
 
         //find batch from degree and course
@@ -299,6 +300,21 @@ function batch_hide()
                     console.log(batch);
                     $.each(batch, function (key, value) {
                         $('#batch').append('<option value=' + value.b_id + '>' + value.b_name + '</option>');
+                    })
+                }
+            })
+        }
+        //get semester from brach
+        function get_semester_from_branch(branch_id) {
+            $('#semester').find('option').remove().end();
+            $.ajax({
+                url: '<?php echo base_url(); ?>semester/semester_branch/' + branch_id,
+                type: 'get',
+                success: function (content) {
+                    $('#semester').append('<option value="">Select</option>');
+                    var semester = jQuery.parseJSON(content);
+                    $.each(semester, function (key, value) {
+                        $('#semester').append('<option value=' + value.s_id + '>' + value.s_name + '</option>');
                     })
                 }
             })

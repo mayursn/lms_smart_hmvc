@@ -62,7 +62,7 @@
                                                     ?>
 
                                                     <?php if ($this->session->userdata('role_name') == $comment->user_role && $this->session->userdata('user_id') == $comment->user_role_id) { ?>
-                                                        <a style="color:red" href="#" onclick="confirm_modal('<?php echo base_url(); ?>site/delete_comment/<?php echo $comment->forum_comment_id; ?>/<?php echo $param; ?>');">Delete</a>
+                                                        <a style="color:red" href="<?php echo base_url(); ?>site/delete_comment/<?php echo $comment->forum_comment_id; ?>/<?php echo $param; ?>" onclick="return myFunction();">Delete</a>
                                                     <?php } ?>
 
                                                 </p>
@@ -158,6 +158,19 @@
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     CKEDITOR.replace('editor1');
+</script>
+
+<script>
+function myFunction() {    
+    var r = confirm("Are you sure want to delete this Comment?");
+    if (r == true) {
+      return true;
+    } else {
+        
+        return false;
+    }
+    
+}
 </script>
 <script type="text/javascript">
 

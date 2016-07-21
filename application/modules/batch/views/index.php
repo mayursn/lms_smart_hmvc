@@ -38,7 +38,7 @@ $delete = delete_permission($permission, 'Batch');
                             <tr>
                                 <td></td>
                                 <td><?php echo $row['b_name']; ?></td>    
-                                <td> <?php
+                               <td hidden> <?php
                                     $explodedegree = explode(',', $row['degree_id']);
                                     foreach ($degree as $deg) {
                                         if (in_array($deg['d_id'], $explodedegree)) {
@@ -46,13 +46,49 @@ $delete = delete_permission($permission, 'Batch');
                                         }
                                     }
                                     ?></td>
-                                <td>                                                    
+                                <td> <?php
+                                    $count=0;
+                                    $explodedegree = explode(',', $row['degree_id']);
+                                    foreach ($degree as $deg) {
+                                        if (in_array($deg['d_id'], $explodedegree)) {
+                                             $count++;
+                                             if($count<3)
+                                             {
+                                                echo "<span>" . $deg['d_name'] . "</span>";
+                                             }
+                                        }
+                                    }
+                                    if($count>2)
+                                    {
+                                        echo "<a href='#' onclick="."showAjaxModal('".base_url()."modal/popup/batch_detail/".$row['b_id']."/department');".">read more</a>";
+                                    }
+                                    ?></td>
+                                <td hidden>                                                    
                                     <?php
                                     $explodecourse = explode(',', $row['course_id']);
                                     foreach ($course as $crs) {
                                         if (in_array($crs->course_id, $explodecourse)) {
                                             echo "<span>" . $crs->c_name . "</span>";
                                         }
+                                    }
+                                    ?>
+                                </td>
+                                 <td>                                                    
+                                    <?php
+                                    $count1=0;
+                                    $explodecourse = explode(',', $row['course_id']);
+                                    foreach ($course as $crs) {
+                                        if (in_array($crs->course_id, $explodecourse)) {
+                                            $count1++;
+                                            if($count1<3)
+                                            {
+                                                 echo "<span>" . $crs->c_name . "</span>";
+                                            }
+                                        }
+                                    }
+                                    if($count1>2)
+                                    {
+                                       echo "<a href='#' onclick="."showAjaxModal('".base_url()."modal/popup/batch_detail/".$row['b_id']."/branch');".">read more</a>";
                                     }
                                     ?>
                                 </td>

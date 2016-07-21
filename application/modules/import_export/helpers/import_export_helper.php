@@ -840,8 +840,34 @@ if (!function_exists('import_exam_manager')) {
                 $data['em_semester'] = $semester->s_id;
                 $data['em_type'] = $exam_type->exam_type_id;                
                 $CI->db->insert('exam_manager', $data);
+               $insert_id = $CI->db->insert_id();
+                
+                
+                 $students_info = $CI->db->get_where('student',array(
+                        'std_degree' => $data['degree_id'],
+                        'course_id' => $data['course_id'],
+                        'std_batch' =>  $data['batch_id'],
+                        'semester_id' => $data['em_semester']
+                    ))->result();
+                
 
-                return $CI->db->insert_id();
+
+                $seat_no_initial = chr(mt_rand(65, 90));
+                    $seat_no = str_pad($insert_id, 4, 0, STR_PAD_RIGHT);
+                    $seat_no .= mt_rand(12348, 69535);
+
+                    //echo '<pre>';
+                    foreach ($students_info as $student) {
+                        //var_dump($student);
+                        $seat_no++;
+                        $student_seat_no = $seat_no_initial . $seat_no;
+                        $CI->db->insert('exam_seat_no',array(
+                            'student_id' => $student->std_id,
+                            'exam_id' => $insert_id,
+                            'seat_no' => $student_seat_no
+                        ));
+                    }
+                    return $insert_id;
             }
         }
     }

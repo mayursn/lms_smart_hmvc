@@ -30,10 +30,12 @@ $row = $this->Project_manager_model->get($param2);
 
                         foreach ($datastudent as $rowstu) {
                             if (in_array($rowstu->std_id, $stu)) {
-                                
+                                ?>
+                                     <li> <?php echo $rowstu->std_first_name . '&nbsp' . $rowstu->std_last_name; ?></li>
+                                    <?php 
                             }
                             ?>
-                            <li> <?php echo $rowstu->std_first_name . '&nbsp' . $rowstu->std_last_name; ?></li>
+                           
                         <?php } ?>
 
 

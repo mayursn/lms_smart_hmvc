@@ -270,7 +270,7 @@ $delete = delete_permission($permission, 'Assignment');
                                             <tr>
                                                 <td><?php echo $count++; ?></td>
                                                 <td><?php echo $rowsub->assign_title; ?></td>
-                                                <td><?php echo $rowsub->name; ?></td>
+                                                <td><?php echo $rowsub->std_first_name.' '.$rowsub->std_last_name; ?></td>
                                                 <td><?php
                                                     foreach ($degree as $dgr):
                                                         if ($dgr->d_id == $rowsub->assign_degree):
@@ -344,7 +344,7 @@ $delete = delete_permission($permission, 'Assignment');
                                             <tr>
                                                 <td><?php echo $countl++; ?></td>
                                                 <td><?php echo $rowlate->assign_title; ?></td>
-                                                <td><?php echo $rowlate->name; ?></td>
+                                                <td><?php echo $rowlate->std_first_name.' '.$rowlate->std_last_name; ?></td>
                                                 <td><?php echo $rowlate->d_name;  ?></td>
                                                 <td>
                                                     <?php   echo $rowlate->c_name;

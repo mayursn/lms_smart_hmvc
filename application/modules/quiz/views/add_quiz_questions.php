@@ -155,7 +155,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label"><?php echo ucwords("answer"); ?><span style="color:red">*</span></label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="question_<?php echo $i; ?>_answer" value=""
+                                        <input type="text" class="form-control answervalidation" name="question_<?php echo $i; ?>_answer" value=""
                                                placeholder="Only enter option number" id="question_<?php echo $i; ?>_answer"  />
                                         <span style="font-size: 10px;"> <strong style="color:red">Note :</strong> If you choose question type is Multiple Answer then answer enter like 1,2,3 </span>
                                          <label id="error_question_<?php echo $i; ?>_answer" style="text-align: center"></label>
@@ -212,23 +212,8 @@
         display: none;
     }
 </style>
-
 <script>
-    
-//    $("#next").click(function(){
-//        <?php //for ($i = 1; $i <= $quiz->total_questions; $i++) { ?>
-//        var question = $("#question_<?php //echo $i; ?>").val();
-//        if(question=="")
-//        {
-//            $("#question_<?php //echo $i; ?>").css({'border-color':'red'});
-//            return false;
-//        }
-//        else{
-//            $("#question_<?php //echo $i; ?>").css({'border-color':'green'});
-//        }
-//        <?php //} ?>
-//    });
-    $(document).ready(function () {
+    $(document).ready(function () {        
         var counter = 1;
         var max = <?php echo $quiz->total_questions; ?>;
         var min = 0;
@@ -338,77 +323,6 @@
             if (counter > 1)
                 counter--;
             if (counter > 0) {
-                var minus = 1;
-                var mycounter = counter+1;
-                var question = $("#question_"+mycounter).val();                
-                var question_type_value = $("#question_type_"+mycounter).val();                
-               var question_option = $("#question_"+mycounter+"_option_1").val();
-                var question_answer = $("#question_"+mycounter+"_answer").val();
-                 if(question=="")
-                {
-                  
-                    $("#question_"+mycounter).css({'border-color':'red'});
-                    $("#error_question_"+mycounter).html('Enter Question');
-                    $("#error_question_"+mycounter).css({'color':'red'});
-                    return false;
-                }
-                else{
-                    $("#question_"+mycounter).css({'border-color':'green'});
-                    $("#error_question_"+mycounter).html('');                    
-                }
-                if(question_type_value=="")
-                {
-                  
-                    $("#question_type_"+mycounter).css({'border-color':'red'});
-                    $("#error_question_type_"+mycounter).html('Enter Question Type');
-                    $("#error_question_type_"+mycounter).css({'color':'red'});
-                    return false;
-                }
-                else{
-                    $("#question_type_"+mycounter).css({'border-color':'green'});
-                    $("#error_question_type_"+mycounter).html('');                    
-                }
-                 if(question_option=="")
-                {
-                  
-                    $("#question_"+mycounter+"_option_1").css({'border-color':'red'});
-                    $("#error_question_"+mycounter+"_option_1").html('Enter Answer Option');
-                    $("#error_question_"+mycounter+"_option_1").css({'color':'red'});
-                    return false;
-                }
-                else{
-                    $("#question_"+mycounter+"_option_1").css({'border-color':'green'});
-                     $("#error_question_"+mycounter+"_option_1").html('');
-                    $("#error_question_"+mycounter+"_option_1").css({'color':'green'});
-                }
-                if(question_answer=="")
-                {                  
-                    $("#question_"+mycounter+"_answer").css({'border-color':'red'});
-                    $("#error_question_"+mycounter+"_answer").html('Enter Answer');
-                    $("#error_question_"+mycounter+"_answer").css({'color':'red'});
-                    return false;
-                }
-                else{
-                     if(question_type_value=="SingleAnswer")
-                    {
-                    if(isNaN(question_answer))
-                    {
-                             $("#question_"+mycounter+"_answer").css({'border-color':'red'});
-                                $("#error_question_"+mycounter+"_answer").html('Enter  Only Numeric value');
-                                $("#error_question_"+mycounter+"_answer").css({'color':'red'});
-                                return false;
-                    }                    
-                    else{
-                    $("#question_"+mycounter+"_answer").css({'border-color':'green'});
-                    $("#error_question_"+mycounter+"_answer").html('');                    
-                
-                  }
-                  }else{
-                    $("#question_"+mycounter+"_answer").css({'border-color':'green'});
-                    $("#error_question_"+mycounter+"_answer").html('');                    
-                
-                  }
-                }
                 $('.question').addClass('inactive');
                 $('#panel' + counter).removeClass('inactive');
                 hide_all();
@@ -479,16 +393,25 @@
                     return false;
                 }
                 else{
+                    
+                    if(question_type_value=="SingleAnswer")
+                    {
                     if(isNaN(question_answer))
                     {
                              $("#question_"+mycounter+"_answer").css({'border-color':'red'});
                                 $("#error_question_"+mycounter+"_answer").html('Enter  Only Numeric value');
                                 $("#error_question_"+mycounter+"_answer").css({'color':'red'});
                                 return false;
-                    }
+                    }                    
                     else{
                     $("#question_"+mycounter+"_answer").css({'border-color':'green'});
                     $("#error_question_"+mycounter+"_answer").html('');                    
+                
+                  }
+                  }else{
+                    $("#question_"+mycounter+"_answer").css({'border-color':'green'});
+                    $("#error_question_"+mycounter+"_answer").html('');                    
+                
                   }
                 }
             prev();

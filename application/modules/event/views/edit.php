@@ -59,7 +59,7 @@ $edit_data = $this->db->get_where('event_manager', array('event_id' => $param2))
                                 <div class="input-group bootstrap-timepicker">
                                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                                     <input type="text" id="event_time" class="form-control" name="event_time" 
-                                           value="<?php echo date('H:i', strtotime($row['event_date'])); ?>" readonly="" />
+                                           value="<?php echo date('h:i A', strtotime($row['event_date'])); ?>" readonly="" />
                                 </div>
 
                             </div>

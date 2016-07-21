@@ -100,7 +100,7 @@ $department = $this->Degree_model->order_by_column('d_name');
                         <div class="form-group">
                             <label class="col-sm-4 control-label"><?php echo ucwords("total marks"); ?><span style="color:red">*</span></label>
                             <div class="col-sm-8">
-                                <input type="number" name="total_marks" id="total-marks" min="0" class="form-control"/>
+                                <input type="number" name="total_marks" id="total-marks" min="1" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -116,7 +116,7 @@ $department = $this->Degree_model->order_by_column('d_name');
                         <div class="form-group hide" id="nagative-mark-group">
                             <label class="col-sm-4 control-label"><?php echo ucwords("nagative marks"); ?><span style="color:red">*</span></label>
                             <div class="col-sm-8">
-                                <input id="nagative-mark" class="form-control" name="nagative_marks"/>
+                                <input type="number" id="nagative-mark" class="form-control" name="nagative_marks" min="0"/>
                             </div>
                         </div>        
                         <div class="form-group">
@@ -132,7 +132,7 @@ $department = $this->Degree_model->order_by_column('d_name');
                         <div class="form-group hide" id="timer-status-group">
                             <label class="col-sm-4 control-label"><?php echo ucwords("timer value"); ?><span style="color:red">*</span></label>
                             <div class="col-sm-8">
-                                <input id="timer-value" class="form-control" type="number" name="timer_value" placeholder="In minute"/>
+                                <input id="timer-value" class="form-control" type="number" name="timer_value" min="1" placeholder="In minute"/>
                             </div>
                         </div>
                         <div class="form-group hidden">
@@ -223,7 +223,7 @@ $department = $this->Degree_model->order_by_column('d_name');
             
             var js_date_format = '<?php echo js_dateformat(); ?>';
             
-            function set_startdate(mindate)
+           function set_startdate(mindate)
             {
                 
                 $("#enddate").datepicker( {
@@ -239,6 +239,7 @@ $department = $this->Degree_model->order_by_column('d_name');
                  startDate: new Date(),
                   format: js_date_format,
              }).on('changeDate', function (selected) {
+                  $("#enddate").val('');
                  if($('#validity-type').val()=='Day')
                  {
                      var days = $('#validity-value').val();
@@ -254,27 +255,16 @@ $department = $this->Degree_model->order_by_column('d_name');
                              $('#enddate').val(response);
                          }
                      });
-                     }                      
-                       // var minDate =  new Date();
-                       // var days = selected.date.valueOf();
-                       // var date2 = $('#startdate').datepicker('getDate', '+'+days+'d'); 
-                       // date2.setDate(date2.getDate()+days); 
-                       // $('#enddate').datepicker('setStartDate', date2);
-
-                        
-                       // minDate.setDate(minDate.getDate() + parseInt(dayvalue=$("#validity-value").val()));
-                        //$('#enddate').datepicker('setDate', minDate);
-                       // $('#enddate').val(year +'-' + month + '-' + day);
+                     }  
                 }
                 else{
-                var minDate = new Date(selected.date.valueOf());
-                $('#enddate').datepicker('setStartDate', minDate);
-                
+                      var minDate = new Date(selected.date.valueOf());
+                    $("#enddate").datepicker("remove");
+                    set_startdate(minDate);
                 }
            });
-           $('#enddate').datepicker({format: js_date_format,
-                autoclose: true});
-            $('#validity-value').on('change', function () {
+           
+             $('#validity-value').on('change', function () {
                 if($('#validity-type').val()=='Day')
                  {
                      
@@ -295,6 +285,7 @@ $department = $this->Degree_model->order_by_column('d_name');
                  }
                 
             });
+            
              $('#validity-type').on('change', function () {
                 if($(this).val()=='Day')
                  {

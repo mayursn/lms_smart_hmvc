@@ -47,7 +47,7 @@
                                         <label class="col-sm-3 control-label">Date</label>
                                         <div class="col-sm-9">
                                             <div>
-                                                <?php $date = date('d-m-Y'); ?>
+                                                <?php $date = date('m-d-Y'); ?>
                                                 <input value="<?php echo date_formats($date); ?>" type="text" id="datepicker-normal" name="date" class="form-control"/>
                                             </div>
                                         </div>
