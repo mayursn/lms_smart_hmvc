@@ -20,7 +20,7 @@ class Chancellor extends MY_Controller {
 
     function index() {
         $this->data['title'] = 'Chancellor';
-        $this->data['page'] = 'Chancellor';
+        $this->data['page'] = 'chancellor';
         $this->data['chancellor'] = $this->University_peoples_model->order_by_column('people_name');
        
         $this->__template('chancellor/index', $this->data);

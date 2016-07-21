@@ -297,7 +297,7 @@ class Import_export extends MY_Controller {
                             'time_table' => array(
                                 'exam_id' => $_POST['exam_detail']
                             )
-                        );
+                        );                        
                         $data = array(
                             'exam_date' => $result['Exam Date'],
                             'exam_start_time' => date('h:i A',  strtotime($result['Start Time'])),
@@ -306,7 +306,7 @@ class Import_export extends MY_Controller {
                             'course_id' => $_POST['course_detail'],
                             'batch_id' => $_POST['batch'],
                             'semester_id' => $_POST['sem_detail']
-                        );
+                        );                       
                         exam_time_table_import($data, $where);
                     }
                     break;

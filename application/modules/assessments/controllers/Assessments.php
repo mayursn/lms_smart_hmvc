@@ -28,14 +28,14 @@ class Assessments extends MY_Controller {
     function index() {
         
         $this->data['title'] = 'Assessment';
-        $this->data['page'] = 'assessment';
+        $this->data['page'] = 'assessments';
         $this->data['assignment'] = $this->Assignment_manager_model->order_by_column('assign_dos');
         $this->data['submitedassignment'] = $this->Assignment_submission_model->get_assessment_assignment();
         $this->data['course'] = $this->Course_model->order_by_column('c_name');
         $this->data['semester'] = $this->Semester_model->order_by_column('s_name');
         $this->data['batch'] = $this->Batch_model->order_by_column('b_name');
         $this->data['degree'] = $this->Degree_model->order_by_column('d_name');       
-        $this->data['page'] = 'assignment';
+        
         $current = $this->Academic_year_model->get_many_by(array('current_year_status'=>'active'));
         $start_year = $current[0]->start_year;
         $end_year  = $current[0]->end_year;

@@ -238,7 +238,7 @@
                                 </div><!--/box-body-->
                             </div><!--/box-->
                         </div><!--/box-body-->
-                    </div><!--/box-->
+                    
                 <?php } else { ?> 
                     <br/>
                     <div class="well well-sm">
@@ -250,15 +250,13 @@
                 <?php } ?>
             <?php } ?>
 
-
+            </div><!--/box-->
         </div>
     </div>
     <!-- End .panel -->
 </div>
 <!-- End .row -->
-</div>
-<!-- End contentwrapper -->
-</div>
+
 <!-- End #content -->
 
 
@@ -271,3 +269,6 @@
         })
     })
 </script>
+</div>
+<!-- End contentwrapper -->
+</div>

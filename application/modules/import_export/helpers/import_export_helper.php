@@ -995,8 +995,8 @@ if (!function_exists('exam_time_table_import')) {
             //if time table not found then insert new one otherwise ignore
             if (!count($exam_time_table)) {
                 $data['exam_date'] = date('d M Y', strtotime($data['exam_date']));
-                $data['exam_start_time'] = date('H:i', strtotime($data['exam_start_time']));
-                $data['exam_end_time'] = date('H:i', strtotime($data['exam_end_time']));
+                $data['exam_start_time'] = $data['exam_start_time'];
+                $data['exam_end_time'] = $data['exam_end_time'];
                 $data['exam_id'] = $where['time_table']['exam_id'];
                 $data['subject_id'] = $subject->sm_id;
 

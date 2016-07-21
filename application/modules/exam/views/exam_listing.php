@@ -33,7 +33,7 @@
                             <tr>
                                 <td></td>
                                 <td><?php echo $exam->em_name; ?></td>
-                                <td><?php echo date_formats($exam->em_start_time); ?></td>
+                                <td><?php echo date_formats($exam->em_date); ?></td>
                                 <td><?php echo date_formats($exam->em_end_time); ?></td>
                                 <td>
                                     <?php

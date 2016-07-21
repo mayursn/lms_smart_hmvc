@@ -211,8 +211,8 @@
                                     <?php
                                     $pages = [
                                         'department', 'branch', 'batch', 'semester', 'class', 'admission_type', 'student',
-                                        'syllabus', 'subject', 'holiday', 'chancellor', 'course_category', 'vocational_course',
-                                        'assessments', 'timeline', 'vocational_register_student'
+                                        'syllabus', 'subject', 'holiday', 'chancellor', 'course_category', 'Vocationalcourse',
+                                        'assessments', 'timeline', 'vocational_register_student','academic_year'
                                     ];
                                     ?>                                    
 
@@ -337,7 +337,7 @@
                                             <?php } ?>
                                             <?php if (check_permission($permission, 'Vocational_Course')) { ?>
                                                 <li>
-                                                    <a id="link-vocational_course" href="<?php echo base_url(); ?>vocationalcourse">
+                                                    <a id="link-Vocationalcourse" href="<?php echo base_url(); ?>vocationalcourse">
                                                         <i class="s16 fa fa-life-ring"></i>
                                                         <span class="txt">Vocational Course</span>
                                                     </a>
@@ -354,7 +354,7 @@
                                             <?php } ?>
                                             <?php if (check_permission($permission, 'Academic_Year')) { ?>
                                                 <li>
-                                                    <a id="link-assessments" href="<?php echo base_url(); ?>academic_year">
+                                                    <a id="link-academic_year" href="<?php echo base_url(); ?>academic_year">
                                                         <i class="s16 icomoon-icon-file"></i>
                                                         <span class="txt">Academic Year</span>
                                                     </a>
@@ -661,7 +661,7 @@
 
                                     <?php
                                     $pages = [
-                                        'exam', 'exam_schedule', 'exam_grade', 'marks', 'exam_report'
+                                        'exam', 'exam_schedule', 'grade', 'marks', 'exam_report','internal'
                                     ];
                                     ?>
                                     <?php if (check_permission($permission, 'Exam') || check_permission($permission, 'Exam_Schedual') || check_permission($permission, 'Exam_Marks') || check_permission($permission, 'Exam_Grade')) { ?>
@@ -679,7 +679,7 @@
                                                 <?php } ?>
                                                 <?php if (check_permission($permission, 'Internal_Exam')) { ?>
                                                     <li>
-                                                        <a id="link-exam" href="<?php echo base_url(); ?>exam/internal">
+                                                        <a id="link-internal" href="<?php echo base_url(); ?>exam/internal">
                                                             <i class="s16 fa fa-paper-plane-o"></i>
                                                             <span class="txt">Internal Exam Marks</span>
                                                         </a>
@@ -705,7 +705,7 @@
                                                 <?php } ?>
                                                 <?php if (check_permission($permission, 'Exam_Grade')) { ?>
                                                     <li>
-                                                        <a id="link-exam_grade" href="<?php echo base_url(); ?>examgrade">
+                                                        <a id="link-grade" href="<?php echo base_url(); ?>examgrade">
                                                             <i class="s16 fa fa-pencil"></i>
                                                             <span class="txt">Exam Grade</span>
                                                         </a>
