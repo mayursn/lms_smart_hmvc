@@ -630,7 +630,7 @@ if (!function_exists('import_student')) {
         $CI = & get_instance();
         $CI->load->database();
         $insert_id = 0;
-
+              
         //find for student 
         
         $user_data = $CI->db->get_where('user',$where['std_email'])->num_rows();
@@ -641,13 +641,16 @@ if (!function_exists('import_student')) {
             // student not exists with roll no
             // find for batch, semester, and course
             $class = $CI->db->get_where('class', $where['class'])->row();
-            $course = $CI->db->get_where('course', $where['course'])->row();
+           $course = $CI->db->get_where('course', $where['course'])->row();
             $batch = $CI->db->get_where('batch', $where['batch'])->row();
             $semester = $CI->db->get_where('semester', $where['semester'])->row();
             $degree = $CI->db->get_where('degree', $where['degree'])->row();
             $admission_type = $CI->db->get_where('admission_type', $where['admission_type'])->row();
+           
+
 
             if ($course && $batch && $semester && $degree && $admission_type && $class) {
+                
                $user_data =  array(
                 'first_name' => $data['std_first_name'],
                 'last_name' => $data['std_last_name'],
@@ -676,7 +679,7 @@ if (!function_exists('import_student')) {
                 $data['user_id'] = $user_id;
                 $CI->db->insert('student', $data);
                 $insert_id = $CI->db->insert_id();
-            }
+            }            
         }
 
         return $insert_id;

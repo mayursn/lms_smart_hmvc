@@ -226,7 +226,7 @@ class Import_export extends MY_Controller {
                                 'email' => $result['Email']
                             ),
                             'class'=>array(
-                                "class_id"=>$result['Class']
+                                "class_name"=>$result['Class']
                                 ),
                             'semester' => array(
                                 's_name' => $result['Semester']
